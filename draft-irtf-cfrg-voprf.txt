@@ -5,9 +5,9 @@
 Network Working Group                                        A. Davidson
 Internet-Draft                                          A. Faz-Hernandez
 Intended status: Informational                               N. Sullivan
-Expires: 22 April 2021                                         C.A. Wood
+Expires: 29 April 2021                                         C.A. Wood
                                                               Cloudflare
-                                                         19 October 2020
+                                                         26 October 2020
 
 
    Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 April 2021.
+   This Internet-Draft will expire on 29 April 2021.
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 1]
+Davidson, et al.          Expires 29 April 2021                 [Page 1]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -84,47 +84,47 @@ Table of Contents
    3.  OPRF Protocol . . . . . . . . . . . . . . . . . . . . . . . .   7
      3.1.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   8
      3.2.  Context Setup . . . . . . . . . . . . . . . . . . . . . .   9
-     3.3.  Data Structures . . . . . . . . . . . . . . . . . . . . .  10
-     3.4.  Context APIs  . . . . . . . . . . . . . . . . . . . . . .  11
-       3.4.1.  Server Context  . . . . . . . . . . . . . . . . . . .  11
-       3.4.2.  VerifiableServerContext . . . . . . . . . . . . . . .  12
+     3.3.  Data Structures . . . . . . . . . . . . . . . . . . . . .   9
+     3.4.  Context APIs  . . . . . . . . . . . . . . . . . . . . . .  10
+       3.4.1.  Server Context  . . . . . . . . . . . . . . . . . . .  10
+       3.4.2.  VerifiableServerContext . . . . . . . . . . . . . . .  13
        3.4.3.  Client Context  . . . . . . . . . . . . . . . . . . .  16
        3.4.4.  VerifiableClientContext . . . . . . . . . . . . . . .  18
    4.  Ciphersuites  . . . . . . . . . . . . . . . . . . . . . . . .  20
-     4.1.  OPRF(curve25519, SHA-256) . . . . . . . . . . . . . . . .  21
-     4.2.  OPRF(curve448, SHA-512) . . . . . . . . . . . . . . . . .  22
+     4.1.  OPRF(ristretto255, SHA-256) . . . . . . . . . . . . . . .  21
+     4.2.  OPRF(decaf448, SHA-512) . . . . . . . . . . . . . . . . .  21
      4.3.  OPRF(P-256, SHA-256)  . . . . . . . . . . . . . . . . . .  22
      4.4.  OPRF(P-384, SHA-512)  . . . . . . . . . . . . . . . . . .  23
-     4.5.  OPRF(P-521, SHA-512)  . . . . . . . . . . . . . . . . . .  24
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  25
-     5.1.  Security properties . . . . . . . . . . . . . . . . . . .  25
-     5.2.  Cryptographic security  . . . . . . . . . . . . . . . . .  26
-       5.2.1.  Computational hardness assumptions  . . . . . . . . .  26
-       5.2.2.  Protocol security . . . . . . . . . . . . . . . . . .  27
-       5.2.3.  Q-strong-DH oracle  . . . . . . . . . . . . . . . . .  27
-       5.2.4.  Implications for ciphersuite choices  . . . . . . . .  28
-     5.3.  Hashing to curve  . . . . . . . . . . . . . . . . . . . .  29
-     5.4.  Timing Leaks  . . . . . . . . . . . . . . . . . . . . . .  29
-     5.5.  Key rotation  . . . . . . . . . . . . . . . . . . . . . .  29
+     4.5.  OPRF(P-521, SHA-512)  . . . . . . . . . . . . . . . . . .  23
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  24
+     5.1.  Security properties . . . . . . . . . . . . . . . . . . .  24
+     5.2.  Cryptographic security  . . . . . . . . . . . . . . . . .  25
+       5.2.1.  Computational hardness assumptions  . . . . . . . . .  25
+       5.2.2.  Protocol security . . . . . . . . . . . . . . . . . .  26
+       5.2.3.  Q-strong-DH oracle  . . . . . . . . . . . . . . . . .  26
+       5.2.4.  Implications for ciphersuite choices  . . . . . . . .  27
+     5.3.  Hashing to curve  . . . . . . . . . . . . . . . . . . . .  27
+     5.4.  Timing Leaks  . . . . . . . . . . . . . . . . . . . . . .  28
+     5.5.  Key rotation  . . . . . . . . . . . . . . . . . . . . . .  28
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 2]
+Davidson, et al.          Expires 29 April 2021                 [Page 2]
 
 Internet-Draft                    OPRFs                     October 2020
 
 
-   6.  Additive blinding . . . . . . . . . . . . . . . . . . . . . .  29
-     6.1.  Preprocess  . . . . . . . . . . . . . . . . . . . . . . .  30
-     6.2.  Blind . . . . . . . . . . . . . . . . . . . . . . . . . .  31
-     6.3.  Unblind . . . . . . . . . . . . . . . . . . . . . . . . .  31
-       6.3.1.  Parameter Commitments . . . . . . . . . . . . . . . .  32
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  32
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  33
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  33
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  33
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  35
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  35
+   6.  Additive blinding . . . . . . . . . . . . . . . . . . . . . .  28
+     6.1.  Preprocess  . . . . . . . . . . . . . . . . . . . . . . .  29
+     6.2.  Blind . . . . . . . . . . . . . . . . . . . . . . . . . .  29
+     6.3.  Unblind . . . . . . . . . . . . . . . . . . . . . . . . .  30
+       6.3.1.  Parameter Commitments . . . . . . . . . . . . . . . .  31
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  31
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  31
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  31
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  31
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  34
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  34
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 3]
+Davidson, et al.          Expires 29 April 2021                 [Page 3]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -221,7 +221,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 4]
+Davidson, et al.          Expires 29 April 2021                 [Page 4]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -277,7 +277,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 5]
+Davidson, et al.          Expires 29 April 2021                 [Page 5]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -289,14 +289,15 @@ Internet-Draft                    OPRFs                     October 2020
    multiplication is equivalent to the repeated application of the group
    operation on an element A with itself "r-1" times, this is denoted as
    "r*A = A + ... + A".  For any element "A", the equality "p*A=I"
-   holds.  The set of scalars corresponds to "GF(p)".
+   holds.  Scalar base multiplication is equivalent to the repeated
+   application of the group operation on the base point with itself
+   "r-1" times, this is denoted as "ScalarBaseMult(r)".  The set of
+   scalars corresponds to "GF(p)".
 
    We now detail a number of member functions that can be invoked on a
    prime-order group.
 
-   *  Order(): Outputs the order of the group (i.e. "p").
-
-   *  Generator(): Outputs a fixed generator "G" for the group.
+   *  Order(): Outputs the order of GG (i.e. "p").
 
    *  Identity(): Outputs the identity element of the group (i.e.  "I").
 
@@ -317,9 +318,8 @@ Internet-Draft                    OPRFs                     October 2020
    *  HashToScalar(x): A member function of "GG" that deterministically
       maps an array of bytes "x" to a random element in GF(p).  A
       recommended method for its implementation is instantiating the
-      hash to field function, defined in [I-D.irtf-cfrg-hash-to-curve],
-      but setting the order of the group as the modulus of a prime
-      field.
+      hash to field function, defined in [I-D.irtf-cfrg-hash-to-curve]
+      setting the target field to GF(p).
 
    *  RandomScalar(): A member function of "GG" that generates a random,
       non-zero element in GF(p).
@@ -333,7 +333,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 6]
+Davidson, et al.          Expires 29 April 2021                 [Page 6]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -389,7 +389,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 7]
+Davidson, et al.          Expires 29 April 2021                 [Page 7]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -445,7 +445,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                 [Page 8]
+Davidson, et al.          Expires 29 April 2021                 [Page 8]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -454,11 +454,13 @@ Internet-Draft                    OPRFs                     October 2020
 
    Both modes of the OPRF involve an offline setup phase.  In this
    phase, both the client and server create a context used for executing
-   the online phase of the protocol.  The base mode setup functions for
-   creating client and server contexts are below:
+   the online phase of the protocol.  Prior to this phase, keys (skS,
+   pkS) should be generated by calling a "KeyGen" functionality.
 
-   def SetupBaseServer(suite):
-     (skS, _) = KeyGen(GG)
+   The base mode setup functions for creating client and server contexts
+   are below:
+
+   def SetupBaseServer(suite, skS):
      contextString = I2OSP(modeBase, 1) || I2OSP(suite.ID, 2)
      return ServerContext(contextString, skS)
 
@@ -466,19 +468,10 @@ Internet-Draft                    OPRFs                     October 2020
      contextString = I2OSP(modeBase, 1) || I2OSP(suite.ID, 2)
      return ClientContext(contextString)
 
-   The "KeyGen" function used above takes a group "GG" and generates a
-   private and public key pair (skX, pkX), where skX is a random, non-
-   zero element in the scalar field "GG" and pkX is the product of skX
-   and the group's fixed generator.
-
-   For base mode, servers do not need the public key "pkS" produced by
-   KeyGen.
-
    The verifiable mode setup functions for creating client and server
-   contexts are below.
+   contexts are below:
 
-   def SetupVerifiableServer(suite):
-     (skS, pkS) = KeyGen(GG)
+   def SetupVerifiableServer(suite, skS, pkS):
      contextString = I2OSP(modeVerifiable, 1) || I2OSP(suite.ID, 2)
      return VerifiableServerContext(contextString, skS), pkS
 
@@ -486,25 +479,10 @@ Internet-Draft                    OPRFs                     October 2020
      contextString = I2OSP(modeVerifiable, 1) || I2OSP(suite.ID, 2)
      return VerifiableClientContext(contextString, pkS)
 
-   For verifiable modes, servers MUST make the resulting public key
-   "pkS" accessible for clients.  (Indeed, it is a required parameter
-   when configuring a verifiable client context.)
-
    Each setup function takes a ciphersuite from the list defined in
    Section 4.  Each ciphersuite has two-byte identifier, referred to as
    "suite.ID" in the pseudocode above, that identifies the suite.
    Section 4 lists these ciphersuite identifiers.
-
-
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                 [Page 9]
-
-Internet-Draft                    OPRFs                     October 2020
-
 
 3.3.  Data Structures
 
@@ -519,6 +497,14 @@ Internet-Draft                    OPRFs                     October 2020
    A "ClientInput" is a byte array.
 
    opaque ClientInput<1..2^16-1>;
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                 [Page 9]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    A "SerializedElement" is also a byte array, representing the unique
    serialization of an "Element".
@@ -552,20 +538,10 @@ Internet-Draft                    OPRFs                     October 2020
      Scalar proof<0...2^16-1>; /* only for modeVerifiable */
    } BatchedEvaluation;
 
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 10]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
 3.4.  Context APIs
 
    In this section, we detail the APIs available on the client and
-   server OPRF contexts.  This document uses the types "Element" and
+   server (V)OPRF contexts.  This document uses the types "Element" and
    "Scalar" to denote elements of the group "GG" and its underlying
    scalar field "GF(p)", respectively.  For notational clarity,
    "PublicKey" is an item of type "Element" and "PrivateKey" is an item
@@ -574,13 +550,28 @@ Internet-Draft                    OPRFs                     October 2020
 3.4.1.  Server Context
 
    The ServerContext encapsulates the context string constructed during
-   setup and the OPRF key pair.  It has two functions, "Evaluate" and
-   "VerifyFinalize", described below.  "Evaluate" takes serialized
-   representations of blinded group elements from the client as inputs.
+   setup and the (V)OPRF key pair.  It has three functions, "Evaluate",
+   "FullEvaluate" and "VerifyFinalize" described below.  "Evaluate"
+   takes serialized representations of blinded group elements from the
+   client as inputs.
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 10]
+
+Internet-Draft                    OPRFs                     October 2020
+
+
+   "FullEvaluate" takes ClientInput values, and it is useful for
+   applications that need to compute the whole OPRF protocol on the
+   server side only.
+
    "VerifyFinalize" takes ClientInput values and their corresponding
-   output digests from "Verify" as input, and returns true if the inputs
-   match the outputs.  Note that "VerifyFinalize" is not used in the
-   main OPRF protocol.  It is exposed as an API for building higher-
+   output digests from "Finalize" as input, and returns true if the
+   inputs match the outputs.
+
+   Note that "VerifyFinalize" and "FullEvaluate" are not used in the
+   main OPRF protocol.  They are exposed as an API for building higher-
    level protocols.
 
 3.4.1.1.  Evaluate
@@ -603,7 +594,7 @@ Internet-Draft                    OPRFs                     October 2020
 
      return Ev
 
-3.4.1.2.  VerifyFinalize
+3.4.1.2.  FullEvaluate
 
 
 
@@ -613,7 +604,72 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 11]
+
+
+
+
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 11]
+
+Internet-Draft                    OPRFs                     October 2020
+
+
+   Input:
+
+     PrivateKey skS
+     ClientInput input
+     opaque info<1..2^16-1>
+
+   Output:
+
+     opaque output<1..2^16-1>
+
+   def VerifyFinalize(skS, input, info):
+     P = GG.HashToGroup(input)
+     T = skS * P
+     issuedToken = GG.serialize(T)
+
+     finalizeDST = "VOPRF05-Finalize-" || client.contextString
+     hashInput = I2OSP(len(input), 2) || input ||
+                 I2OSP(len(issuedToken), 2) || issuedToken ||
+                 I2OSP(len(info), 2) || info ||
+                 I2OSP(len(finalizeDST), 2) || finalizeDST
+
+     return Hash(hashInput)
+
+3.4.1.3.  VerifyFinalize
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 12]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -669,7 +725,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 12]
+Davidson, et al.          Expires 29 April 2021                [Page 13]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -725,7 +781,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 13]
+Davidson, et al.          Expires 29 April 2021                [Page 14]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -742,8 +798,6 @@ Internet-Draft                    OPRFs                     October 2020
      Scalar proof[2]
 
    def GenerateProof(skS, pkS, blindToken, element)
-     G = GG.Generator()
-
      blindTokenList = [blindToken]
      elementList = [element]
 
@@ -751,7 +805,7 @@ Internet-Draft                    OPRFs                     October 2020
 
      M = GG.Deserialize(a1)
      r = GG.RandomScalar()
-     a3 = GG.Serialize(r * G)
+     a3 = GG.Serialize(ScalarBaseMult(r))
      a4 = GG.Serialize(r * M)
 
      challengeDST = "VOPRF05-challenge-" || self.contextString
@@ -767,25 +821,6 @@ Internet-Draft                    OPRFs                     October 2020
 
      return (c, s)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 14]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
 3.4.2.2.1.  Batching inputs
 
    Unlike other functions, "ComputeComposites" takes lists of inputs,
@@ -799,48 +834,25 @@ Internet-Draft                    OPRFs                     October 2020
    "GenerateProof" variant would permit lists of inputs, and no list
    translation would be needed.)
 
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 15]
+
+Internet-Draft                    OPRFs                     October 2020
+
+
    Note that using batched inputs creates a "BatchedEvaluation" object
    as the output of "Evaluate".
 
 3.4.2.2.2.  Fresh randomness
 
-   We note here that it is essential that a different r value is used
+   We note here that it is essential that a different "r" value is used
    for every invocation.  If this is not done, then this may leak "skS"
    as is possible in Schnorr or (EC)DSA scenarios where fresh randomness
    is not used.
 
 3.4.2.3.  ComputeComposites
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 15]
-
-Internet-Draft                    OPRFs                     October 2020
-
 
    Input:
 
@@ -879,24 +891,18 @@ Internet-Draft                    OPRFs                     October 2020
    setup.  It has three functions, "Blind()", "Unblind()", and
    "Finalize()", as described below.
 
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 16]
+
+Internet-Draft                    OPRFs                     October 2020
+
+
 3.4.3.1.  Blind
 
    We note here that the blinding mechanism that we use can be modified
    slightly with the opportunity for making performance gains in some
    scenarios.  We detail these modifications in Section 6.
-
-
-
-
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 16]
-
-Internet-Draft                    OPRFs                     October 2020
-
 
    Input:
 
@@ -943,13 +949,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 17]
+Davidson, et al.          Expires 29 April 2021                [Page 17]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 18]
+Davidson, et al.          Expires 29 April 2021                [Page 18]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1021,14 +1021,12 @@ Internet-Draft                    OPRFs                     October 2020
      boolean verified
 
    def VerifyProof(pkS, blindToken, Ev):
-     G = GG.Generator()
-
      blindTokenList = [blindToken]
      elementList = [Ev.element]
 
      (a1, a2) = ComputeComposites(pkS, blindTokenList, elementList)
 
-     A' = (Ev.proof[1] * G + Ev.proof[0] * pkS)
+     A' = (ScalarBaseMult(Ev.proof[1]) + Ev.proof[0] * pkS)
      B' = (Ev.proof[1] * M + Ev.proof[0] * Z)
      a3 = GG.Serialize(A')
      a4 = GG.Serialize(B')
@@ -1061,7 +1059,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 19]
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 19]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 20]
+Davidson, et al.          Expires 29 April 2021                [Page 20]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1125,95 +1125,72 @@ Internet-Draft                    OPRFs                     October 2020
    Applications should take caution in using ciphersuites targeting
    P-256 and curve25519.  See Section 5.2 for related discussion.
 
-   [[OPEN ISSUE: Replace Curve25519 and Curve448 with Ristretto and
-   Decaf]]
-
-4.1.  OPRF(curve25519, SHA-256)
+4.1.  OPRF(ristretto255, SHA-256)
 
    *  Group:
 
-      -  Elliptic curve name: curve25519 [RFC7748]
-
-      -  Generator(): Return the point with the following affine
-         coordinates:
-
-         o  x = "09"
-
-         o  y = "5F51E65E475F794B1FE122D388B72EB36DC2B28192839E4DD6163A5
-            D81312C14"
+      -  Name: ristretto255 [RISTRETTO]
 
       -  Order(): Returns "1000000000000000000000000000000014DEF9DEA2F79
          CD65812631A5CF5D3ED"
 
-      -  HashToGroup(): curve25519_XMD:SHA-256_ELL2_RO_
+      -  HashToGroup(): hash_to_ristretto255
          [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-
-         curve25519_XMD:SHA-256_ELL2_RO_"
+         ristretto255_XMD:SHA-256_ELL2_RO_"
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
          modulus, with L=48, and expand_message_xmd with SHA-256.
 
-      -  Serialization: The standard 32-byte representation of the
-         public key [RFC7748]
+      -  Serialization: Converts a group element to a 32-byte string
+         using the 'Encode' function from [RISTRETTO].
 
-      -  Addition: Adding curve points directly corresponds to the group
-         addition operation.
+      -  Deserialization: Converts a valid 32-byte string to a group
+         element by using the 'Decode' function from [RISTRETTO].
 
-      -  Deserialization: Implementers must check for each untrusted
-         input point whether it's a member of the big prime-order
-         subgroup of the curve.  This can be done by scalar multiplying
-         the point by Order() and checking whether it's zero.
+      -  Scalar multiplication: Scalar multiplication of curve points
+         directly corresponds with scalar multiplication according to
+         [RISTRETTO].
 
    *  Hash: SHA-256
 
    *  ID: 0x0001
 
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 21]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
-4.2.  OPRF(curve448, SHA-512)
+4.2.  OPRF(decaf448, SHA-512)
 
    *  Group:
 
-      -  Elliptic curve name: curve448 [RFC7748]
-
-      -  Generator(): Return the point with the following affine
-         coordinates:
-
-         o  x = "05"
-
-         o  y = "7D235D1295F5B1F66C98AB6E58326FCECBAE5D34F55545D060F75DC
-            28DF3F6EDB8027E2346430D211312C4B150677AF76FD7223D457B5B1A"
+      -  Name: decaf448 [RISTRETTO]
 
       -  Order(): Returns "3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
          FFFFFFFFFFF7CCA23E9C44EDB49AED63690216CC2728DC58F552378C292AB58
          44F3"
 
-      -  HashToGroup(): curve448_XMD:SHA-512_ELL2_RO_
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-
-         curve448_XMD:SHA-512_ELL2_RO_"
+      -  HashToGroup(): hash_to_decaf448 [I-D.irtf-cfrg-hash-to-curve]
+         with DST "VOPRF05-decaf448_XMD:SHA-512_ELL2_RO_"
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 21]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
          modulus, with L=84, and expand_message_xmd with SHA-512.
 
-      -  Serialization: The standard 56-byte representation of the
-         public key [RFC7748]
+      -  Serialization: Converts a group element to a 56-byte string
+         using the 'Encode' function from [RISTRETTO].
 
-      -  Addition: Adding curve points directly corresponds to the group
-         addition operation.
+      -  Deserialization: Converts a valid 56-byte string to a group
+         element by using the 'Decode' function from [RISTRETTO].
 
-      -  Deserialization: Implementers must check for each untrusted
-         input point whether it's a member of the big prime-order
-         subgroup of the curve.  This can be done by scalar multiplying
-         the point by Order() and checking whether it's zero.
+      -  Scalar multiplication: Scalar multiplication of curve points
+         directly corresponds with scalar multiplication according to
+         [RISTRETTO].
 
    *  Hash: SHA-512
 
@@ -1224,24 +1201,6 @@ Internet-Draft                    OPRFs                     October 2020
    *  Group:
 
       -  Elliptic curve name: P-256 (secp256r1) [x9.62]
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 22]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
-      -  Generator(): Return the point with the following affine
-         coordinates:
-
-         o  x = "6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A1394
-            5D898C296"
-
-         o  y = "4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406
-            837BF51F5"
 
       -  Order(): Returns "FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179
          E84F3B9CAC2FC632551"
@@ -1257,9 +1216,6 @@ Internet-Draft                    OPRFs                     October 2020
       -  Serialization: The compressed point encoding for the curve
          [SEC1] consisting of 33 bytes.
 
-      -  Addition: Adding curve points directly corresponds to the group
-         addition operation.
-
       -  Scalar multiplication: Scalar multiplication of curve points
          directly corresponds with scalar multiplication in the group.
 
@@ -1267,28 +1223,22 @@ Internet-Draft                    OPRFs                     October 2020
 
    *  ID: 0x0003
 
+
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 22]
+
+Internet-Draft                    OPRFs                     October 2020
+
+
 4.4.  OPRF(P-384, SHA-512)
 
    *  Group:
 
       -  Elliptic curve name: P-384 (secp384r1) [x9.62]
-
-      -  Generator(): Return the point with the following affine
-         coordinates:
-
-         o  x = "AA87CA22BE8B05378EB1C71EF320AD746E1D3B628BA79B9859F741E
-            082542A385502F25DBF55296C3A545E3872760AB7"
-
-         o  y = "3617DE4A96262C6F5D9E98BF9292DC29F8F41DBD289A147CE9DA311
-            3B5F0B8C00A60B1CE1D7E819D7A431D7C90EA0E5F"
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 23]
-
-Internet-Draft                    OPRFs                     October 2020
-
 
       -  Order(): Returns "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
          FFFC7634D81F4372DDF581A0DB248B0A77AECEC196ACCC52973"
@@ -1304,9 +1254,6 @@ Internet-Draft                    OPRFs                     October 2020
       -  Serialization: The compressed point encoding for the curve
          [SEC1] consisting of 49 bytes.
 
-      -  Addition: Adding curve points directly corresponds to the group
-         addition operation.
-
       -  Scalar multiplication: Scalar multiplication of curve points
          directly corresponds with scalar multiplication in the group.
 
@@ -1320,17 +1267,6 @@ Internet-Draft                    OPRFs                     October 2020
 
       -  Elliptic curve name: P-521 (secp521r1) [x9.62]
 
-      -  Generator(): Return the point with the following affine
-         coordinates:
-
-         o  x = "00C6858E06B70404E9CD9E3ECB662395B4429C648139053FB521F82
-            8AF606B4D3DBAA14B5E77EFE75928FE1DC127A2FFA8DE3348B3C1856A429
-            BF97E7E31C2E5BD66"
-
-         o  y = "011839296A789A3BC0045C8A5FB42C7D1BD998F54449579B446817A
-            FBD17273E662C97EE72995EF42640C550B9013FAD0761353C7086A272C24
-            088BE94769FD16650"
-
       -  Order(): Returns "1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
          FFFFFFFFFFFFFFFFFFFFFA51868783BF2F966B7FCC0148F709A5D03BB5C9B88
          99C47AEBB6FB71E91386409"
@@ -1339,13 +1275,6 @@ Internet-Draft                    OPRFs                     October 2020
          [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-P521_XMD:SHA-
          512_SSWU_RO_"
 
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 24]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
          modulus, with L=98, and expand_message_xmd with SHA-512.
@@ -1353,8 +1282,13 @@ Internet-Draft                    OPRFs                     October 2020
       -  Serialization: The compressed point encoding for the curve
          [SEC1] consisting of 67 bytes.
 
-      -  Addition: Adding curve points directly corresponds to the group
-         addition operation.
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 23]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
       -  Scalar multiplication: Scalar multiplication of curve points
          directly corresponds with scalar multiplication in the group.
@@ -1392,16 +1326,6 @@ Internet-Draft                    OPRFs                     October 2020
 
    An OPRF protocol must also satisfy the following property:
 
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 25]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    *  Oblivious: The server must learn nothing about the client's input
       or the output of the function.  In addition, the client must learn
       nothing about the server's private key.
@@ -1413,6 +1337,14 @@ Internet-Draft                    OPRFs                     October 2020
 
    Optionally, for any protocol that satisfies the above properties,
    there is an additional security property:
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 24]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    *  Verifiable: The client must only complete execution of the
       protocol if it can successfully assert that the OPRF output it
@@ -1451,13 +1383,6 @@ Internet-Draft                    OPRFs                     October 2020
    Sample a uniformly random bit d in {0,1}. Given (G, aG, bG, C),
    where:
 
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 26]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    *  G is a generator of GG;
 
    *  a,b are elements of FFp;
@@ -1465,6 +1390,17 @@ Internet-Draft                    OPRFs                     October 2020
    *  if d == 0: C = abG; else: C is sampled uniformly GG(sp).
 
    Output d' == d.
+
+
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 25]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
 5.2.2.  Protocol security
 
@@ -1507,17 +1443,20 @@ Internet-Draft                    OPRFs                     October 2020
    oracle for constructing Q-strong-DH (Q-sDH) samples.  The Q-Strong-DH
    problem asks the following.
 
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 27]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
        Given G1, G2, h*G2, (h^2)*G2, ..., (h^Q)*G2; for G1 and G2
        generators of GG.
 
        Output ( (1/(k+c))*G1, c ) where c is an element of FFp
+
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 26]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    The assumption that this problem is hard was first introduced in
    [BB04].  Since then, there have been a number of cryptanalytic
@@ -1560,16 +1499,6 @@ Internet-Draft                    OPRFs                     October 2020
    lower than 128 bits, we recommend only implementing ciphersuites with
    IDs: 0x0002, 0x0004, and 0x0005.
 
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 28]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
 5.3.  Hashing to curve
 
    A critical requirement of implementing the prime-order group using
@@ -1577,6 +1506,13 @@ Internet-Draft                    OPRFs                     October 2020
    "GG.HashToGroup", that maps inputs to group elements.  In the
    elliptic curve setting, this deterministically maps inputs x (as byte
    arrays) to uniformly chosen points in the curve.
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 27]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    In the security proof of the construction Hash is modeled as a random
    oracle.  This implies that any instantiation of "GG.HashToGroup" must
@@ -1619,13 +1555,6 @@ Internet-Draft                    OPRFs                     October 2020
    additive blinding would be to instead compute "H(x) + (r * G)", where
    "G" is the fixed generator for the group "GG".
 
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 29]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    The advantage of additive blinding is that it allows the client to
    pre-process tables of blinded scalar multiplications for "G".  This
    may give it a computational efficiency advantage (due to the fact
@@ -1633,6 +1562,14 @@ Internet-Draft                    OPRFs                     October 2020
    variable-base multiplication).  Pre-processing also reduces the
    amount of computation that needs to be done in the online exchange.
    Choosing one of these values "r * G" (where "r" is the scalar value
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 28]
+
+Internet-Draft                    OPRFs                     October 2020
+
+
    that is used), then computing "H(x) + (r * G)" is more efficient than
    computing "r * H(x)".  Therefore, it may be advantageous to define
    the OPRF and VOPRF protocols using additive blinding (rather than
@@ -1654,34 +1591,6 @@ Internet-Draft                    OPRFs                     October 2020
      SerializedElement blindedPublicKey;
    } PreprocessedBlind;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 30]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    Input:
 
      PublicKey pkS
@@ -1693,7 +1602,7 @@ Internet-Draft                    OPRFs                     October 2020
    def Preprocess(pkS):
      PK = GG.Deserialize(pkS)
      r = GG.RandomScalar()
-     blindedGenerator = GG.Serialize(r * GG.Generator())
+     blindedGenerator = GG.Serialize(ScalarBaseMult(r))
      blindedPublicKey = GG.Serialize(r * PK)
 
      preproc = PrepocessedBlind{
@@ -1706,37 +1615,40 @@ Internet-Draft                    OPRFs                     October 2020
 
 6.2.  Blind
 
-   Input:
-
-     ClientInput input
-     PreprocessedBlind preproc
-
-   Output:
-
-     Token token
-     SerializedElement blindToken
-
-   def Blind(input, preproc):
-     Q = GG.Deserialize(preproc.blindedGenerator) /* Q = r * G */
-     P = GG.HashToGroup(input)
-
-     token = Token{
-       data: input,
-       blind: preproc.blindedPublicKey
-     }
-     blindToken = GG.Serialize(P + Q)           /* P + r * G */
-
-     return (token, blindToken)
-
-6.3.  Unblind
 
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 31]
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 29]
 
 Internet-Draft                    OPRFs                     October 2020
 
+
+Input:
+
+  ClientInput input
+  PreprocessedBlind preproc
+
+Output:
+
+  Token token
+  SerializedElement blindToken
+
+def Blind(input, preproc):
+  Q = GG.Deserialize(preproc.blindedGenerator) /* Q = ScalarBaseMult(r) */
+  P = GG.HashToGroup(input)
+
+  token = Token{
+    data: input,
+    blind: preproc.blindedPublicKey
+  }
+  blindToken = GG.Serialize(P + Q)           /* P + ScalarBaseMult(r) */
+
+  return (token, blindToken)
+
+6.3.  Unblind
 
    Input:
 
@@ -1763,6 +1675,13 @@ Internet-Draft                    OPRFs                     October 2020
            = k * P + k * (r * G) - r * (k * G)
            = k * P
 
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 30]
+
+Internet-Draft                    OPRFs                     October 2020
+
+
    by the commutativity of scalar multiplication in GG.  This is the
    same output as in the "Unblind" algorithm for multiplicative
    blinding.
@@ -1787,13 +1706,6 @@ Internet-Draft                    OPRFs                     October 2020
 
    *  Chris Wood (caw@heapingbits.net)
 
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 32]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    *  Eli-Shaoul Khedouri (eli@intuitionmachines.com)
 
    *  Armando Faz Hernandez (armfazh@cloudflare.com)
@@ -1814,6 +1726,17 @@ Internet-Draft                    OPRFs                     October 2020
 
    [BG04]     "The Static Diffie-Hellman Problem",
               <https://eprint.iacr.org/2004/306>.
+
+
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 31]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    [ChaumBlindSignature]
               "Blind Signatures for Untraceable Payments",
@@ -1840,16 +1763,6 @@ Internet-Draft                    OPRFs                     October 2020
               <https://tools.ietf.org/html/draft-davidson-pp-protocol-
               00>.
 
-
-
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 33]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    [I-D.irtf-cfrg-hash-to-curve]
               Faz-Hernandez, A., Scott, S., Sullivan, N., Wahby, R., and
               C. Wood, "Hashing to Elliptic Curves", Work in Progress,
@@ -1872,6 +1785,14 @@ Internet-Draft                    OPRFs                     October 2020
    [keytrans] "Security Through Transparency",
               <https://security.googleblog.com/2017/01/security-through-
               transparency.html>.
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 32]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    [NIST]     "Keylength - NIST Report on Cryptographic Key Length and
               Cryptoperiod (2016)", <https://www.keylength.com/en/4/>.
@@ -1899,13 +1820,6 @@ Internet-Draft                    OPRFs                     October 2020
               DOI 10.17487/RFC5869, May 2010,
               <https://www.rfc-editor.org/info/rfc5869>.
 
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 34]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
               2016, <https://www.rfc-editor.org/info/rfc7748>.
@@ -1920,12 +1834,21 @@ Internet-Draft                    OPRFs                     October 2020
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
    [RISTRETTO]
-              "The ristretto255 Group", <https://tools.ietf.org/html/
-              draft-hdevalence-cfrg-ristretto-01>.
+              "The ristretto255 and decaf448 Groups",
+              <https://tools.ietf.org/html/draft-irtf-cfrg-
+              ristretto255-decaf448-00>.
 
    [SEC1]     Standards for Efficient Cryptography Group (SECG), ., "SEC
               1: Elliptic Curve Cryptography",
               <https://www.secg.org/sec1-v2.pdff>.
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 33]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    [SEC2]     Standards for Efficient Cryptography Group (SECG), ., "SEC
               2: Recommended Elliptic Curve Domain Parameters",
@@ -1954,14 +1877,6 @@ Authors' Addresses
    Alex Davidson
    Cloudflare
    County Hall
-
-
-
-Davidson, et al.          Expires 22 April 2021                [Page 35]
-
-Internet-Draft                    OPRFs                     October 2020
-
-
    London, SE1 7GP
    United Kingdom
 
@@ -1982,6 +1897,14 @@ Internet-Draft                    OPRFs                     October 2020
    101 Townsend St
    San Francisco,
    United States of America
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 34]
+
+Internet-Draft                    OPRFs                     October 2020
+
 
    Email: nick@cloudflare.com
 
@@ -2013,4 +1936,25 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 22 April 2021                [Page 36]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Davidson, et al.          Expires 29 April 2021                [Page 35]
