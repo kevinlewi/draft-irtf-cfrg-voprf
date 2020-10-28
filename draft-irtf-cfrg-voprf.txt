@@ -5,9 +5,9 @@
 Network Working Group                                        A. Davidson
 Internet-Draft                                          A. Faz-Hernandez
 Intended status: Informational                               N. Sullivan
-Expires: 29 April 2021                                         C.A. Wood
+Expires: 1 May 2021                                            C.A. Wood
                                                               Cloudflare
-                                                         26 October 2020
+                                                         28 October 2020
 
 
    Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 April 2021.
+   This Internet-Draft will expire on 1 May 2021.
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 1]
+Davidson, et al.           Expires 1 May 2021                   [Page 1]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 2]
+Davidson, et al.           Expires 1 May 2021                   [Page 2]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -165,7 +165,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 3]
+Davidson, et al.           Expires 1 May 2021                   [Page 3]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -221,7 +221,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 4]
+Davidson, et al.           Expires 1 May 2021                   [Page 4]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -277,7 +277,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 5]
+Davidson, et al.           Expires 1 May 2021                   [Page 5]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -333,7 +333,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 6]
+Davidson, et al.           Expires 1 May 2021                   [Page 6]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -389,7 +389,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 7]
+Davidson, et al.           Expires 1 May 2021                   [Page 7]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -445,7 +445,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 8]
+Davidson, et al.           Expires 1 May 2021                   [Page 8]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -501,7 +501,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                 [Page 9]
+Davidson, et al.           Expires 1 May 2021                   [Page 9]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -557,7 +557,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 10]
+Davidson, et al.           Expires 1 May 2021                  [Page 10]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -613,7 +613,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 11]
+Davidson, et al.           Expires 1 May 2021                  [Page 11]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -669,7 +669,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 12]
+Davidson, et al.           Expires 1 May 2021                  [Page 12]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -725,7 +725,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 13]
+Davidson, et al.           Expires 1 May 2021                  [Page 13]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -781,7 +781,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 14]
+Davidson, et al.           Expires 1 May 2021                  [Page 14]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -837,7 +837,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 15]
+Davidson, et al.           Expires 1 May 2021                  [Page 15]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -893,7 +893,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 16]
+Davidson, et al.           Expires 1 May 2021                  [Page 16]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -949,7 +949,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 17]
+Davidson, et al.           Expires 1 May 2021                  [Page 17]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 18]
+Davidson, et al.           Expires 1 May 2021                  [Page 18]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 19]
+Davidson, et al.           Expires 1 May 2021                  [Page 19]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 20]
+Davidson, et al.           Expires 1 May 2021                  [Page 20]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1135,8 +1135,9 @@ Internet-Draft                    OPRFs                     October 2020
          CD65812631A5CF5D3ED"
 
       -  HashToGroup(): hash_to_ristretto255
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-
-         ristretto255_XMD:SHA-256_ELL2_RO_"
+         [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05" ||
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
@@ -1167,13 +1168,12 @@ Internet-Draft                    OPRFs                     October 2020
          44F3"
 
       -  HashToGroup(): hash_to_decaf448 [I-D.irtf-cfrg-hash-to-curve]
-         with DST "VOPRF05-decaf448_XMD:SHA-512_ELL2_RO_"
+         with DST: "VOPRF05" || contextString, where "contextString" is
+         that which is computed in the Setup functions.
 
 
 
-
-
-Davidson, et al.          Expires 29 April 2021                [Page 21]
+Davidson, et al.           Expires 1 May 2021                  [Page 21]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1206,8 +1206,9 @@ Internet-Draft                    OPRFs                     October 2020
          E84F3B9CAC2FC632551"
 
       -  HashToGroup(): P256_XMD:SHA-256_SSWU_RO_
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-P256_XMD:SHA-
-         256_SSWU_RO_"
+         [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05" ||
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
@@ -1228,8 +1229,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-
-Davidson, et al.          Expires 29 April 2021                [Page 22]
+Davidson, et al.           Expires 1 May 2021                  [Page 22]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1244,8 +1244,9 @@ Internet-Draft                    OPRFs                     October 2020
          FFFC7634D81F4372DDF581A0DB248B0A77AECEC196ACCC52973"
 
       -  HashToGroup(): P384_XMD:SHA-512_SSWU_RO_
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-P384_XMD:SHA-
-         512_SSWU_RO_"
+         [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05" ||
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
@@ -1272,23 +1273,25 @@ Internet-Draft                    OPRFs                     October 2020
          99C47AEBB6FB71E91386409"
 
       -  HashToGroup(): P521_XMD:SHA-512_SSWU_RO_
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-P521_XMD:SHA-
-         512_SSWU_RO_"
+         [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05" ||
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
          modulus, with L=98, and expand_message_xmd with SHA-512.
 
-      -  Serialization: The compressed point encoding for the curve
-         [SEC1] consisting of 67 bytes.
 
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 23]
+Davidson, et al.           Expires 1 May 2021                  [Page 23]
 
 Internet-Draft                    OPRFs                     October 2020
 
+
+      -  Serialization: The compressed point encoding for the curve
+         [SEC1] consisting of 67 bytes.
 
       -  Scalar multiplication: Scalar multiplication of curve points
          directly corresponds with scalar multiplication in the group.
@@ -1335,16 +1338,16 @@ Internet-Draft                    OPRFs                     October 2020
    will not be able to link any particular OPRF evaluation to x.  This
    property is also known as unlinkability [DGSTV18].
 
-   Optionally, for any protocol that satisfies the above properties,
-   there is an additional security property:
 
 
 
-
-Davidson, et al.          Expires 29 April 2021                [Page 24]
+Davidson, et al.           Expires 1 May 2021                  [Page 24]
 
 Internet-Draft                    OPRFs                     October 2020
 
+
+   Optionally, for any protocol that satisfies the above properties,
+   there is an additional security property:
 
    *  Verifiable: The client must only complete execution of the
       protocol if it can successfully assert that the OPRF output it
@@ -1394,10 +1397,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-
-
-
-Davidson, et al.          Expires 29 April 2021                [Page 25]
+Davidson, et al.           Expires 1 May 2021                  [Page 25]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 26]
+Davidson, et al.           Expires 1 May 2021                  [Page 26]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 27]
+Davidson, et al.           Expires 1 May 2021                  [Page 27]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 28]
+Davidson, et al.           Expires 1 May 2021                  [Page 28]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 29]
+Davidson, et al.           Expires 1 May 2021                  [Page 29]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1677,7 +1677,7 @@ def Blind(input, preproc):
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 30]
+Davidson, et al.           Expires 1 May 2021                  [Page 30]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 31]
+Davidson, et al.           Expires 1 May 2021                  [Page 31]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1789,7 +1789,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 32]
+Davidson, et al.           Expires 1 May 2021                  [Page 32]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1845,7 +1845,7 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 33]
+Davidson, et al.           Expires 1 May 2021                  [Page 33]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1901,7 +1901,7 @@ Authors' Addresses
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 34]
+Davidson, et al.           Expires 1 May 2021                  [Page 34]
 
 Internet-Draft                    OPRFs                     October 2020
 
@@ -1957,4 +1957,4 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.          Expires 29 April 2021                [Page 35]
+Davidson, et al.           Expires 1 May 2021                  [Page 35]
