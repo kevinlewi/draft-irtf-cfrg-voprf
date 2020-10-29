@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-10-27T00:32:24.359070+00:00",
+  "timestamp": "2020-10-29T00:33:35.170865+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -1915,7 +1915,7 @@
       "labels": [],
       "body": "Section 4 defines various ciphersuites using standard curves, but it specifies the generator and order explicitly. The values are (modulo the issue below) always the standard one, as they should be. But from reading the draft you might not realize this and miss that you can reuse your existing base-point-specific optimizations. Instead, since curves are always specified and implemented with a standard base point, just cite the standard ones. No sense in restating the order either, I think.\r\n\r\nThis would also fix what appear to be mistakes in the curve25519 and curve448 definition:\r\n\r\nFirst, a minor terminology nitpick: OPRF(curve25519, SHA-512) and OPRF(curve448, SHA-512) specify the base point with (x, y) coordinates, but RFC7748, which the draft cites, does not define the curves in terms of (x, y) coordinates at all. It labels the coordinates (u, v).\r\n\r\n~~Second, the y/v-coordinate for the curve25519 generator is wrong. I don't know if it ends up mattering for VOPRF (I'm guessing not, since Serialize() only captures the x/u coordinate?), but there are two possible v-coordinates for u = 9. [RFC7748, section 4.1](https://tools.ietf.org/html/rfc7748#section-4.1) picks V(P) = 14781619447589544791020593568409986887264606134616475288964881837755586237401 = 0x20AE19A1B8A086B4E01EDD2C7748D14C923D4D7E6D7C61B229E9C5A27ECED3D9. This draft used p - V(P) = 0x5F51E65E475F794B1FE122D388B72EB36DC2B28192839E4DD6163A5D81312C14.~~ (Edit: sounds like there's an errata in the RFC to switch to the other one.)",
       "createdAt": "2020-09-23T20:03:02Z",
-      "updatedAt": "2020-10-27T00:09:52Z",
+      "updatedAt": "2020-10-27T12:50:08Z",
       "closedAt": "2020-10-26T19:06:07Z",
       "comments": [
         {
@@ -1959,6 +1959,13 @@
           "body": "Right, I'm saying that section 2.1 doesn't seem to talk about there being a base point. Probably we want to define GG as a group plus a particular generator. Or something else.\r\n\r\n(The ristretto comment was about the confusion about which base point is correct for curve25519. Hopefully ristretto is specified correctly.)",
           "createdAt": "2020-10-27T00:09:52Z",
           "updatedAt": "2020-10-27T00:09:52Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ah, gotcha. We can fix that. ",
+          "createdAt": "2020-10-27T12:50:08Z",
+          "updatedAt": "2020-10-27T12:50:08Z"
         }
       ]
     },
@@ -2374,15 +2381,15 @@
       "id": "MDU6SXNzdWU3MjQxMTkzNjA=",
       "title": "Does the 'dst' for the HashToCurve func need to be different for each mode?",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/165",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "claucece",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2020-10-18T20:59:06Z",
-      "updatedAt": "2020-10-23T17:53:26Z",
-      "closedAt": null,
+      "updatedAt": "2020-10-28T12:34:43Z",
+      "closedAt": "2020-10-28T12:34:43Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -2437,6 +2444,38 @@
           "updatedAt": "2020-10-23T19:20:16Z"
         }
       ]
+    },
+    {
+      "number": 171,
+      "id": "MDU6SXNzdWU3MzA2MDg1MDA=",
+      "title": "Submit new version for IETF 109",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/171",
+      "state": "OPEN",
+      "author": "grittygrease",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-10-27T16:25:49Z",
+      "updatedAt": "2020-10-27T16:25:49Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 174,
+      "id": "MDU6SXNzdWU3MzE2NDcwMjI=",
+      "title": "update contributors",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/174",
+      "state": "OPEN",
+      "author": "armfazh",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "the list of contributors overleaps with authors",
+      "createdAt": "2020-10-28T17:28:01Z",
+      "updatedAt": "2020-10-28T17:28:01Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -11620,6 +11659,205 @@
           "body": "",
           "createdAt": "2020-10-26T18:52:10Z",
           "updatedAt": "2020-10-26T18:52:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 170,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTEwODA4ODM1",
+      "title": "Change dst of hashToGroup #165",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/170",
+      "state": "MERGED",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-10-27T14:44:35Z",
+      "updatedAt": "2020-10-28T12:33:36Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "0b677c52483da13a1eb72ee62455e4206d74e939",
+      "headRepository": "claucece/draft-irtf-cfrg-voprf",
+      "headRefName": "master",
+      "headRefOid": "b9b88a0c5e997dcfba1fe16907d27f7f374433b2",
+      "closedAt": "2020-10-28T12:33:36Z",
+      "mergedAt": "2020-10-28T12:33:36Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "b983cd46b09812e15a591a3ca67670fa561391c7"
+      },
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "cc. @chris-wood @armfazh ",
+          "createdAt": "2020-10-27T14:45:06Z",
+          "updatedAt": "2020-10-27T14:45:06Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTE4MjYwMTgy",
+          "commit": {
+            "abbreviatedOid": "59bc330"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2020-10-28T01:20:32Z",
+          "updatedAt": "2020-10-28T01:20:37Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "`self.contextString` is a little hard to parse here (out of context), so how about:\r\n\r\n```suggestion\r\n    \"VOPRF05\" || contextString, where `contextString` is that which is computed in the Setup functions.\r\n```\r\n\r\n(or something like that)\r\n",
+              "createdAt": "2020-10-28T01:20:32Z",
+              "updatedAt": "2020-10-28T12:32:51Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTE4NTU5MTA0",
+          "commit": {
+            "abbreviatedOid": "59bc330"
+          },
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-28T11:23:13Z",
+          "updatedAt": "2020-10-28T11:23:13Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "Changed.",
+              "createdAt": "2020-10-28T11:23:13Z",
+              "updatedAt": "2020-10-28T12:32:51Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTE4NjA4ODAw",
+          "commit": {
+            "abbreviatedOid": "bffc55d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-10-28T12:31:29Z",
+          "updatedAt": "2020-10-28T12:32:20Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\n    \"VOPRF05\" || contextString, where `contextString` is that which is\r\n```",
+              "createdAt": "2020-10-28T12:31:29Z",
+              "updatedAt": "2020-10-28T12:32:51Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\n    \"VOPRF05\" || contextString, where `contextString` is that which is\r\n```",
+              "createdAt": "2020-10-28T12:31:54Z",
+              "updatedAt": "2020-10-28T12:32:51Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\n    \"VOPRF05\" || contextString, where `contextString` is that which is\r\n```",
+              "createdAt": "2020-10-28T12:32:00Z",
+              "updatedAt": "2020-10-28T12:32:51Z"
+            },
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\n    \"VOPRF05\" || contextString, where `contextString` is that which is\r\n```",
+              "createdAt": "2020-10-28T12:32:06Z",
+              "updatedAt": "2020-10-28T12:32:51Z"
+            },
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\n    \"VOPRF05\" || contextString, where `contextString` is that which is\r\n```",
+              "createdAt": "2020-10-28T12:32:13Z",
+              "updatedAt": "2020-10-28T12:32:51Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 172,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTExNTIxNzc1",
+      "title": "Clean up ciphersuite section. Fix some references too.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/172",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This does a couple things:\r\n\r\n- Removes `Order()` -- it was never used.\r\n- Unifies Serialization content. \r\n- Removes scalar multiplication instructions, as I think these are unnecessary.\r\n\r\nIt also fixes some references (uses updated versions and removes unused references).\r\n\r\ncc @claucece ",
+      "createdAt": "2020-10-28T12:49:32Z",
+      "updatedAt": "2020-10-28T16:27:46Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "b983cd46b09812e15a591a3ca67670fa561391c7",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/cleanup-suites-and-refs",
+      "headRefOid": "6c50301ab7d12eea9f90a5fd993521dff8f5cfd2",
+      "closedAt": "2020-10-28T16:27:46Z",
+      "mergedAt": "2020-10-28T16:27:45Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "e41082d92c95c5e098872cc15afcbdd03cfec109"
+      },
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "LGTM. Thanks!",
+          "createdAt": "2020-10-28T13:25:57Z",
+          "updatedAt": "2020-10-28T13:25:57Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 173,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTExNzE2Nzcx",
+      "title": "replaces client by self in contextString",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/173",
+      "state": "MERGED",
+      "author": "armfazh",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-10-28T17:26:41Z",
+      "updatedAt": "2020-10-29T00:20:00Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "e41082d92c95c5e098872cc15afcbdd03cfec109",
+      "headRepository": "armfazh/draft-irtf-cfrg-voprf",
+      "headRefName": "patch-1",
+      "headRefOid": "2b2a288cc928a87e668e386874ba96406f7bc868",
+      "closedAt": "2020-10-29T00:20:00Z",
+      "mergedAt": "2020-10-29T00:20:00Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "b85b915c5ece2fe99cd39afc15107c1f16db3b35"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTE5MjAxOTAx",
+          "commit": {
+            "abbreviatedOid": "2b2a288"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Good catch -- I didn't notice this.",
+          "createdAt": "2020-10-29T00:19:55Z",
+          "updatedAt": "2020-10-29T00:19:55Z",
           "comments": []
         }
       ]
