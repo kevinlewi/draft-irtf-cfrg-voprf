@@ -1131,8 +1131,8 @@ Internet-Draft                    OPRFs                     October 2020
 
       -  HashToGroup(): hash_to_ristretto255
          [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05-" ||
-         contextString, , where "contextString" is that which is
-         computed in the Setup functions.
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
@@ -1152,8 +1152,8 @@ Internet-Draft                    OPRFs                     October 2020
    *  Group: decaf448 [RISTRETTO]
 
       -  HashToGroup(): hash_to_decaf448 [I-D.irtf-cfrg-hash-to-curve]
-         with DST: "VOPRF05-" || contextString, , where "contextString"
-         is that which is computed in the Setup functions.
+         with DST: "VOPRF05-" || contextString, where "contextString" is
+         that which is computed in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
@@ -1184,8 +1184,8 @@ Internet-Draft                    OPRFs                     October 2020
 
       -  HashToGroup(): P256_XMD:SHA-256_SSWU_RO_
          [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05-" ||
-         contextString, , where "contextString" is that which is
-         computed in the Setup functions.
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
@@ -1204,8 +1204,8 @@ Internet-Draft                    OPRFs                     October 2020
 
       -  HashToGroup(): P384_XMD:SHA-512_SSWU_RO_
          [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05-" ||
-         contextString, , where "contextString" is that which is
-         computed in the Setup functions.
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
@@ -1224,8 +1224,8 @@ Internet-Draft                    OPRFs                     October 2020
 
       -  HashToGroup(): P521_XMD:SHA-512_SSWU_RO_
          [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05-" ||
-         contextString, , where "contextString" is that which is
-         computed in the Setup functions.
+         contextString, where "contextString" is that which is computed
+         in the Setup functions.
 
 
 
