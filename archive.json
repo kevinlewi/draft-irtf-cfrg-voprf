@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-10-29T00:33:35.170865+00:00",
+  "timestamp": "2020-11-01T00:20:51.146866+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -11858,6 +11858,312 @@
           "body": "Good catch -- I didn't notice this.",
           "createdAt": "2020-10-29T00:19:55Z",
           "updatedAt": "2020-10-29T00:19:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 175,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTEyMzI5MTI2",
+      "title": "Update POC",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/175",
+      "state": "MERGED",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-10-29T14:45:59Z",
+      "updatedAt": "2020-10-30T18:04:54Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "b85b915c5ece2fe99cd39afc15107c1f16db3b35",
+      "headRepository": "claucece/draft-irtf-cfrg-voprf",
+      "headRefName": "master",
+      "headRefOid": "c869e617d9590da4582637752c9a9e26e0f1b42d",
+      "closedAt": "2020-10-30T18:04:54Z",
+      "mergedAt": "2020-10-30T18:04:53Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "e9ab7975c888d574b6b723b4ae8a003ab6a93055"
+      },
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@chris-wood all methods implemented now. There are some todos, I'll solve tomorrow. There is a really weird python error with `expand_message_xof`, which idk why is occurring. If you can, please, check it.",
+          "createdAt": "2020-10-30T00:20:50Z",
+          "updatedAt": "2020-10-30T00:20:50Z"
+        },
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@chris-wood solved the bug now. Except for a check I want to do tomorrow and some recfator, this is now done.",
+          "createdAt": "2020-10-30T01:36:13Z",
+          "updatedAt": "2020-10-30T01:36:13Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIwMDc0MDUz",
+          "commit": {
+            "abbreviatedOid": "65c6b4d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-29T20:54:41Z",
+          "updatedAt": "2020-10-29T20:54:42Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Why did we remove these? Aren't they needed?",
+              "createdAt": "2020-10-29T20:54:42Z",
+              "updatedAt": "2020-10-30T12:12:35Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIwMDkzMjc3",
+          "commit": {
+            "abbreviatedOid": "dcad238"
+          },
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-29T21:15:25Z",
+          "updatedAt": "2020-10-29T21:15:25Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "They were not used anywhere, not sure why they were there..",
+              "createdAt": "2020-10-29T21:15:25Z",
+              "updatedAt": "2020-10-30T12:12:35Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 176,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTEzMjE5ODUw",
+      "title": "Refactor to remove special-case ristretto255/decaf448 paths.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/176",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "cc @claucece, @armfazh ",
+      "createdAt": "2020-10-30T18:57:09Z",
+      "updatedAt": "2020-10-30T23:20:17Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "ef887bf21534054a16230309d01d94a0bd6403cd",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/refactor-ristretto",
+      "headRefOid": "7c2f5ba57ea2b88758a10c1d7a839ed3c57184eb",
+      "closedAt": "2020-10-30T23:20:17Z",
+      "mergedAt": "2020-10-30T23:20:17Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "59739a24e25337bd3c190e41f2959bf13c5c0fd6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIwOTY2NTk1",
+          "commit": {
+            "abbreviatedOid": "629d78a"
+          },
+          "author": "armfazh",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-10-30T19:21:32Z",
+          "updatedAt": "2020-10-30T19:21:32Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIxMDcwMDMz",
+          "commit": {
+            "abbreviatedOid": "629d78a"
+          },
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-30T22:31:49Z",
+          "updatedAt": "2020-10-30T22:36:39Z",
+          "comments": [
+            {
+              "originalPosition": 132,
+              "body": "Per ristretto et al draft, it should be:\r\n\r\n```\r\n        u = expand_message_xof(msg, dst, int(112), hashlib.shake_256, 224)\r\n        P1 = self.map(u[0:32])\r\n        P2 = self.map(u[32:64])\r\n        P = P1 + P2\r\n```",
+              "createdAt": "2020-10-30T22:31:49Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            },
+            {
+              "originalPosition": 133,
+              "body": "I'm not sure the internals of this.. but it need to be expanded to a 112 array, which will no be given with sha512. That is why it was using shake256. ",
+              "createdAt": "2020-10-30T22:32:42Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            },
+            {
+              "originalPosition": 104,
+              "body": "Per ristretto et al draft, it should be:\r\n\r\n```\r\n        u = expand_message_xmd(msg, dst, int(64), hashlib.sha512, 128)\r\n        P1 = self.map(u[0:32])\r\n        P2 = self.map(u[32:64])\r\n        P = P1 + P2\r\n        return P\r\n```",
+              "createdAt": "2020-10-30T22:33:16Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            },
+            {
+              "originalPosition": 105,
+              "body": "Here we need to expand it to 64, which I'm not sure the sha256 will give.",
+              "createdAt": "2020-10-30T22:33:49Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIxMDcxNzIz",
+          "commit": {
+            "abbreviatedOid": "629d78a"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-30T22:38:02Z",
+          "updatedAt": "2020-10-30T22:38:03Z",
+          "comments": [
+            {
+              "originalPosition": 132,
+              "body": "No, see: https://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-10#appendix-B",
+              "createdAt": "2020-10-30T22:38:02Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIxMDcxNzY1",
+          "commit": {
+            "abbreviatedOid": "629d78a"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-30T22:38:10Z",
+          "updatedAt": "2020-10-30T22:38:10Z",
+          "comments": [
+            {
+              "originalPosition": 104,
+              "body": "See above!",
+              "createdAt": "2020-10-30T22:38:10Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIxMDcxODkz",
+          "commit": {
+            "abbreviatedOid": "629d78a"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-30T22:38:40Z",
+          "updatedAt": "2020-10-30T22:38:40Z",
+          "comments": [
+            {
+              "originalPosition": 105,
+              "body": "See above!",
+              "createdAt": "2020-10-30T22:38:40Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIxMDczNjgw",
+          "commit": {
+            "abbreviatedOid": "629d78a"
+          },
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-30T22:45:08Z",
+          "updatedAt": "2020-10-30T22:45:09Z",
+          "comments": [
+            {
+              "originalPosition": 132,
+              "body": "I'm not sure about that. See the comment for the `MAP` function in ristretto et al draft:\r\n\r\n```\r\nThe MAP function is defined on a 32-bytes string as:\r\n```\r\n\r\nThe string here is 64. \r\n\r\nWhich means that it should use the one-way-map function of the ristretto et al draft, which is:\r\n\r\n```\r\n1. Compute P1 as \"MAP(b[0:32])\".\r\n2. Compute P2 as \"MAP(b[32:64])\".\r\n3. Return P1 + P2.\r\n```\r\n\r\nMeaning that:\r\n\r\n```\r\n   1. uniform_bytes = expand_message(msg, DST, 64)\r\n   2. P = ristretto255_map(uniform_bytes)\r\n   3. return P\r\n```\r\n\r\n`istretto255_map(uniform_bytes)` refers to the one-way-map. Otherwise, the map will only handle the first 32 bytes.",
+              "createdAt": "2020-10-30T22:45:09Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIxMDc3MDYy",
+          "commit": {
+            "abbreviatedOid": "629d78a"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-10-30T22:57:42Z",
+          "updatedAt": "2020-10-30T22:57:42Z",
+          "comments": [
+            {
+              "originalPosition": 132,
+              "body": "`ristretto255_map` indeed refers to the one-way map, and not the internal `MAP` function. :) ",
+              "createdAt": "2020-10-30T22:57:42Z",
+              "updatedAt": "2020-10-30T23:20:02Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 177,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTEzMzI3Mzkz",
+      "title": "Use hash_to_group",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/177",
+      "state": "MERGED",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "@chris-wood ",
+      "createdAt": "2020-10-30T23:19:04Z",
+      "updatedAt": "2020-10-30T23:20:01Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "caw/refactor-ristretto",
+      "baseRefOid": "629d78a84d627f6958bf488ff76b2fe7b08e3edc",
+      "headRepository": "claucece/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/refactor-ristretto",
+      "headRefOid": "4da74311296f378f2f14caa01ccabcc98736f757",
+      "closedAt": "2020-10-30T23:20:01Z",
+      "mergedAt": "2020-10-30T23:20:01Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "7c2f5ba57ea2b88758a10c1d7a839ed3c57184eb"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTIxMDgyNTc3",
+          "commit": {
+            "abbreviatedOid": "4da7431"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-10-30T23:19:55Z",
+          "updatedAt": "2020-10-30T23:19:55Z",
           "comments": []
         }
       ]
