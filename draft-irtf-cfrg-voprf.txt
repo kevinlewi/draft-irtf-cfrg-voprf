@@ -93,7 +93,7 @@ Table of Contents
    4.  Ciphersuites  . . . . . . . . . . . . . . . . . . . . . . . .  20
      4.1.  OPRF(ristretto255, SHA-256) . . . . . . . . . . . . . . .  21
      4.2.  OPRF(decaf448, SHA-512) . . . . . . . . . . . . . . . . .  21
-     4.3.  OPRF(P-256, SHA-256)  . . . . . . . . . . . . . . . . . .  22
+     4.3.  OPRF(P-256, SHA-256)  . . . . . . . . . . . . . . . . . .  21
      4.4.  OPRF(P-384, SHA-512)  . . . . . . . . . . . . . . . . . .  22
      4.5.  OPRF(P-521, SHA-512)  . . . . . . . . . . . . . . . . . .  22
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  23
@@ -137,9 +137,9 @@ Internet-Draft                    OPRFs                    November 2020
    key k and the client holds some input x.  The protocol allows both
    parties to cooperate in computing F(k, x) such that: the client
    learns F(k, x) without learning anything about k; and the server does
-   not learn anything about x.  A Verifiable OPRF (VOPRF) is an OPRF
-   wherein the server can prove to the client that F(k, x) was computed
-   using the key k.
+   not learn anything about x or F(k, x).  A Verifiable OPRF (VOPRF) is
+   an OPRF wherein the server can prove to the client that F(k, x) was
+   computed using the key k.
 
    The usage of OPRFs has been demonstrated in constructing a number of
    applications: password-protected secret sharing schemes [JKKX16];
@@ -1099,19 +1099,19 @@ Internet-Draft                    OPRFs                    November 2020
    functionalities:
 
    *  "GG": A prime-order group exposing the API detailed in
-      Section 2.1.
+      Section 2.1, with base point defined in the corresponding
+      reference for each group.
 
    *  "Hash": A cryptographic hash function that is indifferentiable
       from a Random Oracle.
 
    This section specifies supported VOPRF group and hash function
    instantiations.  For each group, we specify the HashToGroup,
-   HashToScalar, and Serialize functionalities.  The Deserialize
-   functionality is the inverse of the corresponding Serialize
-   functionality.
+   HashToScalar, and serialization functionalities.
 
-   We only provide ciphersuites in the elliptic curve setting as these
-   provide the most efficient way of instantiating the OPRF.
+   Applications should take caution in using ciphersuites targeting
+   P-256 and ristretto255.  See Section 5.2 for related discussion.
+
 
 
 
@@ -1121,9 +1121,6 @@ Davidson, et al.           Expires 6 May 2021                  [Page 20]
 
 Internet-Draft                    OPRFs                    November 2020
 
-
-   Applications should take caution in using ciphersuites targeting
-   P-256 and curve25519.  See Section 5.2 for related discussion.
 
 4.1.  OPRF(ristretto255, SHA-256)
 
@@ -1168,6 +1165,9 @@ Internet-Draft                    OPRFs                    November 2020
 
    *  ID: 0x0002
 
+4.3.  OPRF(P-256, SHA-256)
+
+   *  Group: P-256 (secp256r1) [x9.62]
 
 
 
@@ -1177,10 +1177,6 @@ Davidson, et al.           Expires 6 May 2021                  [Page 21]
 
 Internet-Draft                    OPRFs                    November 2020
 
-
-4.3.  OPRF(P-256, SHA-256)
-
-   *  Group: P-256 (secp256r1) [x9.62]
 
       -  HashToGroup(): P256_XMD:SHA-256_SSWU_RO_
          [I-D.irtf-cfrg-hash-to-curve] with DST: "VOPRF05-" ||
@@ -1227,16 +1223,16 @@ Internet-Draft                    OPRFs                    November 2020
          contextString, where "contextString" is that which is computed
          in the Setup functions.
 
+      -  HashToScalar(): Use hash_to_field from
+         [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
+         modulus, with L=98, and expand_message_xmd with SHA-512.
+
 
 
 Davidson, et al.           Expires 6 May 2021                  [Page 22]
 
 Internet-Draft                    OPRFs                    November 2020
 
-
-      -  HashToScalar(): Use hash_to_field from
-         [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
-         modulus, with L=98, and expand_message_xmd with SHA-512.
 
       -  Serialization: The compressed point encoding for the curve
          [SEC1] consisting of 67 bytes.
@@ -1283,15 +1279,16 @@ Internet-Draft                    OPRFs                    November 2020
    will not be able to link any particular OPRF evaluation to x.  This
    property is also known as unlinkability [DGSTV18].
 
+   Optionally, for any protocol that satisfies the above properties,
+   there is an additional security property:
+
+
 
 
 Davidson, et al.           Expires 6 May 2021                  [Page 23]
 
 Internet-Draft                    OPRFs                    November 2020
 
-
-   Optionally, for any protocol that satisfies the above properties,
-   there is an additional security property:
 
    *  Verifiable: The client must only complete execution of the
       protocol if it can successfully assert that the OPRF output it
@@ -1337,6 +1334,9 @@ Internet-Draft                    OPRFs                    November 2020
    *  if d == 0: C = abG; else: C is sampled uniformly GG(sp).
 
    Output d' == d.
+
+
+
 
 
 
