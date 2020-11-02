@@ -78,14 +78,14 @@ Table of Contents
      1.1.  Change log  . . . . . . . . . . . . . . . . . . . . . . .   4
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   5
      1.3.  Requirements  . . . . . . . . . . . . . . . . . . . . . .   5
-   2.  Preliminaries . . . . . . . . . . . . . . . . . . . . . . . .   5
-     2.1.  Prime-order group API . . . . . . . . . . . . . . . . . .   5
+   2.  Preliminaries . . . . . . . . . . . . . . . . . . . . . . . .   6
+     2.1.  Prime-order group API . . . . . . . . . . . . . . . . . .   6
      2.2.  Other conventions . . . . . . . . . . . . . . . . . . . .   7
-   3.  OPRF Protocol . . . . . . . . . . . . . . . . . . . . . . . .   7
+   3.  OPRF Protocol . . . . . . . . . . . . . . . . . . . . . . . .   8
      3.1.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   8
      3.2.  Context Setup . . . . . . . . . . . . . . . . . . . . . .   9
-     3.3.  Data Structures . . . . . . . . . . . . . . . . . . . . .   9
-     3.4.  Context APIs  . . . . . . . . . . . . . . . . . . . . . .  10
+     3.3.  Data Structures . . . . . . . . . . . . . . . . . . . . .  10
+     3.4.  Context APIs  . . . . . . . . . . . . . . . . . . . . . .  11
        3.4.1.  Server Context  . . . . . . . . . . . . . . . . . . .  11
        3.4.2.  VerifiableServerContext . . . . . . . . . . . . . . .  13
        3.4.3.  Client Context  . . . . . . . . . . . . . . . . . . .  16
@@ -172,6 +172,18 @@ Internet-Draft                    OPRFs                    November 2020
 
 1.1.  Change log
 
+   draft-05 (https://tools.ietf.org/html/draft-irtf-cfrg-voprf-05):
+
+   *  Move to ristretto255 and decaf448 ciphersuites.
+
+   *  Clean up ciphersuite definitions.
+
+   *  Pin domain separation tag construction to draft version.
+
+   *  Move key generation outside of context construction functions.
+
+   *  Editorial changes.
+
    draft-04 (https://tools.ietf.org/html/draft-irtf-cfrg-voprf-04):
 
    *  Introduce Client and Server contexts for controlling verifiability
@@ -207,6 +219,13 @@ Internet-Draft                    OPRFs                    November 2020
 
    *  Changes to algorithms accepting batched inputs
 
+
+
+Davidson, et al.           Expires 6 May 2021                   [Page 4]
+
+Internet-Draft                    OPRFs                    November 2020
+
+
    *  Changes to construction of batched DLEQ proofs
 
    *  Updated ciphersuites to be consistent with hash-to-curve and added
@@ -218,13 +237,6 @@ Internet-Draft                    OPRFs                    November 2020
       oracles
 
    *  Updated batched proof algorithms
-
-
-
-Davidson, et al.           Expires 6 May 2021                   [Page 4]
-
-Internet-Draft                    OPRFs                    November 2020
-
 
    draft-01 (https://tools.ietf.org/html/draft-irtf-cfrg-voprf-01):
 
@@ -261,6 +273,15 @@ Internet-Draft                    OPRFs                    November 2020
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+
+
+
+
+Davidson, et al.           Expires 6 May 2021                   [Page 5]
+
+Internet-Draft                    OPRFs                    November 2020
+
+
 2.  Preliminaries
 
 2.1.  Prime-order group API
@@ -272,15 +293,6 @@ Internet-Draft                    OPRFs                    November 2020
    finite field of order "p".  For the purpose of understanding and
    implementing this document, we take "GF(p)" to be equal to the set of
    integers defined by "{0, 1, ..., p-1}".
-
-
-
-
-
-Davidson, et al.           Expires 6 May 2021                   [Page 5]
-
-Internet-Draft                    OPRFs                    November 2020
-
 
    The fundamental group operation is addition "+" with identity element
    "I".  For any elements "A" and "B" of the group "GG", "A + B = B + A"
@@ -316,6 +328,16 @@ Internet-Draft                    OPRFs                    November 2020
       prime-order (sub)groups of elliptic curves, see
       [I-D.irtf-cfrg-hash-to-curve].
 
+
+
+
+
+
+Davidson, et al.           Expires 6 May 2021                   [Page 6]
+
+Internet-Draft                    OPRFs                    November 2020
+
+
    *  HashToScalar(x): A member function of "GG" that deterministically
       maps an array of bytes "x" to an element in GF(p).  A recommended
       method for its implementation is instantiating the hash to field
@@ -330,14 +352,6 @@ Internet-Draft                    OPRFs                    November 2020
    [SEC2].  For some choices of elliptic curves (e.g. those detailed in
    [RFC7748], which require accounting for cofactors) there are some
    implementation issues that introduce inherent discrepancies between
-
-
-
-Davidson, et al.           Expires 6 May 2021                   [Page 6]
-
-Internet-Draft                    OPRFs                    November 2020
-
-
    standard prime-order groups and the elliptic curve instantiation.  In
    this document, all algorithms that we detail assume that the group is
    a prime-order group, and this MUST be upheld by any implementer.
@@ -369,6 +383,17 @@ Internet-Draft                    OPRFs                    November 2020
    This function returns "true" if "a" and "b" are equal, and "false"
    otherwise.
 
+
+
+
+
+
+
+Davidson, et al.           Expires 6 May 2021                   [Page 7]
+
+Internet-Draft                    OPRFs                    November 2020
+
+
 3.  OPRF Protocol
 
    In this section, we define two OPRF variants: a base mode and
@@ -387,13 +412,6 @@ Internet-Draft                    OPRFs                    November 2020
    "tag" individual servers with select keys.  This proof must not
    reveal the server's long-term private key to the client.
 
-
-
-Davidson, et al.           Expires 6 May 2021                   [Page 7]
-
-Internet-Draft                    OPRFs                    November 2020
-
-
    The following one-byte values distinguish between these two modes:
 
                         +================+=======+
@@ -411,6 +429,26 @@ Internet-Draft                    OPRFs                    November 2020
    Both participants agree on the mode and a choice of ciphersuite that
    is used before the protocol exchange.  Once established, the core
    protocol runs to compute "output = F(skS, input)" as follows:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Davidson, et al.           Expires 6 May 2021                   [Page 8]
+
+Internet-Draft                    OPRFs                    November 2020
+
 
       Client(pkS, input, info)                 Server(skS, pkS)
      ----------------------------------------------------------
@@ -442,14 +480,6 @@ Internet-Draft                    OPRFs                    November 2020
    constructing info can be found in [I-D.irtf-cfrg-hash-to-curve];
    Section 3.1.
 
-
-
-
-Davidson, et al.           Expires 6 May 2021                   [Page 8]
-
-Internet-Draft                    OPRFs                    November 2020
-
-
 3.2.  Context Setup
 
    Both modes of the OPRF involve an offline setup phase.  In this
@@ -462,6 +492,19 @@ Internet-Draft                    OPRFs                    November 2020
 
    The base mode setup functions for creating client and server contexts
    are below:
+
+
+
+
+
+
+
+
+
+Davidson, et al.           Expires 6 May 2021                   [Page 9]
+
+Internet-Draft                    OPRFs                    November 2020
+
 
    def SetupBaseServer(suite, skS):
      contextString = I2OSP(modeBase, 1) || I2OSP(suite.ID, 2)
@@ -498,14 +541,6 @@ Internet-Draft                    OPRFs                    November 2020
 
    A "ClientInput" is a byte array.
 
-
-
-
-Davidson, et al.           Expires 6 May 2021                   [Page 9]
-
-Internet-Draft                    OPRFs                    November 2020
-
-
    opaque ClientInput<1..2^16-1>;
 
    A "SerializedElement" is also a byte array, representing the unique
@@ -516,6 +551,16 @@ Internet-Draft                    OPRFs                    November 2020
    A "Token" is an object created by a client when constructing a
    (V)OPRF protocol input.  It is stored so that it can be used after
    receiving the server response.
+
+
+
+
+
+
+Davidson, et al.           Expires 6 May 2021                  [Page 10]
+
+Internet-Draft                    OPRFs                    November 2020
+
 
    struct {
      opaque data<1..2^16-1>;
@@ -549,19 +594,6 @@ Internet-Draft                    OPRFs                    November 2020
    "PublicKey" is an item of type "Element" and "PrivateKey" is an item
    of type "Scalar".
 
-
-
-
-
-
-
-
-
-Davidson, et al.           Expires 6 May 2021                  [Page 10]
-
-Internet-Draft                    OPRFs                    November 2020
-
-
 3.4.1.  Server Context
 
    The ServerContext encapsulates the context string constructed during
@@ -577,6 +609,14 @@ Internet-Draft                    OPRFs                    November 2020
    "VerifyFinalize" takes ClientInput values and their corresponding
    output digests from "Finalize" as input, and returns true if the
    inputs match the outputs.
+
+
+
+
+Davidson, et al.           Expires 6 May 2021                  [Page 11]
+
+Internet-Draft                    OPRFs                    November 2020
+
 
    Note that "VerifyFinalize" and "FullEvaluate" are not used in the
    main OPRF protocol.  They are exposed as an API for building higher-
@@ -604,20 +644,6 @@ Internet-Draft                    OPRFs                    November 2020
 
 3.4.1.2.  FullEvaluate
 
-
-
-
-
-
-
-
-
-
-Davidson, et al.           Expires 6 May 2021                  [Page 11]
-
-Internet-Draft                    OPRFs                    November 2020
-
-
    Input:
 
      PrivateKey skS
@@ -641,38 +667,14 @@ Internet-Draft                    OPRFs                    November 2020
 
      return Hash(hashInput)
 
-3.4.1.3.  VerifyFinalize
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Davidson, et al.           Expires 6 May 2021                  [Page 12]
 
 Internet-Draft                    OPRFs                    November 2020
 
+
+3.4.1.3.  VerifyFinalize
 
    Input:
 
@@ -712,8 +714,6 @@ Internet-Draft                    OPRFs                    November 2020
    functions "GenerateProof" and "ComputeComposites", described below.
 
 3.4.2.1.  Evaluate
-
-
 
 
 
