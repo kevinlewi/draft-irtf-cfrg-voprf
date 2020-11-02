@@ -1127,7 +1127,7 @@ Internet-Draft                    OPRFs                    November 2020
    *  Group: ristretto255 [RISTRETTO]
 
       -  HashToGroup(): hash_to_ristretto255
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-" ||
+         [I-D.irtf-cfrg-hash-to-curve] with DST = "VOPRF05-" ||
          "contextString", where "contextString" is that which is
          computed in the Setup functions, and "expand_message" set to
          "expand_message_xmd" using SHA-256.
