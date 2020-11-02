@@ -5,9 +5,9 @@
 Network Working Group                                        A. Davidson
 Internet-Draft                                          A. Faz-Hernandez
 Intended status: Informational                               N. Sullivan
-Expires: 3 May 2021                                            C.A. Wood
+Expires: 6 May 2021                                            C.A. Wood
                                                               Cloudflare
-                                                         30 October 2020
+                                                         2 November 2020
 
 
    Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups
@@ -49,13 +49,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 May 2021.
+   This Internet-Draft will expire on 6 May 2021.
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 1]
+Davidson, et al.           Expires 6 May 2021                   [Page 1]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 2]
+Davidson, et al.           Expires 6 May 2021                   [Page 2]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    6.  Additive blinding . . . . . . . . . . . . . . . . . . . . . .  27
@@ -165,9 +165,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 3]
+Davidson, et al.           Expires 6 May 2021                   [Page 3]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
 1.1.  Change log
@@ -221,9 +221,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 4]
+Davidson, et al.           Expires 6 May 2021                   [Page 4]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    draft-01 (https://tools.ietf.org/html/draft-irtf-cfrg-voprf-01):
@@ -277,9 +277,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 5]
+Davidson, et al.           Expires 6 May 2021                   [Page 5]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    The fundamental group operation is addition "+" with identity element
@@ -333,9 +333,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 6]
+Davidson, et al.           Expires 6 May 2021                   [Page 6]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    this document, all algorithms that we detail assume that the group is
@@ -389,9 +389,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 7]
+Davidson, et al.           Expires 6 May 2021                   [Page 7]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    The following one-byte values distinguish between these two modes:
@@ -445,9 +445,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 8]
+Davidson, et al.           Expires 6 May 2021                   [Page 8]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
 3.2.  Context Setup
@@ -501,9 +501,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                   [Page 9]
+Davidson, et al.           Expires 6 May 2021                   [Page 9]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    A "SerializedElement" is also a byte array, representing the unique
@@ -557,9 +557,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 10]
+Davidson, et al.           Expires 6 May 2021                  [Page 10]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    "FullEvaluate" takes ClientInput values, and it is useful for
@@ -613,9 +613,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 11]
+Davidson, et al.           Expires 6 May 2021                  [Page 11]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Input:
@@ -669,9 +669,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 12]
+Davidson, et al.           Expires 6 May 2021                  [Page 12]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Input:
@@ -725,9 +725,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 13]
+Davidson, et al.           Expires 6 May 2021                  [Page 13]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Input:
@@ -781,9 +781,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 14]
+Davidson, et al.           Expires 6 May 2021                  [Page 14]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Input:
@@ -837,9 +837,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 15]
+Davidson, et al.           Expires 6 May 2021                  [Page 15]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Note that using batched inputs creates a "BatchedEvaluation" object
@@ -893,9 +893,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 16]
+Davidson, et al.           Expires 6 May 2021                  [Page 16]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
 3.4.3.1.  Blind
@@ -949,9 +949,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 17]
+Davidson, et al.           Expires 6 May 2021                  [Page 17]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Input:
@@ -1005,9 +1005,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 18]
+Davidson, et al.           Expires 6 May 2021                  [Page 18]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Input:
@@ -1061,9 +1061,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 19]
+Davidson, et al.           Expires 6 May 2021                  [Page 19]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Input:
@@ -1117,9 +1117,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 20]
+Davidson, et al.           Expires 6 May 2021                  [Page 20]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Applications should take caution in using ciphersuites targeting
@@ -1173,9 +1173,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 21]
+Davidson, et al.           Expires 6 May 2021                  [Page 21]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
 4.3.  OPRF(P-256, SHA-256)
@@ -1229,9 +1229,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 22]
+Davidson, et al.           Expires 6 May 2021                  [Page 22]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
       -  HashToScalar(): Use hash_to_field from
@@ -1285,9 +1285,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 23]
+Davidson, et al.           Expires 6 May 2021                  [Page 23]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Optionally, for any protocol that satisfies the above properties,
@@ -1341,9 +1341,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 24]
+Davidson, et al.           Expires 6 May 2021                  [Page 24]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
 5.2.2.  Protocol security
@@ -1397,9 +1397,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 25]
+Davidson, et al.           Expires 6 May 2021                  [Page 25]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    The assumption that this problem is hard was first introduced in
@@ -1453,9 +1453,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 26]
+Davidson, et al.           Expires 6 May 2021                  [Page 26]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    In the security proof of the construction Hash is modeled as a random
@@ -1509,9 +1509,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 27]
+Davidson, et al.           Expires 6 May 2021                  [Page 27]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    that is used), then computing "H(x) + (r * G)" is more efficient than
@@ -1565,9 +1565,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 28]
+Davidson, et al.           Expires 6 May 2021                  [Page 28]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
 Input:
@@ -1621,9 +1621,9 @@ def Blind(input, preproc):
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 29]
+Davidson, et al.           Expires 6 May 2021                  [Page 29]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    by the commutativity of scalar multiplication in GG.  This is the
@@ -1677,9 +1677,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 30]
+Davidson, et al.           Expires 6 May 2021                  [Page 30]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    [DGSTV18]  "Privacy Pass, Bypassing Internet Challenges Anonymously",
@@ -1733,9 +1733,9 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 31]
+Davidson, et al.           Expires 6 May 2021                  [Page 31]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    [RFC8017]  Moriarty, K., Ed., Kaliski, B., Jonsson, J., and A. Rusch,
@@ -1789,9 +1789,9 @@ Authors' Addresses
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 32]
+Davidson, et al.           Expires 6 May 2021                  [Page 32]
 
-Internet-Draft                    OPRFs                     October 2020
+Internet-Draft                    OPRFs                    November 2020
 
 
    Armando Faz-Hernandez
@@ -1845,4 +1845,4 @@ Internet-Draft                    OPRFs                     October 2020
 
 
 
-Davidson, et al.           Expires 3 May 2021                  [Page 33]
+Davidson, et al.           Expires 6 May 2021                  [Page 33]
