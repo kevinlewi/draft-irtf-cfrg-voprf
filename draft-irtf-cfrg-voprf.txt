@@ -305,7 +305,8 @@ Internet-Draft                    OPRFs                    November 2020
       "A" to a unique byte array "buf".
 
    *  Deserialize(buf): A member function of "GG" that maps a byte array
-      "buf" to a group element "A".
+      "buf" to a group element "A", or fails if the input is not a valid
+      byte representation of an element.
 
    *  HashToGroup(x): A member function of "GG" that deterministically
       maps an array of bytes "x" to an element of "GG".  The map must
@@ -316,12 +317,12 @@ Internet-Draft                    OPRFs                    November 2020
       [I-D.irtf-cfrg-hash-to-curve].
 
    *  HashToScalar(x): A member function of "GG" that deterministically
-      maps an array of bytes "x" to a random element in GF(p).  A
-      recommended method for its implementation is instantiating the
-      hash to field function, defined in [I-D.irtf-cfrg-hash-to-curve]
-      setting the target field to GF(p).
+      maps an array of bytes "x" to an element in GF(p).  A recommended
+      method for its implementation is instantiating the hash to field
+      function, defined in [I-D.irtf-cfrg-hash-to-curve] setting the
+      target field to GF(p).
 
-   *  RandomScalar(): A member function of "GG" that generates a random,
+   *  RandomScalar(): A member function of "GG" that chooses at random a
       non-zero element in GF(p).
 
    It is convenient in cryptographic applications to instantiate such
@@ -329,7 +330,6 @@ Internet-Draft                    OPRFs                    November 2020
    [SEC2].  For some choices of elliptic curves (e.g. those detailed in
    [RFC7748], which require accounting for cofactors) there are some
    implementation issues that introduce inherent discrepancies between
-   standard prime-order groups and the elliptic curve instantiation.  In
 
 
 
@@ -338,6 +338,7 @@ Davidson, et al.           Expires 6 May 2021                   [Page 6]
 Internet-Draft                    OPRFs                    November 2020
 
 
+   standard prime-order groups and the elliptic curve instantiation.  In
    this document, all algorithms that we detail assume that the group is
    a prime-order group, and this MUST be upheld by any implementer.
    That is, any curve instantiation should be written such that any
@@ -365,8 +366,8 @@ Internet-Draft                    OPRFs                    November 2020
    the process of terminating the algorithm or returning an error
    accordingly.  We also use the "CT_EQUAL(a, b)" function to represent
    constant-time byte-wise equality between byte arrays "a" and "b".
-   This function returns a boolean "true" if "a" and "b" are equal, and
-   "false" otherwise.
+   This function returns "true" if "a" and "b" are equal, and "false"
+   otherwise.
 
 3.  OPRF Protocol
 
@@ -385,7 +386,6 @@ Internet-Draft                    OPRFs                    November 2020
    private key for computing the VOPRF output and does not attempt to
    "tag" individual servers with select keys.  This proof must not
    reveal the server's long-term private key to the client.
-
 
 
 
@@ -431,14 +431,14 @@ Internet-Draft                    OPRFs                    November 2020
    server computes the (V)OPRF evaluation in "Evaluation" over the
    client's blinded token.  In "Unblind" the client unblinds the server
    response (and verifies the server's proof if verifiability is
-   required).  In "Finalize", the client outputs a byte array
-   corresponding to its input.
+   required).  In "Finalize", the client produces a byte array
+   corresponding to the output of the OPRF protocol.
 
    Note that in the final output, the client computes Finalize over some
    auxiliary input data "info".  This parameter SHOULD be used for
    domain separation in the (V)OPRF protocol.  Specifically, any system
    which has multiple (V)OPRF applications should use separate auxiliary
-   values to to ensure finalized outputs are separate.  Guidance for
+   values to ensure finalized outputs are separate.  Guidance for
    constructing info can be found in [I-D.irtf-cfrg-hash-to-curve];
    Section 3.1.
 
@@ -483,9 +483,8 @@ Internet-Draft                    OPRFs                    November 2020
      return VerifiableClientContext(contextString, pkS)
 
    Each setup function takes a ciphersuite from the list defined in
-   Section 4.  Each ciphersuite has two-byte identifier, referred to as
-   "suite.ID" in the pseudocode above, that identifies the suite.
-   Section 4 lists these ciphersuite identifiers.
+   Section 4.  Each ciphersuite has a two-byte field ID used to identify
+   the suite.
 
 3.3.  Data Structures
 
@@ -498,6 +497,7 @@ Internet-Draft                    OPRFs                    November 2020
    the protocol.
 
    A "ClientInput" is a byte array.
+
 
 
 
@@ -628,7 +628,7 @@ Internet-Draft                    OPRFs                    November 2020
 
      opaque output<1..2^16-1>
 
-   def VerifyFinalize(skS, input, info):
+   def FullEvaluate(skS, input, info):
      P = GG.HashToGroup(input)
      T = skS * P
      issuedToken = GG.serialize(T)
@@ -801,25 +801,25 @@ Internet-Draft                    OPRFs                    November 2020
      blindTokenList = [blindToken]
      elementList = [element]
 
-     (a1, a2) = ComputeComposites(pkS, blindTokenList, elementList)
+     a = ComputeComposites(pkS, blindTokenList, elementList)
 
-     M = GG.Deserialize(a1)
+     M = GG.Deserialize(a[0])
      r = GG.RandomScalar()
-     a3 = GG.Serialize(ScalarBaseMult(r))
-     a4 = GG.Serialize(r * M)
+     a2 = GG.Serialize(ScalarBaseMult(r))
+     a3 = GG.Serialize(r * M)
 
      challengeDST = "VOPRF05-challenge-" || self.contextString
      h2Input = I2OSP(len(pkS), 2) || pkS ||
-               I2OSP(len(a1), 2) || a1 ||
+               I2OSP(len(a[0]), 2) || a[0] ||
+               I2OSP(len(a[1]), 2) || a[1] ||
                I2OSP(len(a2), 2) || a2 ||
                I2OSP(len(a3), 2) || a3 ||
-               I2OSP(len(a4), 2) || a4 ||
                I2OSP(len(challengeDST), 2) || challengeDST
 
      c = GG.HashToScalar(h2Input)
      s = (r - c * skS) mod p
 
-     return (c, s)
+     return [c, s]
 
 3.4.2.2.1.  Batching inputs
 
@@ -875,7 +875,7 @@ Internet-Draft                    OPRFs                    November 2020
      seed = Hash(h1Input)
      M = GG.Identity()
      Z = GG.Identity()
-     for i = 0 to m:
+     for i = 0 to m-1:
        h2Input = I2OSP(len(seed), 2) || seed || I2OSP(i, 2) ||
                  I2OSP(len(compositeDST), 2) || compositeDST
        di = GG.HashToScalar(h2Input)
@@ -1024,19 +1024,19 @@ Internet-Draft                    OPRFs                    November 2020
      blindTokenList = [blindToken]
      elementList = [Ev.element]
 
-     (a1, a2) = ComputeComposites(pkS, blindTokenList, elementList)
+     a = ComputeComposites(pkS, blindTokenList, elementList)
 
      A' = (ScalarBaseMult(Ev.proof[1]) + Ev.proof[0] * pkS)
      B' = (Ev.proof[1] * M + Ev.proof[0] * Z)
-     a3 = GG.Serialize(A')
-     a4 = GG.Serialize(B')
+     a2 = GG.Serialize(A')
+     a3 = GG.Serialize(B')
 
      challengeDST = "VOPRF05-challenge-" || self.contextString
      h2Input = I2OSP(len(pkS), 2) || pkS ||
-               I2OSP(len(a1), 2) || a1 ||
+               I2OSP(len(a[0]), 2) || a[0] ||
+               I2OSP(len(a[1]), 2) || a[1] ||
                I2OSP(len(a2), 2) || a2 ||
                I2OSP(len(a3), 2) || a3 ||
-               I2OSP(len(a4), 2) || a4 ||
                I2OSP(len(challengeDST), 2) || challengeDST
 
      c  = GG.HashToScalar(h2Input)
@@ -1449,7 +1449,7 @@ Internet-Draft                    OPRFs                    November 2020
    elliptic curves is a method to instantiate the function
    "GG.HashToGroup", that maps inputs to group elements.  In the
    elliptic curve setting, this deterministically maps inputs x (as byte
-   arrays) to uniformly chosen points in the curve.
+   arrays) to uniformly chosen points on the curve.
 
 
 
@@ -1470,9 +1470,9 @@ Internet-Draft                    OPRFs                    November 2020
 5.4.  Timing Leaks
 
    To ensure no information is leaked during protocol execution, all
-   operations that use secret data MUST be constant time.  Operations
-   that SHOULD be constant time include all prime-order group operations
-   and proof-specific operations ("GenerateProof()" and
+   operations that use secret data MUST run in constant time.
+   Operations that SHOULD run in constant time include all prime-order
+   group operations and proof-specific operations ("GenerateProof()" and
    "VerifyProof()").
 
 5.5.  Key rotation
