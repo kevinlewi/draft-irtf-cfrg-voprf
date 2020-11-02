@@ -1644,15 +1644,17 @@ Internet-Draft                    OPRFs                    November 2020
 
 7.  Contributors
 
+   *  Sofia Celi (cherenkov@riseup.net)
+
    *  Alex Davidson (alex.davidson92@gmail.com)
 
-   *  Nick Sullivan (nick@cloudflare.com)
-
-   *  Chris Wood (caw@heapingbits.net)
+   *  Armando Faz Hernandez (armfazh@cloudflare.com)
 
    *  Eli-Shaoul Khedouri (eli@intuitionmachines.com)
 
-   *  Armando Faz Hernandez (armfazh@cloudflare.com)
+   *  Nick Sullivan (nick@cloudflare.com)
+
+   *  Christopher A.  Wood (caw@heapingbits.net)
 
 8.  Acknowledgements
 
@@ -1671,9 +1673,7 @@ Internet-Draft                    OPRFs                    November 2020
    [BG04]     "The Static Diffie-Hellman Problem",
               <https://eprint.iacr.org/2004/306>.
 
-   [Cheon06]  "Security Analysis of the Strong Diffie-Hellman Problem",
-              <https://www.iacr.org/archive/
-              eurocrypt2006/40040001/40040001.pdf>.
+
 
 
 
@@ -1681,6 +1681,10 @@ Davidson, et al.           Expires 6 May 2021                  [Page 30]
 
 Internet-Draft                    OPRFs                    November 2020
 
+
+   [Cheon06]  "Security Analysis of the Strong Diffie-Hellman Problem",
+              <https://www.iacr.org/archive/
+              eurocrypt2006/40040001/40040001.pdf>.
 
    [DGSTV18]  "Privacy Pass, Bypassing Internet Challenges Anonymously",
               <https://www.degruyter.com/view/j/popets.2018.2018.issue-
@@ -1726,10 +1730,6 @@ Internet-Draft                    OPRFs                    November 2020
    [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
               2016, <https://www.rfc-editor.org/info/rfc7748>.
-
-
-
-
 
 
 
