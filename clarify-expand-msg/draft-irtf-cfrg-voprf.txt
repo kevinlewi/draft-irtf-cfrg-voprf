@@ -1183,7 +1183,7 @@ Internet-Draft                    OPRFs                    November 2020
    *  Group: P-256 (secp256r1) [x9.62]
 
       -  HashToGroup(): P256_XMD:SHA-256_SSWU_RO_
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-" ||
+         [I-D.irtf-cfrg-hash-to-curve] with DST = "VOPRF05-" ||
          "contextString", where "contextString" is that which is
          computed in the Setup functions.
 
@@ -1203,7 +1203,7 @@ Internet-Draft                    OPRFs                    November 2020
    *  Group: P-384 (secp384r1) [x9.62]
 
       -  HashToGroup(): P384_XMD:SHA-512_SSWU_RO_
-         [I-D.irtf-cfrg-hash-to-curve] with DST "VOPRF05-" ||
+         [I-D.irtf-cfrg-hash-to-curve] with DST = "VOPRF05-" ||
          "contextString", where "contextString" is that which is
          computed in the Setup functions.
 
