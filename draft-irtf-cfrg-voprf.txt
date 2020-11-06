@@ -5,9 +5,9 @@
 Network Working Group                                        A. Davidson
 Internet-Draft                                          A. Faz-Hernandez
 Intended status: Informational                               N. Sullivan
-Expires: 9 May 2021                                            C.A. Wood
+Expires: 10 May 2021                                           C.A. Wood
                                                               Cloudflare
-                                                         5 November 2020
+                                                         6 November 2020
 
 
    Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2021.
+   This Internet-Draft will expire on 10 May 2021.
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 1]
+Davidson, et al.           Expires 10 May 2021                  [Page 1]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -88,43 +88,43 @@ Table of Contents
      3.4.  Context APIs  . . . . . . . . . . . . . . . . . . . . . .  11
        3.4.1.  Server Context  . . . . . . . . . . . . . . . . . . .  11
        3.4.2.  VerifiableServerContext . . . . . . . . . . . . . . .  13
-       3.4.3.  Client Context  . . . . . . . . . . . . . . . . . . .  16
-       3.4.4.  VerifiableClientContext . . . . . . . . . . . . . . .  18
-   4.  Ciphersuites  . . . . . . . . . . . . . . . . . . . . . . . .  20
-     4.1.  OPRF(ristretto255, SHA-256) . . . . . . . . . . . . . . .  21
-     4.2.  OPRF(decaf448, SHA-512) . . . . . . . . . . . . . . . . .  21
-     4.3.  OPRF(P-256, SHA-256)  . . . . . . . . . . . . . . . . . .  22
-     4.4.  OPRF(P-384, SHA-512)  . . . . . . . . . . . . . . . . . .  22
-     4.5.  OPRF(P-521, SHA-512)  . . . . . . . . . . . . . . . . . .  22
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  23
-     5.1.  Security properties . . . . . . . . . . . . . . . . . . .  23
-     5.2.  Cryptographic security  . . . . . . . . . . . . . . . . .  24
-       5.2.1.  Computational hardness assumptions  . . . . . . . . .  24
-       5.2.2.  Protocol security . . . . . . . . . . . . . . . . . .  25
-       5.2.3.  Q-strong-DH oracle  . . . . . . . . . . . . . . . . .  25
-       5.2.4.  Implications for ciphersuite choices  . . . . . . . .  26
-     5.3.  Hashing to curve  . . . . . . . . . . . . . . . . . . . .  26
-     5.4.  Timing Leaks  . . . . . . . . . . . . . . . . . . . . . .  27
-     5.5.  Key rotation  . . . . . . . . . . . . . . . . . . . . . .  27
+       3.4.3.  Client Context  . . . . . . . . . . . . . . . . . . .  17
+       3.4.4.  VerifiableClientContext . . . . . . . . . . . . . . .  19
+   4.  Ciphersuites  . . . . . . . . . . . . . . . . . . . . . . . .  21
+     4.1.  OPRF(ristretto255, SHA-256) . . . . . . . . . . . . . . .  22
+     4.2.  OPRF(decaf448, SHA-512) . . . . . . . . . . . . . . . . .  22
+     4.3.  OPRF(P-256, SHA-256)  . . . . . . . . . . . . . . . . . .  23
+     4.4.  OPRF(P-384, SHA-512)  . . . . . . . . . . . . . . . . . .  23
+     4.5.  OPRF(P-521, SHA-512)  . . . . . . . . . . . . . . . . . .  23
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  24
+     5.1.  Security properties . . . . . . . . . . . . . . . . . . .  24
+     5.2.  Cryptographic security  . . . . . . . . . . . . . . . . .  25
+       5.2.1.  Computational hardness assumptions  . . . . . . . . .  25
+       5.2.2.  Protocol security . . . . . . . . . . . . . . . . . .  26
+       5.2.3.  Q-strong-DH oracle  . . . . . . . . . . . . . . . . .  26
+       5.2.4.  Implications for ciphersuite choices  . . . . . . . .  27
+     5.3.  Hashing to curve  . . . . . . . . . . . . . . . . . . . .  27
+     5.4.  Timing Leaks  . . . . . . . . . . . . . . . . . . . . . .  28
+     5.5.  Key rotation  . . . . . . . . . . . . . . . . . . . . . .  28
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 2]
+Davidson, et al.           Expires 10 May 2021                  [Page 2]
 
 Internet-Draft                    OPRFs                    November 2020
 
 
-   6.  Additive blinding . . . . . . . . . . . . . . . . . . . . . .  27
-     6.1.  Preprocess  . . . . . . . . . . . . . . . . . . . . . . .  28
-     6.2.  Blind . . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     6.3.  Unblind . . . . . . . . . . . . . . . . . . . . . . . . .  29
-       6.3.1.  Parameter Commitments . . . . . . . . . . . . . . . .  30
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  30
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  30
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  30
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  30
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  32
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
+   6.  Additive blinding . . . . . . . . . . . . . . . . . . . . . .  28
+     6.1.  Preprocess  . . . . . . . . . . . . . . . . . . . . . . .  29
+     6.2.  Blind . . . . . . . . . . . . . . . . . . . . . . . . . .  29
+     6.3.  Unblind . . . . . . . . . . . . . . . . . . . . . . . . .  30
+       6.3.1.  Parameter Commitments . . . . . . . . . . . . . . . .  31
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  31
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  31
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  31
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  31
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  33
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 3]
+Davidson, et al.           Expires 10 May 2021                  [Page 3]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -221,7 +221,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 4]
+Davidson, et al.           Expires 10 May 2021                  [Page 4]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -277,7 +277,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 5]
+Davidson, et al.           Expires 10 May 2021                  [Page 5]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -333,7 +333,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 6]
+Davidson, et al.           Expires 10 May 2021                  [Page 6]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -389,7 +389,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 7]
+Davidson, et al.           Expires 10 May 2021                  [Page 7]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -445,7 +445,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 8]
+Davidson, et al.           Expires 10 May 2021                  [Page 8]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -501,7 +501,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                   [Page 9]
+Davidson, et al.           Expires 10 May 2021                  [Page 9]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -557,7 +557,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 10]
+Davidson, et al.           Expires 10 May 2021                 [Page 10]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -613,7 +613,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 11]
+Davidson, et al.           Expires 10 May 2021                 [Page 11]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -669,7 +669,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 12]
+Davidson, et al.           Expires 10 May 2021                 [Page 12]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -725,7 +725,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 13]
+Davidson, et al.           Expires 10 May 2021                 [Page 13]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -781,7 +781,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 14]
+Davidson, et al.           Expires 10 May 2021                 [Page 14]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -824,26 +824,23 @@ Internet-Draft                    OPRFs                    November 2020
 3.4.2.2.1.  Batching inputs
 
    Unlike other functions, "ComputeComposites" takes lists of inputs,
-   rather than a single input.  It is optimized to produce a constant-
-   size output.  This functionality lets applications batch inputs
-   together to produce a constant-size proofs from "GenerateProof".
-   Applications can take advantage of this functionality by invoking
-   "GenerateProof" on batches of inputs.  (Notice that in the pseudocode
-   above, the single inputs "blindToken" and "element" are translated
-   into lists before invoking "ComputeComposites".  A batched
-   "GenerateProof" variant would permit lists of inputs, and no list
-   translation would be needed.)
+   rather than a single input.  Applications can take advantage of this
+   functionality by invoking "GenerateProof" on batches of inputs to
+   produce a combined, constant-size proof.  (In the pseudocode above,
+   the single inputs "blindToken" and "element" are passed as one-item
+   lists to "ComputeComposites".)
 
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 15]
+
+
+
+
+Davidson, et al.           Expires 10 May 2021                 [Page 15]
 
 Internet-Draft                    OPRFs                    November 2020
 
-
-   Note that using batched inputs creates a "BatchedEvaluation" object
-   as the output of "Evaluate".
 
 3.4.2.2.2.  Fresh randomness
 
@@ -853,6 +850,53 @@ Internet-Draft                    OPRFs                    November 2020
    is not used.
 
 3.4.2.3.  ComputeComposites
+
+   The definition of "ComputeComposites" is given below.  This function
+   is used both on generation and verification of the proof.  In the
+   former phase, the secret key is known, which allows performing the
+   function faster than on verification.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Davidson, et al.           Expires 10 May 2021                 [Page 16]
+
+Internet-Draft                    OPRFs                    November 2020
+
 
    Input:
 
@@ -879,10 +923,15 @@ Internet-Draft                    OPRFs                    November 2020
        h2Input = I2OSP(len(seed), 2) || seed || I2OSP(i, 2) ||
                  I2OSP(len(compositeDST), 2) || compositeDST
        di = GG.HashToScalar(h2Input)
+       if self == Client:
+         Zi = GG.Deserialize(elements[i])
+         Z = di * Zi + Z
        Mi = GG.Deserialize(blindTokens[i])
-       Zi = GG.Deserialize(elements[i])
        M = di * Mi + M
-       Z = di * Zi + Z
+
+     if self == Server:
+       Z = skS * M
+
     return [GG.Serialize(M), GG.Serialize(Z)]
 
 3.4.3.  Client Context
@@ -891,18 +940,19 @@ Internet-Draft                    OPRFs                    November 2020
    setup.  It has three functions, "Blind()", "Unblind()", and
    "Finalize()", as described below.
 
-
-
-Davidson, et al.           Expires 9 May 2021                  [Page 16]
-
-Internet-Draft                    OPRFs                    November 2020
-
-
 3.4.3.1.  Blind
 
    We note here that the blinding mechanism that we use can be modified
    slightly with the opportunity for making performance gains in some
    scenarios.  We detail these modifications in Section 6.
+
+
+
+
+Davidson, et al.           Expires 10 May 2021                 [Page 17]
+
+Internet-Draft                    OPRFs                    November 2020
+
 
    Input:
 
@@ -949,7 +999,13 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 17]
+
+
+
+
+
+
+Davidson, et al.           Expires 10 May 2021                 [Page 18]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1005,7 +1061,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 18]
+Davidson, et al.           Expires 10 May 2021                 [Page 19]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1061,7 +1117,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 19]
+Davidson, et al.           Expires 10 May 2021                 [Page 20]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1117,7 +1173,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 20]
+Davidson, et al.           Expires 10 May 2021                 [Page 21]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1173,7 +1229,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 21]
+Davidson, et al.           Expires 10 May 2021                 [Page 22]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1229,7 +1285,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 22]
+Davidson, et al.           Expires 10 May 2021                 [Page 23]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1285,7 +1341,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 23]
+Davidson, et al.           Expires 10 May 2021                 [Page 24]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1341,7 +1397,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 24]
+Davidson, et al.           Expires 10 May 2021                 [Page 25]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1397,7 +1453,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 25]
+Davidson, et al.           Expires 10 May 2021                 [Page 26]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1453,7 +1509,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 26]
+Davidson, et al.           Expires 10 May 2021                 [Page 27]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1509,7 +1565,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 27]
+Davidson, et al.           Expires 10 May 2021                 [Page 28]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1565,7 +1621,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 28]
+Davidson, et al.           Expires 10 May 2021                 [Page 29]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1621,7 +1677,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 29]
+Davidson, et al.           Expires 10 May 2021                 [Page 30]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1677,7 +1733,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 30]
+Davidson, et al.           Expires 10 May 2021                 [Page 31]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1733,7 +1789,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 31]
+Davidson, et al.           Expires 10 May 2021                 [Page 32]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1789,7 +1845,7 @@ Authors' Addresses
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 32]
+Davidson, et al.           Expires 10 May 2021                 [Page 33]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1845,4 +1901,4 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 9 May 2021                  [Page 33]
+Davidson, et al.           Expires 10 May 2021                 [Page 34]
