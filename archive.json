@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-05T00:21:28.513890+00:00",
+  "timestamp": "2020-11-08T00:22:37.311710+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -1770,15 +1770,15 @@
       "id": "MDU6SXNzdWU2NTY4NDQ4MzI=",
       "title": "Optimization of ComputeComposites at server-side.",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/133",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "armfazh",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The following is an optimization for `ComputeComposites` function when\r\nexecuted at the server-side. The savings reduce by half the number of\r\nscalar multiplications (group exponentiations).\r\n\r\nFull details at https://mailarchive.ietf.org/arch/msg/cfrg/dt8TUtTD-JVgVxjpEL9lz5wUTb8/",
       "createdAt": "2020-07-14T19:26:04Z",
-      "updatedAt": "2020-11-03T22:13:55Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-06T00:23:13Z",
+      "closedAt": "2020-11-06T00:23:13Z",
       "comments": [
         {
           "author": "claucece",
@@ -12789,21 +12789,21 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTE1NDI2NTgz",
       "title": "Change tests vectors",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/185",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "claucece",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2020-11-04T14:36:19Z",
-      "updatedAt": "2020-11-04T23:07:04Z",
+      "updatedAt": "2020-11-05T14:15:28Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "e02cf3466fbf033f1e9e92c04b069a8072b31072",
       "headRepository": "claucece/draft-irtf-cfrg-voprf",
       "headRefName": "master",
       "headRefOid": "5a7d45fd2cf45b332314f28b1cacf80d9a7884fa",
-      "closedAt": null,
+      "closedAt": "2020-11-05T14:15:28Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -12817,7 +12817,7 @@
         },
         {
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "Two things,\r\nas I mentioned in the other repo, I prefer to mantain the 0x prefix for test vectors in sage.\r\n\r\nsecond, as you can see test vectors are not running deterministically since the change not only the 0x prefix.",
           "createdAt": "2020-11-04T16:37:21Z",
           "updatedAt": "2020-11-04T16:37:21Z"
@@ -12831,7 +12831,7 @@
         },
         {
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "\r\n> Go can't parse them as-is, so let's drop the prefix.\r\n\r\n```\r\n  s := \"0x6432\"\r\n  fmt.Println( hex.DecodeString(s[2:]))\r\n```\r\n\r\n> And you'll see no output change.\r\n\r\nI may be running things the wrong way, but why vectors change in this PR? \r\n",
           "createdAt": "2020-11-04T17:24:30Z",
           "updatedAt": "2020-11-04T17:24:30Z"
@@ -12877,6 +12877,13 @@
           "body": "@chris-wood I'll check then what is wrong with my machine, as I ran it again, and it created new vectors. ",
           "createdAt": "2020-11-04T23:07:04Z",
           "updatedAt": "2020-11-04T23:07:04Z"
+        },
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'm closing this now.",
+          "createdAt": "2020-11-05T14:15:26Z",
+          "updatedAt": "2020-11-05T14:15:26Z"
         }
       ],
       "reviews": [
@@ -12960,52 +12967,302 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTE1NjYxNDMw",
       "title": "defines two varibles after ComputeComposites",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/186",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "armfazh",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Adds two variables, and fixes some typos.",
       "createdAt": "2020-11-04T21:55:51Z",
-      "updatedAt": "2020-11-04T21:55:51Z",
+      "updatedAt": "2020-11-05T14:19:51Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "e02cf3466fbf033f1e9e92c04b069a8072b31072",
       "headRepository": "armfazh/draft-irtf-cfrg-voprf",
       "headRefName": "addTwoVariables",
-      "headRefOid": "4705574cce0c3271b0a539da370787ee1bfadeb3",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "b9393a90f311a5da47d12d7ba5bfee38e0612393",
+      "closedAt": "2020-11-05T14:19:51Z",
+      "mergedAt": "2020-11-05T14:19:51Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "d34c3fff6b352c2a1c7586c4ec0b3b9368501abc"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0MzA1MjIy",
+          "commit": {
+            "abbreviatedOid": "4705574"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-05T14:18:53Z",
+          "updatedAt": "2020-11-05T14:19:39Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\r\nTo ensure no information is leaked during protocol execution, all\r\n```",
+              "createdAt": "2020-11-05T14:18:53Z",
+              "updatedAt": "2020-11-05T14:19:46Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 187,
       "id": "MDExOlB1bGxSZXF1ZXN0NTE1Njk4Nzkw",
       "title": "Optimization of compute composites",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/187",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "armfazh",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "\r\nImplements a server-side optimization reported.\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/cfrg/dt8TUtTD-JVgVxjpEL9lz5wUTb8/\r\n\r\nMerge after #186 \r\n",
       "createdAt": "2020-11-04T23:36:03Z",
-      "updatedAt": "2020-11-04T23:36:03Z",
+      "updatedAt": "2020-11-06T00:22:50Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
-      "baseRefOid": "e02cf3466fbf033f1e9e92c04b069a8072b31072",
+      "baseRefOid": "97e38250ac2745ccb23e70a5e682b1f973f680b1",
       "headRepository": "armfazh/draft-irtf-cfrg-voprf",
       "headRefName": "optComputeComposites",
-      "headRefOid": "8368e9b6c18c29b405b01a384a5719332601b6e2",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "831e5af0d0a740dd6ded64a18d3436a148f4ceff",
+      "closedAt": "2020-11-06T00:22:50Z",
+      "mergedAt": "2020-11-06T00:22:50Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "682991c30fdb2594bfa720f16edd8650a1609840"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0NzcyOTAz",
+          "commit": {
+            "abbreviatedOid": "831e5af"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-06T00:22:44Z",
+          "updatedAt": "2020-11-06T00:22:44Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 188,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE1NzcxMTI3",
+      "title": "updates fields in test vectors",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/188",
+      "state": "MERGED",
+      "author": "armfazh",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I finally get reproducible test vectors, I suspect that the cause was grouping the suites in a set versus in a list.\r\nMerge after #187 ",
+      "createdAt": "2020-11-05T03:37:30Z",
+      "updatedAt": "2020-11-06T00:23:06Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "97e38250ac2745ccb23e70a5e682b1f973f680b1",
+      "headRepository": "armfazh/draft-irtf-cfrg-voprf",
+      "headRefName": "random",
+      "headRefOid": "144d839d75a303f83ea65971539b761a7b391d3d",
+      "closedAt": "2020-11-06T00:23:06Z",
+      "mergedAt": "2020-11-06T00:23:06Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "f71b2b7883fc19050f45b80fae295eb53b5fac5c"
+      },
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Oh nice! Thank you! Can you also delete the check for ristretto or decaf on the test file?",
+          "createdAt": "2020-11-05T14:15:10Z",
+          "updatedAt": "2020-11-05T14:15:10Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I suspect that the cause was grouping the suites in a set versus in a list.\r\n\r\nHah! That does explain it, as I only ran one ciphersuite each time I did the test (to save time). ",
+          "createdAt": "2020-11-05T14:32:18Z",
+          "updatedAt": "2020-11-05T14:32:18Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0MzA3MDY3",
+          "commit": {
+            "abbreviatedOid": "4715583"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-05T14:20:44Z",
+          "updatedAt": "2020-11-05T14:20:45Z",
+          "comments": [
+            {
+              "originalPosition": 113,
+              "body": "```suggestion\r\nTo ensure no information is leaked during protocol execution, all\r\n```",
+              "createdAt": "2020-11-05T14:20:45Z",
+              "updatedAt": "2020-11-05T22:54:42Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0MzExODI0",
+          "commit": {
+            "abbreviatedOid": "4e98b53"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I quite like the change, but I think it needs to be reformatted for clarity. Also, as @claucece suggests, can we remove the special case ristretto255/decaf448 changes from the test file?",
+          "createdAt": "2020-11-05T14:25:21Z",
+          "updatedAt": "2020-11-05T14:33:20Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\nrather than a single input. Applications can take advantage of this\r\nfunctionality by invoking `GenerateProof` on batches of inputs to \r\nproduce a combined, constant-size proof. (In the pseudocode above, \r\nthe single inputs `blindToken` and `element` passed as one-item lists \r\nto `ComputeComposites`.) \r\n```",
+              "createdAt": "2020-11-05T14:25:21Z",
+              "updatedAt": "2020-11-05T22:54:42Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "Can we refactor this function so that it doesn't have a reference to `self` internally? It's sort of awkward as-is.",
+              "createdAt": "2020-11-05T14:26:38Z",
+              "updatedAt": "2020-11-05T22:54:42Z"
+            },
+            {
+              "originalPosition": 83,
+              "body": "```suggestion\r\n            vectors.append(protocol.run())\r\n```",
+              "createdAt": "2020-11-05T14:30:14Z",
+              "updatedAt": "2020-11-05T22:54:42Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0NjA0MjA1",
+          "commit": {
+            "abbreviatedOid": "4e98b53"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-05T19:36:10Z",
+          "updatedAt": "2020-11-05T19:36:10Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "I think this also extends to the contextString?\r\n```\r\n  seedDST = \"VOPRF05-seed-\" || self.contextString\r\n```\r\n",
+              "createdAt": "2020-11-05T19:36:10Z",
+              "updatedAt": "2020-11-05T22:54:42Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0NzM5ODkz",
+          "commit": {
+            "abbreviatedOid": "144d839"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-05T23:01:40Z",
+          "updatedAt": "2020-11-05T23:01:41Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "I followed the same pattern of using self. Ideas are welcomed.",
+              "createdAt": "2020-11-05T23:01:41Z",
+              "updatedAt": "2020-11-05T23:01:41Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0NzcyNjA0",
+          "commit": {
+            "abbreviatedOid": "144d839"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-06T00:21:56Z",
+          "updatedAt": "2020-11-06T00:21:56Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Ohh, yeah. Hmm. How about we merge as-is and then I make an attempt at clarifying after?",
+              "createdAt": "2020-11-06T00:21:56Z",
+              "updatedAt": "2020-11-06T00:21:56Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0NzcyNzYy",
+          "commit": {
+            "abbreviatedOid": "144d839"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-06T00:22:22Z",
+          "updatedAt": "2020-11-06T00:22:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 189,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE2NDIzMzMx",
+      "title": "Refactor ComputeComposites",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/189",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I think this makes the description more clear, and also makes the use for each function apparent. ",
+      "createdAt": "2020-11-06T00:41:57Z",
+      "updatedAt": "2020-11-06T00:49:33Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "f71b2b7883fc19050f45b80fae295eb53b5fac5c",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/refactor-compute-composites",
+      "headRefOid": "63753584307623947c105d22db6db8f958092870",
+      "closedAt": "2020-11-06T00:49:33Z",
+      "mergedAt": "2020-11-06T00:49:32Z",
+      "mergedBy": "armfazh",
+      "mergeCommit": {
+        "oid": "fd03eb957c9affa0d2ba8232280fd7a8b0243483"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI0NzgyMjgx",
+          "commit": {
+            "abbreviatedOid": "6375358"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-06T00:49:01Z",
+          "updatedAt": "2020-11-06T00:49:01Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
