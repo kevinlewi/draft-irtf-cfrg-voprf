@@ -1159,7 +1159,7 @@ Internet-Draft                    OPRFs                    November 2020
       reference for each group.
 
    *  "Hash": A cryptographic hash function that is indifferentiable
-      from a Random Oracle.
+      from a Random Oracle, whose output length is Nh bytes long.
 
    This section specifies supported VOPRF group and hash function
    instantiations.  For each group, we specify the HashToGroup,
