@@ -84,7 +84,7 @@ Table of Contents
    3.  OPRF Protocol . . . . . . . . . . . . . . . . . . . . . . . .   8
      3.1.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   9
      3.2.  Context Setup . . . . . . . . . . . . . . . . . . . . . .   9
-     3.3.  Protocol Types  . . . . . . . . . . . . . . . . . . . . .  10
+     3.3.  Data Types  . . . . . . . . . . . . . . . . . . . . . . .  10
      3.4.  Context APIs  . . . . . . . . . . . . . . . . . . . . . .  10
        3.4.1.  Server Context  . . . . . . . . . . . . . . . . . . .  11
        3.4.2.  VerifiableServerContext . . . . . . . . . . . . . . .  13
@@ -529,7 +529,7 @@ Internet-Draft                    OPRFs                    November 2020
    Section 4.  Each ciphersuite has a two-byte field ID used to identify
    the suite.
 
-3.3.  Protocol Types
+3.3.  Data Types
 
    The following is a list of data structures that are defined for
    providing inputs and outputs for each of the context interfaces
@@ -1599,7 +1599,7 @@ Internet-Draft                    OPRFs                    November 2020
 
    def Preprocess(pkS):
      blind = GG.RandomScalar()
-     blindedGenerator = ScalarBaseMult(r)
+     blindedGenerator = ScalarBaseMult(blind)
      blindedPublicKey = blind * pkS
 
      return blind, blindedGenerator, blindedPublicKey
