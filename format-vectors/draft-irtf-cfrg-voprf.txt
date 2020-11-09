@@ -972,6 +972,11 @@ Internet-Draft                    OPRFs                    November 2020
 
 3.4.3.2.  Unblind
 
+   In this mode, "Unblind" takes only two inputs.  The additional inputs
+   indicated in Section 3.1 are only omitted as they are ignored.  These
+   additional inputs are only useful for the verifiable mode, described
+   in Section 3.4.4.2.
+
    Input:
 
      Scalar blind
@@ -989,11 +994,6 @@ Internet-Draft                    OPRFs                    November 2020
      return unblindedElement
 
 3.4.3.3.  Finalize
-
-
-
-
-
 
 
 
