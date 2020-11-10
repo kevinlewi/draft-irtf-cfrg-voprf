@@ -91,7 +91,7 @@ Table of Contents
        3.4.3.  Client Context  . . . . . . . . . . . . . . . . . . .  17
        3.4.4.  VerifiableClientContext . . . . . . . . . . . . . . .  19
    4.  Ciphersuites  . . . . . . . . . . . . . . . . . . . . . . . .  21
-     4.1.  OPRF(ristretto255, SHA-256) . . . . . . . . . . . . . . .  22
+     4.1.  OPRF(ristretto255, SHA-512) . . . . . . . . . . . . . . .  22
      4.2.  OPRF(decaf448, SHA-512) . . . . . . . . . . . . . . . . .  22
      4.3.  OPRF(P-256, SHA-256)  . . . . . . . . . . . . . . . . . .  23
      4.4.  OPRF(P-384, SHA-512)  . . . . . . . . . . . . . . . . . .  23
@@ -1178,7 +1178,7 @@ Davidson, et al.           Expires 14 May 2021                 [Page 21]
 Internet-Draft                    OPRFs                    November 2020
 
 
-4.1.  OPRF(ristretto255, SHA-256)
+4.1.  OPRF(ristretto255, SHA-512)
 
    *  Group: ristretto255 [RISTRETTO]
 
@@ -1186,18 +1186,18 @@ Internet-Draft                    OPRFs                    November 2020
          [I-D.irtf-cfrg-hash-to-curve] with DST = "VOPRF05-" ||
          contextString, where contextString is that which is computed in
          the Setup functions, and "expand_message" =
-         "expand_message_xmd" using SHA-256.
+         "expand_message_xmd" using SHA-512.
 
       -  HashToScalar(): Use hash_to_field from
          [I-D.irtf-cfrg-hash-to-curve] using Order() as the prime
-         modulus, with L=48, and expand_message_xmd with SHA-256.
+         modulus, with L=48, and expand_message_xmd with SHA-512.
 
       -  Serialization: Serialization converts group elements to 32-byte
          strings using the 'Encode' function from [RISTRETTO].
          Deserialization converts 32-byte strings to group elements
          using the 'Decode' function from [RISTRETTO].
 
-   *  Hash: SHA-256
+   *  Hash: SHA-512
 
    *  ID: 0x0001
 
