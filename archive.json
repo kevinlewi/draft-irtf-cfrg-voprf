@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-08T00:22:37.311710+00:00",
+  "timestamp": "2020-11-10T00:22:28.284478+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -2506,6 +2506,313 @@
       "createdAt": "2020-11-02T21:14:19Z",
       "updatedAt": "2020-11-03T22:13:23Z",
       "closedAt": "2020-11-03T22:13:23Z",
+      "comments": []
+    },
+    {
+      "number": 191,
+      "id": "MDU6SXNzdWU3Mzg1MzEyNjk=",
+      "title": "Token data structure name is confusing",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/191",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This struct wraps up the OPRF blind and the input, for use by the `Unblind` and `Finalize` functions later on. We should consider renaming this to something that better reflects this purpose, e.g., `BlindContext`. (Token is a relic of Privacy Pass that we don't need to carry forward here.)",
+      "createdAt": "2020-11-08T19:00:16Z",
+      "updatedAt": "2020-11-09T22:49:30Z",
+      "closedAt": "2020-11-09T22:49:30Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed in #190.",
+          "createdAt": "2020-11-09T22:49:30Z",
+          "updatedAt": "2020-11-09T22:49:30Z"
+        }
+      ]
+    },
+    {
+      "number": 192,
+      "id": "MDU6SXNzdWU3Mzg1MzE3MDY=",
+      "title": "ComputeComposite list encoding is incorrect",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/192",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "`ComputeCompositesFast` (and `ComputeComposites`) currently does the following:\r\n\r\n```python\r\ndef ComputeCompositesFast(skS, pkS, blindedElements, evaluatedElements):\r\n  pkSm = GG.Serialize(pkS)\r\n  seedDST = \"VOPRF05-seed-\" || self.contextString\r\n  compositeDST = \"VOPRF05-composite-\" || self.contextString\r\n  h1Input = I2OSP(len(pkSm), 2) || pkSm ||\r\n            I2OSP(len(blindedElements), 2) || blindedElements ||\r\n            I2OSP(len(evaluatedElements), 2) || evaluatedElements ||\r\n            I2OSP(len(seedDST), 2) || seedDST\r\n```\r\n\r\nNote that `blindedElements` and `evaluatedElements` are both *lists* of elements, so encoding them in `h1input` as \"length || value\" isn't quite right, I think.",
+      "createdAt": "2020-11-08T19:02:30Z",
+      "updatedAt": "2020-11-09T19:33:14Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "bytemare",
+          "authorAssociation": "NONE",
+          "body": "Hi, I didn't see the issue up until I tried to implement it, indeed. \r\n\r\nWhat's the rationale behind this? Get a different h1Input for every (`blindedElements`, `evaluatedElements`) couple, or one for the whole set ?",
+          "createdAt": "2020-11-09T19:31:20Z",
+          "updatedAt": "2020-11-09T19:33:14Z"
+        }
+      ]
+    },
+    {
+      "number": 193,
+      "id": "MDU6SXNzdWU3Mzg1MzE4MzA=",
+      "title": "BatchedEvaluation is unused",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/193",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Let's (preferably) use it or lose it.",
+      "createdAt": "2020-11-08T19:03:04Z",
+      "updatedAt": "2020-11-09T23:44:03Z",
+      "closedAt": "2020-11-09T23:44:03Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We lost it in #190. Closing.",
+          "createdAt": "2020-11-09T23:44:03Z",
+          "updatedAt": "2020-11-09T23:44:03Z"
+        }
+      ]
+    },
+    {
+      "number": 194,
+      "id": "MDU6SXNzdWU3Mzg1MzI5MDQ=",
+      "title": "Move ciphersuite dependencies to the top of the document.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/194",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We currently use the Hash in the protocol description without first having adequately described it. We have a section describing the POG API, but the Hash dependency is not included. Let's refactor {#pog} to focus on *all* dependencies, including both the POG and Hash functions. (We should make sure this is consistent with the content in the ciphersuite section, too.)",
+      "createdAt": "2020-11-08T19:08:53Z",
+      "updatedAt": "2020-11-09T22:49:39Z",
+      "closedAt": "2020-11-09T22:49:38Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed in #190.",
+          "createdAt": "2020-11-09T22:49:38Z",
+          "updatedAt": "2020-11-09T22:49:38Z"
+        }
+      ]
+    },
+    {
+      "number": 195,
+      "id": "MDU6SXNzdWU3Mzg2NDY0Njk=",
+      "title": "Issues in Additive mode",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/195",
+      "state": "OPEN",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "When blinding in Additive mode, it says to store the blinded public key (which is a Point/Element) in the Token structure:\r\n\r\n```\r\ntoken = Token{\r\n    data: input,\r\n    blind: preproc.blindedPublicKey\r\n  }\r\n```\r\n\r\nBut the token structure is defined as taking a scalar, not a point/element as blinding element:\r\n\r\n```\r\nstruct {\r\n  opaque data<1..2^16-1>;\r\n  Scalar blind<1..2^16-1>;\r\n} Token;\r\n```\r\n\r\nThere also seems to be no need of storing the `preproc.blindedPublicKey` in `blind`.",
+      "createdAt": "2020-11-09T03:33:28Z",
+      "updatedAt": "2020-11-09T23:42:50Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Great catch! I don't think the additive section has been kept up to date very well. Let's revisit and address this issue soon.",
+          "createdAt": "2020-11-09T13:57:20Z",
+          "updatedAt": "2020-11-09T13:57:20Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@claucece, I think this is resolved now that #190 is merged. Can you please confirm, and close if so?",
+          "createdAt": "2020-11-09T23:42:49Z",
+          "updatedAt": "2020-11-09T23:42:49Z"
+        }
+      ]
+    },
+    {
+      "number": 196,
+      "id": "MDU6SXNzdWU3Mzg2NTE3MzU=",
+      "title": "Scalar structure is not clearly defined",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/196",
+      "state": "OPEN",
+      "author": "claucece",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The `Scalar` structure is first used on the `Data Structures` section, and not previously defined, and it is used as: \r\n`Scalar blind<1..2^16-1>;`, which seems to imply this is the serialized scalar.\r\n\r\nIt is later defined as:\r\n`This document uses the types Element and Scalar to denote elements of the group GG and its underlying scalar field GF(p), respectively.`, which seems to imply it is the underlying reprensentation.\r\n\r\nIt is not clear what it is referred to.",
+      "createdAt": "2020-11-09T03:48:15Z",
+      "updatedAt": "2020-11-09T23:35:45Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think we should just say `Scalar` refers to an actual scalar element for the group. It seems the only time we need to serialize and send a scalar on the wire is for the proof, so we can have a `SerializedScalar` type (similar to `SerializedElement`) for that. ",
+          "createdAt": "2020-11-09T13:59:31Z",
+          "updatedAt": "2020-11-09T13:59:31Z"
+        },
+        {
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Similar to #139",
+          "createdAt": "2020-11-09T17:37:35Z",
+          "updatedAt": "2020-11-09T17:37:35Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@claucece, can we close this now that #190 is merged?",
+          "createdAt": "2020-11-09T23:35:44Z",
+          "updatedAt": "2020-11-09T23:35:44Z"
+        }
+      ]
+    },
+    {
+      "number": 197,
+      "id": "MDU6SXNzdWU3MzkwNTQwMjA=",
+      "title": "Serialized elements and scalars should be fixed-length",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/197",
+      "state": "CLOSED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently, serialized things are variable length. There's no real reason they need to be variable length, and doing so just complicates implementations. Let's make them *both* fixed length. ",
+      "createdAt": "2020-11-09T14:01:35Z",
+      "updatedAt": "2020-11-09T22:50:03Z",
+      "closedAt": "2020-11-09T22:50:02Z",
+      "comments": [
+        {
+          "author": "bytemare",
+          "authorAssociation": "NONE",
+          "body": "Hello,\r\n\r\ndoesn't the serialized length depend on the cipher suite they are from? p-256 and p-521 points don't have the same length when encoded.",
+          "createdAt": "2020-11-09T19:41:47Z",
+          "updatedAt": "2020-11-09T19:41:47Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It does, yes. The fixed length would depend on the underlying group,",
+          "createdAt": "2020-11-09T19:43:27Z",
+          "updatedAt": "2020-11-09T19:43:27Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed in #190.",
+          "createdAt": "2020-11-09T22:50:02Z",
+          "updatedAt": "2020-11-09T22:50:02Z"
+        }
+      ]
+    },
+    {
+      "number": 198,
+      "id": "MDU6SXNzdWU3MzkyNjQxMDE=",
+      "title": "DST design",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/198",
+      "state": "OPEN",
+      "author": "bytemare",
+      "authorAssociation": "NONE",
+      "assignees": [
+        "armfazh"
+      ],
+      "labels": [],
+      "body": "Hello,\r\n\r\nI have been following the project for some time now, and am trying to accompany this with an implementation: https://github.com/bytemare/voprf.\r\n\r\nI have some questions regarding the draft and some decisions that have been taken. I'll start with these:\r\n\r\n1. DST length\r\nThe DST used to instantiate hash-to-curve is constructed with \"RFCXXXX-\" + contextstring, where contextstring is 3 bytes ( mode + ciphersuite). This has 11 bytes and is shorter than the recommended length in the h2c draft ( 16 bytes ). Is this the intended design? \r\n\r\n2. DST design\r\nThe DST not really constructed with the recommended way in h2c. On the other hand, the info bytestring should be used for domain separation in voprf and construction after the h2c guidance. One could argue that the DST above = info, but this is not explicitly stated in the document. This is a tad confusing.\r\n\r\n3. Hashing prefixes\r\nFour dst elements are used for hashing throughout the document:\r\n- \"-challenge-\"\r\n- \"-composite-\"\r\n- \"-Finalize-\"\r\n- \"-seed-\"\r\n\r\nIt's a non-issue, but there some are lower-case or upper-case in the first letter.\r\n\r\n---\r\n\r\nI also want to add that your work is amazing and that I take great pleasure in studying and working with it! Thank you.\r\nIt would be a great pleasure if I can be of any use helping spot and fix things.",
+      "createdAt": "2020-11-09T18:32:06Z",
+      "updatedAt": "2020-11-10T00:03:10Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "bytemare",
+          "authorAssociation": "NONE",
+          "body": "The length aspect has also been raised by @claucece in https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/165, but the issue got closed without this point being addressed.",
+          "createdAt": "2020-11-09T20:39:56Z",
+          "updatedAt": "2020-11-09T20:39:56Z"
+        }
+      ]
+    },
+    {
+      "number": 199,
+      "id": "MDU6SXNzdWU3MzkyNjg5NzM=",
+      "title": "Blind in PreprocessedBlind",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/199",
+      "state": "CLOSED",
+      "author": "bytemare",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hello,\r\n\r\nthe blind element used for preprocessing is not used after generating the client's own public key (i.e. scalar multiplication with the generator/base point) and blinding the server public key, but is still contained within the PreprocessedBlind structure.\r\n\r\nI suppose this is useful for debugging purposes, and thus implementation dependant. In this case, it might be useful to mention in the draft. Is my understanding correct ?\r\n\r\nThanks",
+      "createdAt": "2020-11-09T18:39:42Z",
+      "updatedAt": "2020-11-09T23:42:24Z",
+      "closedAt": "2020-11-09T23:42:24Z",
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Good catch :-) I removed this from the `Preprocess` output [here](https://github.com/cfrg/draft-irtf-cfrg-voprf/commit/87d42c249e83cce10a741e4a7bc96486e8b6cdf1). Closing as resolved!",
+          "createdAt": "2020-11-09T23:42:24Z",
+          "updatedAt": "2020-11-09T23:42:24Z"
+        }
+      ]
+    },
+    {
+      "number": 200,
+      "id": "MDU6SXNzdWU3Mzk0MzAyMDQ=",
+      "title": "Change SHA-256 to SHA-512 for Ristretto255",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/200",
+      "state": "OPEN",
+      "author": "bytemare",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hello,\r\n\r\nin https://github.com/cfrg/draft-irtf-cfrg-voprf/blob/72ad54bba21da719456d85d3a12304410f83448d/draft-irtf-cfrg-voprf.md#oprfristretto255-sha-256, it is specified to use SHA-256 with Ristretto255. SHA-256 outputs 32 bytes.\r\n\r\nhttps://tools.ietf.org/html/draft-irtf-cfrg-ristretto255-decaf448-00#section-4.3.4 states that the one-way map operates on 64-byte strings.\r\n\r\nThe hash function to be used should be SHA-512, which outputs 64 bytes, as described in https://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-10#appendix-B for the `ristretto255_XMD:SHA-512_R255MAP_RO_` cipher suite.",
+      "createdAt": "2020-11-09T22:58:35Z",
+      "updatedAt": "2020-11-10T00:20:34Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "`expand_message_xmd` requires that the hash function H \"number of bits output ... MUST be b >= 2 * k\", where k is the target security parameter. For ristretto255, k is 128, so SHA256 suffices here. We don't need a larger hash function.",
+          "createdAt": "2020-11-09T23:39:45Z",
+          "updatedAt": "2020-11-09T23:39:45Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "NONE",
+          "body": "Even if this is not a curve, Ristretto255 not being part of the recommended suites in the hash-to-curve document is indeed going to be very confusing.\r\n\r\nEven more since the only ristretto255 example in this very document is `ristretto255_XMD:SHA-512_R255MAP_RO_`. ",
+          "createdAt": "2020-11-10T00:12:55Z",
+          "updatedAt": "2020-11-10T00:12:55Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@jedisct1 Are you suggesting we bump to SHA512? If so, why? (I understand that it doesn't match the example in hash-to-curve, so perhaps we should change that example to use SHA256.) ",
+          "createdAt": "2020-11-10T00:20:34Z",
+          "updatedAt": "2020-11-10T00:20:34Z"
+        }
+      ]
+    },
+    {
+      "number": 201,
+      "id": "MDU6SXNzdWU3Mzk0NTA1NTk=",
+      "title": "Clarifications on BatchedEvaluation",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/201",
+      "state": "OPEN",
+      "author": "bytemare",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hello,\r\n\r\nreading the latest version of the draft, there are very few explanations about batching inputs/evaluations. For the reader unfamiliar with the subject it is not clear what these are about.\r\n\r\nFrom what I understand from a conversation with @chris-wood:\r\nthe mechanism works in a situation where a client requests multiple evaluations and could do it by sending all blinded inputs at once. The server would then evaluate them all but have a single proof for them all, and send this single proof back with the individual evaluations.\r\nSo, for N blinded inputs from the client, instead of having N requests, N evaluations, N proofs, and N responses, we would bring that down to  1 proof and 1 request-response carrying the N blinded inputs and N evaluations.\r\n\r\nIs this correct?",
+      "createdAt": "2020-11-09T23:43:41Z",
+      "updatedAt": "2020-11-09T23:43:41Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -13263,6 +13570,312 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 190,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE3MzUwNjQ1",
+      "title": "Restructure and reformat test vectors",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/190",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "And write them to in text format (for the spec). Sample output is below. In making this change, I also renamed parameters used throughout the document. Specifically, I started moving away from \"token\" (which is a relic of Privacy Pass) towards \"element.\" \r\n\r\nI also fixed a bug in the type of the Finalize \"output\" parameter, where previously it was a vector (with length prefix) but was actually just a fixed-length hash function output.\r\n\r\n```\r\n## OPRF(ristretto255, SHA-256)\r\n\r\n### Base Mode\r\n\r\nskS = 0x38ecf12e5465e4f1362d237521104338cde6717e26a25a5770da7ad85c70\r\n4c6 \r\n\r\n#### Test Vector 1\r\n\r\nInput = 0x00 \r\nBlind = 0xbe537e02b0116a48941a76d08b3af2366cc6ee4237b306d3153fc6b209\r\n5d85e \r\nBlindedElement = 0xdcdfdc7560b0fb00809bbddc395eb740ec198e3a3d098c074\r\n1a077fa20fc8126 \r\nEvaluatedElement = 0x9e066b349ff1f2e1eb82264f9777ce63fe3aea2e429e944\r\n9b89116fb1b85871d \r\nUnblindedElement = 0xe81179b0fa0b03ab4f1d4e557233f17bd05d23f158d3255\r\n2def49a0d38ea5249 \r\nInfo = 0x736f6d655f696e666f00 \r\nOutput = 0xeae38ae2f64e3747e185c7fa058141352da46f94f231c7db6b7b4c943\r\n5033545 \r\n\r\n...\r\n```\r\n\r\n@dvorak42 would this format work for you?",
+      "createdAt": "2020-11-08T18:35:51Z",
+      "updatedAt": "2020-11-10T00:22:01Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "72ad54bba21da719456d85d3a12304410f83448d",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/format-vectors",
+      "headRefOid": "0d6b0d8c01c4736272164ce39e419baa9e635f24",
+      "closedAt": "2020-11-09T22:44:54Z",
+      "mergedAt": "2020-11-09T22:44:54Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "111e3606f8b26a306f1910b84954f71aa563416f"
+      },
+      "comments": [
+        {
+          "author": "dvorak42",
+          "authorAssociation": "NONE",
+          "body": "Generally seems good, though it might be useful to have some test vectors with multiple elements for the batching/ComputeComposites primitive.",
+          "createdAt": "2020-11-09T15:24:37Z",
+          "updatedAt": "2020-11-09T15:24:37Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Generally seems good, though it might be useful to have some test vectors with multiple elements for the batching/ComputeComposites primitive.\r\n\r\nThat's a great point! I'll add that (probably in a followup PR).",
+          "createdAt": "2020-11-09T17:20:48Z",
+          "updatedAt": "2020-11-09T17:28:06Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NTEzMTU3",
+          "commit": {
+            "abbreviatedOid": "9d60157"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2020-11-09T17:59:33Z",
+          "updatedAt": "2020-11-09T18:23:16Z",
+          "comments": [
+            {
+              "originalPosition": 231,
+              "body": "in the protocol diagram, Unblind takes four arguments",
+              "createdAt": "2020-11-09T17:59:33Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            },
+            {
+              "originalPosition": 346,
+              "body": "I think it is better to define `Nh` parameter in Section 2. \r\n",
+              "createdAt": "2020-11-09T18:02:42Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            },
+            {
+              "originalPosition": 386,
+              "body": "4 params",
+              "createdAt": "2020-11-09T18:02:55Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            },
+            {
+              "originalPosition": 102,
+              "body": "```suggestion\r\n        L = int( ceil( log(self.p, 2) / 8 ) )\r\n```",
+              "createdAt": "2020-11-09T18:07:24Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "EvaluationElement?",
+              "createdAt": "2020-11-09T18:19:31Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            },
+            {
+              "originalPosition": 114,
+              "body": "Add txt file to repo?\r\n",
+              "createdAt": "2020-11-09T18:22:33Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NTM4Njgw",
+          "commit": {
+            "abbreviatedOid": "9d60157"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-09T18:33:04Z",
+          "updatedAt": "2020-11-09T18:33:05Z",
+          "comments": [
+            {
+              "originalPosition": 346,
+              "body": "There's a separate issue for that. I'll do it there.",
+              "createdAt": "2020-11-09T18:33:05Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NTM4ODMy",
+          "commit": {
+            "abbreviatedOid": "9d60157"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-09T18:33:15Z",
+          "updatedAt": "2020-11-09T18:33:16Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "This is unchanged, so resolving.",
+              "createdAt": "2020-11-09T18:33:16Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NTM5MDYx",
+          "commit": {
+            "abbreviatedOid": "9d60157"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-09T18:33:34Z",
+          "updatedAt": "2020-11-09T18:33:35Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "\ud83d\udc4d ",
+              "createdAt": "2020-11-09T18:33:34Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NTM5MTkx",
+          "commit": {
+            "abbreviatedOid": "9d60157"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-09T18:33:45Z",
+          "updatedAt": "2020-11-09T18:33:45Z",
+          "comments": [
+            {
+              "originalPosition": 114,
+              "body": "I left it out for now, since it's only needed for the document. We can add it though.",
+              "createdAt": "2020-11-09T18:33:45Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NTkyMTE4",
+          "commit": {
+            "abbreviatedOid": "51bd5df"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-09T19:38:01Z",
+          "updatedAt": "2020-11-09T19:38:02Z",
+          "comments": [
+            {
+              "originalPosition": 231,
+              "body": "This should be fixed.",
+              "createdAt": "2020-11-09T19:38:01Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NjQ1MzU1",
+          "commit": {
+            "abbreviatedOid": "43ec9af"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-09T20:53:36Z",
+          "updatedAt": "2020-11-09T21:16:51Z",
+          "comments": [
+            {
+              "originalPosition": 621,
+              "body": "```suggestion\r\n  blindedGenerator = ScalarBaseMult(blind)\r\n```",
+              "createdAt": "2020-11-09T20:53:36Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            },
+            {
+              "originalPosition": 76,
+              "body": "Protocol types sounds to me like protocol variants.\r\n\r\n```suggestion\r\n## Data Types {#structs}\r\n```",
+              "createdAt": "2020-11-09T20:56:46Z",
+              "updatedAt": "2020-11-09T22:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzU4MDk3",
+          "commit": {
+            "abbreviatedOid": "0d6b0d8"
+          },
+          "author": "bytemare",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T00:20:10Z",
+          "updatedAt": "2020-11-10T00:20:11Z",
+          "comments": [
+            {
+              "originalPosition": 613,
+              "body": "Why use `blindedPublicKey` as input and output of this function, since it is not used?",
+              "createdAt": "2020-11-10T00:20:10Z",
+              "updatedAt": "2020-11-10T00:20:11Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzU4Njky",
+          "commit": {
+            "abbreviatedOid": "0d6b0d8"
+          },
+          "author": "bytemare",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T00:21:47Z",
+          "updatedAt": "2020-11-10T00:21:47Z",
+          "comments": [
+            {
+              "originalPosition": 631,
+              "body": "Why return the `blind` when it is not used afterward?",
+              "createdAt": "2020-11-10T00:21:47Z",
+              "updatedAt": "2020-11-10T00:21:47Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzU4Nzg5",
+          "commit": {
+            "abbreviatedOid": "0d6b0d8"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T00:22:00Z",
+          "updatedAt": "2020-11-10T00:22:01Z",
+          "comments": [
+            {
+              "originalPosition": 631,
+              "body": "This was fixed in a followup change!",
+              "createdAt": "2020-11-10T00:22:00Z",
+              "updatedAt": "2020-11-10T00:22:01Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 202,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE4MTE2MzEy",
+      "title": "Fix ComputeComposite encoding.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/202",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This closes #192, and also fixes a bug in the PoC implementation.\r\n\r\ncc @claucece (for when we add verifiable mode to CIRCL)",
+      "createdAt": "2020-11-09T23:56:39Z",
+      "updatedAt": "2020-11-09T23:56:56Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "87d42c249e83cce10a741e4a7bc96486e8b6cdf1",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/fix-composites",
+      "headRefOid": "4a75777d8d60b0de74767f6b92310e8895121240",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
