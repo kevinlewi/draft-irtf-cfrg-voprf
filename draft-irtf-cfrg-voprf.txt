@@ -5,9 +5,9 @@
 Network Working Group                                        A. Davidson
 Internet-Draft                                          A. Faz-Hernandez
 Intended status: Informational                               N. Sullivan
-Expires: 13 May 2021                                           C.A. Wood
+Expires: 14 May 2021                                           C.A. Wood
                                                               Cloudflare
-                                                         9 November 2020
+                                                        10 November 2020
 
 
    Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 May 2021.
+   This Internet-Draft will expire on 14 May 2021.
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 1]
+Davidson, et al.           Expires 14 May 2021                  [Page 1]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 2]
+Davidson, et al.           Expires 14 May 2021                  [Page 2]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -165,7 +165,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 3]
+Davidson, et al.           Expires 14 May 2021                  [Page 3]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -221,7 +221,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 4]
+Davidson, et al.           Expires 14 May 2021                  [Page 4]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -277,7 +277,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 5]
+Davidson, et al.           Expires 14 May 2021                  [Page 5]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -333,7 +333,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 6]
+Davidson, et al.           Expires 14 May 2021                  [Page 6]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -389,7 +389,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 7]
+Davidson, et al.           Expires 14 May 2021                  [Page 7]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -445,7 +445,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 8]
+Davidson, et al.           Expires 14 May 2021                  [Page 8]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -501,7 +501,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                  [Page 9]
+Davidson, et al.           Expires 14 May 2021                  [Page 9]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -557,7 +557,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 10]
+Davidson, et al.           Expires 14 May 2021                 [Page 10]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -613,7 +613,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 11]
+Davidson, et al.           Expires 14 May 2021                 [Page 11]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -669,7 +669,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 12]
+Davidson, et al.           Expires 14 May 2021                 [Page 12]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -725,7 +725,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 13]
+Davidson, et al.           Expires 14 May 2021                 [Page 13]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -781,7 +781,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 14]
+Davidson, et al.           Expires 14 May 2021                 [Page 14]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -837,7 +837,7 @@ def GenerateProof(skS, pkS, blindedElement, evaluatedElement)
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 15]
+Davidson, et al.           Expires 14 May 2021                 [Page 15]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -854,38 +854,38 @@ Internet-Draft                    OPRFs                    November 2020
    The definition of "ComputeComposites" is given below.  This function
    is used both on generation and verification of the proof.
 
-   Input:
+Input:
 
-     PublicKey pkS
-     SerializedElement blindedElements[m]
-     SerializedElement evaluatedElements[m]
+  PublicKey pkS
+  SerializedElement blindedElements[m]
+  SerializedElement evaluatedElements[m]
 
-   Output:
+Output:
 
-     SerializedElement composites[2]
+  SerializedElement composites[2]
 
-   def ComputeComposites(pkS, blindedElements, evaluatedElements):
-     pkSm = GG.SerializeElement(pkS)
-     seedDST = "VOPRF05-seed-" || self.contextString
-     compositeDST = "VOPRF05-composite-" || self.contextString
-     h1Input = I2OSP(len(pkSm), 2) || pkSm ||
-               I2OSP(len(blindedElements), 2) || blindedElements ||
-               I2OSP(len(evaluatedElements), 2) || evaluatedElements ||
-               I2OSP(len(seedDST), 2) || seedDST
+def ComputeComposites(pkS, blindedElements, evaluatedElements):
+  pkSm = GG.SerializeElement(pkS)
+  seedDST = "VOPRF05-seed-" || self.contextString
+  compositeDST = "VOPRF05-composite-" || self.contextString
+  h1Input = I2OSP(len(pkSm), 2) || pkSm ||
+            I2OSP(len(seedDST), 2) || seedDST
 
-     seed = Hash(h1Input)
-     M = GG.Identity()
-     Z = GG.Identity()
-     for i = 0 to m-1:
-       h2Input = I2OSP(len(seed), 2) || seed || I2OSP(i, 2) ||
-                 I2OSP(len(compositeDST), 2) || compositeDST
-       di = GG.HashToScalar(h2Input)
-       Mi = GG.DeserializeElement(blindedElements[i])
-       M = di * Mi + M
-       Zi = GG.DeserializeElement(evaluatedElements[i])
-       Z = di * Zi + Z
+  seed = Hash(h1Input)
+  M = GG.Identity()
+  Z = GG.Identity()
+  for i = 0 to m-1:
+    h2Input = I2OSP(len(seed), 2) || seed || I2OSP(i, 2) ||
+              I2OSP(len(blindedElements[i]), 2) || blindedElements[i] ||
+              I2OSP(len(evaluatedElements[i]), 2) || evaluatedElements[i] ||
+              I2OSP(len(compositeDST), 2) || compositeDST
+    di = GG.HashToScalar(h2Input)
+    Mi = GG.DeserializeElement(blindedElements[i])
+    M = di * Mi + M
+    Zi = GG.DeserializeElement(evaluatedElements[i])
+    Z = di * Zi + Z
 
-    return [GG.SerializeElement(M), GG.SerializeElement(Z)]
+ return [GG.SerializeElement(M), GG.SerializeElement(Z)]
 
    If the private key is known, as is the case for the server, this
    function can be optimized as shown in "ComputeCompositesFast" below.
@@ -893,7 +893,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 16]
+Davidson, et al.           Expires 14 May 2021                 [Page 16]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -914,14 +914,14 @@ def ComputeCompositesFast(skS, pkS, blindedElements, evaluatedElements):
   seedDST = "VOPRF05-seed-" || self.contextString
   compositeDST = "VOPRF05-composite-" || self.contextString
   h1Input = I2OSP(len(pkSm), 2) || pkSm ||
-            I2OSP(len(blindedElements), 2) || blindedElements ||
-            I2OSP(len(evaluatedElements), 2) || evaluatedElements ||
             I2OSP(len(seedDST), 2) || seedDST
 
   seed = Hash(h1Input)
   M = GG.Identity()
   for i = 0 to m-1:
     h2Input = I2OSP(len(seed), 2) || seed || I2OSP(i, 2) ||
+              I2OSP(len(blindedElements[i]), 2) || blindedElements[i] ||
+              I2OSP(len(evaluatedElements[i]), 2) || evaluatedElements[i] ||
               I2OSP(len(compositeDST), 2) || compositeDST
     di = GG.HashToScalar(h2Input)
     Mi = GG.DeserializeElement(blindedElements[i])
@@ -949,7 +949,7 @@ def ComputeCompositesFast(skS, pkS, blindedElements, evaluatedElements):
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 17]
+Davidson, et al.           Expires 14 May 2021                 [Page 17]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 18]
+Davidson, et al.           Expires 14 May 2021                 [Page 18]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 19]
+Davidson, et al.           Expires 14 May 2021                 [Page 19]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 20]
+Davidson, et al.           Expires 14 May 2021                 [Page 20]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1173,7 +1173,7 @@ def Unblind(blind, evaluatedElement, blindedElement, pkS, proof):
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 21]
+Davidson, et al.           Expires 14 May 2021                 [Page 21]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 22]
+Davidson, et al.           Expires 14 May 2021                 [Page 22]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 23]
+Davidson, et al.           Expires 14 May 2021                 [Page 23]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 24]
+Davidson, et al.           Expires 14 May 2021                 [Page 24]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 25]
+Davidson, et al.           Expires 14 May 2021                 [Page 25]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 26]
+Davidson, et al.           Expires 14 May 2021                 [Page 26]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 27]
+Davidson, et al.           Expires 14 May 2021                 [Page 27]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 28]
+Davidson, et al.           Expires 14 May 2021                 [Page 28]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 29]
+Davidson, et al.           Expires 14 May 2021                 [Page 29]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1630,17 +1630,16 @@ Input:
 
   ClientInput input
   Element blindedGenerator
-  Element blindedPublicKey
 
 Output:
 
   SerializedElement blindedElement
 
-def AdditiveBlind(input, blindedGenerator, blindedPublicKey):
+def AdditiveBlind(input, blindedGenerator):
   P = GG.HashToGroup(input)
   blindedElement = GG.SerializeElement(P + blindedGenerator) /* P + ScalarBaseMult(r) */
 
-  return blindedPublicKey, blindedElement
+  return blindedElement
 
 6.3.  AdditiveUnblind
 
@@ -1677,7 +1676,8 @@ def AdditiveBlind(input, blindedGenerator, blindedPublicKey):
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 30]
+
+Davidson, et al.           Expires 14 May 2021                 [Page 30]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 31]
+Davidson, et al.           Expires 14 May 2021                 [Page 31]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1789,7 +1789,7 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 32]
+Davidson, et al.           Expires 14 May 2021                 [Page 32]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1845,7 +1845,7 @@ Authors' Addresses
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 33]
+Davidson, et al.           Expires 14 May 2021                 [Page 33]
 
 Internet-Draft                    OPRFs                    November 2020
 
@@ -1901,4 +1901,4 @@ Internet-Draft                    OPRFs                    November 2020
 
 
 
-Davidson, et al.           Expires 13 May 2021                 [Page 34]
+Davidson, et al.           Expires 14 May 2021                 [Page 34]
