@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-10T00:22:28.284478+00:00",
+  "timestamp": "2020-11-12T00:20:07.367140+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -647,7 +647,7 @@
       "id": "MDU6SXNzdWU1MDAyNTQ3MzM=",
       "title": "Create new test vectors",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/51",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "alxdavids",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -656,8 +656,8 @@
       "labels": [],
       "body": "- OPRF evaluations for new ciphersuites\r\n- DLEQ evaluations\r\n- Batched DLEQ evaluations",
       "createdAt": "2019-09-30T12:48:12Z",
-      "updatedAt": "2020-10-16T13:32:56Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-10T23:08:38Z",
+      "closedAt": "2020-11-10T23:08:38Z",
       "comments": [
         {
           "author": "alxdavids",
@@ -2537,19 +2537,19 @@
       "id": "MDU6SXNzdWU3Mzg1MzE3MDY=",
       "title": "ComputeComposite list encoding is incorrect",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/192",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chris-wood",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "`ComputeCompositesFast` (and `ComputeComposites`) currently does the following:\r\n\r\n```python\r\ndef ComputeCompositesFast(skS, pkS, blindedElements, evaluatedElements):\r\n  pkSm = GG.Serialize(pkS)\r\n  seedDST = \"VOPRF05-seed-\" || self.contextString\r\n  compositeDST = \"VOPRF05-composite-\" || self.contextString\r\n  h1Input = I2OSP(len(pkSm), 2) || pkSm ||\r\n            I2OSP(len(blindedElements), 2) || blindedElements ||\r\n            I2OSP(len(evaluatedElements), 2) || evaluatedElements ||\r\n            I2OSP(len(seedDST), 2) || seedDST\r\n```\r\n\r\nNote that `blindedElements` and `evaluatedElements` are both *lists* of elements, so encoding them in `h1input` as \"length || value\" isn't quite right, I think.",
       "createdAt": "2020-11-08T19:02:30Z",
-      "updatedAt": "2020-11-09T19:33:14Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-10T00:35:29Z",
+      "closedAt": "2020-11-10T00:35:29Z",
       "comments": [
         {
           "author": "bytemare",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Hi, I didn't see the issue up until I tried to implement it, indeed. \r\n\r\nWhat's the rationale behind this? Get a different h1Input for every (`blindedElements`, `evaluatedElements`) couple, or one for the whole set ?",
           "createdAt": "2020-11-09T19:31:20Z",
           "updatedAt": "2020-11-09T19:33:14Z"
@@ -2609,15 +2609,15 @@
       "id": "MDU6SXNzdWU3Mzg2NDY0Njk=",
       "title": "Issues in Additive mode",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/195",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "claucece",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "When blinding in Additive mode, it says to store the blinded public key (which is a Point/Element) in the Token structure:\r\n\r\n```\r\ntoken = Token{\r\n    data: input,\r\n    blind: preproc.blindedPublicKey\r\n  }\r\n```\r\n\r\nBut the token structure is defined as taking a scalar, not a point/element as blinding element:\r\n\r\n```\r\nstruct {\r\n  opaque data<1..2^16-1>;\r\n  Scalar blind<1..2^16-1>;\r\n} Token;\r\n```\r\n\r\nThere also seems to be no need of storing the `preproc.blindedPublicKey` in `blind`.",
       "createdAt": "2020-11-09T03:33:28Z",
-      "updatedAt": "2020-11-09T23:42:50Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-10T21:57:07Z",
+      "closedAt": "2020-11-10T21:57:07Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -2632,6 +2632,20 @@
           "body": "@claucece, I think this is resolved now that #190 is merged. Can you please confirm, and close if so?",
           "createdAt": "2020-11-09T23:42:49Z",
           "updatedAt": "2020-11-09T23:42:49Z"
+        },
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Getting rid of the Token structure altogether solves the issue, indeed \ud83d\udc4d\ud83d\ude03 ",
+          "createdAt": "2020-11-10T00:34:21Z",
+          "updatedAt": "2020-11-10T00:34:21Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing as resolved. @claucece, please re-open if this still needs to be fixed!",
+          "createdAt": "2020-11-10T21:57:07Z",
+          "updatedAt": "2020-11-10T21:57:07Z"
         }
       ]
     },
@@ -2640,15 +2654,15 @@
       "id": "MDU6SXNzdWU3Mzg2NTE3MzU=",
       "title": "Scalar structure is not clearly defined",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/196",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "claucece",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The `Scalar` structure is first used on the `Data Structures` section, and not previously defined, and it is used as: \r\n`Scalar blind<1..2^16-1>;`, which seems to imply this is the serialized scalar.\r\n\r\nIt is later defined as:\r\n`This document uses the types Element and Scalar to denote elements of the group GG and its underlying scalar field GF(p), respectively.`, which seems to imply it is the underlying reprensentation.\r\n\r\nIt is not clear what it is referred to.",
       "createdAt": "2020-11-09T03:48:15Z",
-      "updatedAt": "2020-11-09T23:35:45Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-10T21:57:17Z",
+      "closedAt": "2020-11-10T21:57:17Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -2670,6 +2684,13 @@
           "body": "@claucece, can we close this now that #190 is merged?",
           "createdAt": "2020-11-09T23:35:44Z",
           "updatedAt": "2020-11-09T23:35:44Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing as resolved. @claucece, please re-open if this still needs to be fixed!",
+          "createdAt": "2020-11-10T21:57:17Z",
+          "updatedAt": "2020-11-10T21:57:17Z"
         }
       ]
     },
@@ -2716,24 +2737,52 @@
       "id": "MDU6SXNzdWU3MzkyNjQxMDE=",
       "title": "DST design",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/198",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bytemare",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [
         "armfazh"
       ],
       "labels": [],
       "body": "Hello,\r\n\r\nI have been following the project for some time now, and am trying to accompany this with an implementation: https://github.com/bytemare/voprf.\r\n\r\nI have some questions regarding the draft and some decisions that have been taken. I'll start with these:\r\n\r\n1. DST length\r\nThe DST used to instantiate hash-to-curve is constructed with \"RFCXXXX-\" + contextstring, where contextstring is 3 bytes ( mode + ciphersuite). This has 11 bytes and is shorter than the recommended length in the h2c draft ( 16 bytes ). Is this the intended design? \r\n\r\n2. DST design\r\nThe DST not really constructed with the recommended way in h2c. On the other hand, the info bytestring should be used for domain separation in voprf and construction after the h2c guidance. One could argue that the DST above = info, but this is not explicitly stated in the document. This is a tad confusing.\r\n\r\n3. Hashing prefixes\r\nFour dst elements are used for hashing throughout the document:\r\n- \"-challenge-\"\r\n- \"-composite-\"\r\n- \"-Finalize-\"\r\n- \"-seed-\"\r\n\r\nIt's a non-issue, but there some are lower-case or upper-case in the first letter.\r\n\r\n---\r\n\r\nI also want to add that your work is amazing and that I take great pleasure in studying and working with it! Thank you.\r\nIt would be a great pleasure if I can be of any use helping spot and fix things.",
       "createdAt": "2020-11-09T18:32:06Z",
-      "updatedAt": "2020-11-10T00:03:10Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-10T15:23:37Z",
+      "closedAt": "2020-11-10T13:37:53Z",
       "comments": [
         {
           "author": "bytemare",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "The length aspect has also been raised by @claucece in https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/165, but the issue got closed without this point being addressed.",
           "createdAt": "2020-11-09T20:39:56Z",
           "updatedAt": "2020-11-09T20:39:56Z"
+        },
+        {
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The current DST for the HashToGroup function is:\r\n```\r\nDST = \"RFCXXXX-\" + I2OSP(mode, 1)  + I2OSP(suite.ID, 2)\r\nlen(DST) = 11\r\n```\r\nEffectively, `DST` is short. Thanks for pointing this out.\r\n\r\n----\r\n\r\nTo remedy, these issues I propose (in #204 ) to extend it as follows:\r\n```\r\nDST = \"RFCXXXX-HashToGroup-\" + I2OSP(mode, 1)  + I2OSP(suite.ID, 2)\r\nlen(DST) = 22\r\n```\r\n\r\nNow, let's see whether this proposal satisfy the requirements for a good DST:\r\n\r\nFrom Section 3.1 of [draft-irtf-cfrg-hash-to-curve-10](https://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-10#section-3.1)\r\n>    1.  Tags MUST be supplied as the DST parameter to hash_to_field, as\r\n>        described in Section 5.\r\n\r\nYes, this DST is the one passed to HashToGroup that internally passes to hash_to_field.\r\n\r\n>    2.  Tags MUST have nonzero length.  A minimum length of 16 bytes is\r\n>        RECOMMENDED to reduce the chance of collisions with other\r\n>        applications.\r\n\r\nlen(DST) = 22 > 16\r\n\r\n>    3.  Tags SHOULD begin with a fixed identification string that is\r\n>        unique to the application.\r\n\r\nDST begins with \"RFCXXXX\". The rfc number will correspond to a single application: the OPRF protocol.\r\n\r\n>    4.  Tags SHOULD include a version number.\r\n\r\n`SHOULD` is not enforced, however, the rfc number provides some sort of versioning.\r\n\r\n>    5.  For applications that define multiple ciphersuites, each\r\n>        ciphersuite's tag MUST be different.  For this purpose, it is\r\n>        RECOMMENDED to include a ciphersuite identifier in each tag.\r\n\r\nOPRF does have multiple ciphersuites. So, following this recommendation, the DST includes a ciphersuite identifier (`I2OSP(suite.ID, 2)`)\r\n\r\n>    6.  For applications that use multiple encodings, either to the same\r\n>        curve or to different curves, each encoding MUST use a different\r\n>        tag.  For this purpose, it is RECOMMENDED to include the\r\n>        encoding's Suite ID (Section 8) in the domain separation tag.\r\n>        For independent encodings based on the same suite, each tag\r\n>        should also include a distinct identifier, e.g., \"ENC1\" and  \"ENC2\".\r\n\r\nOPRF does not use multiple encodings, only one when Client blinds the input, which is the same for Server during FullEvaluate or VerifyFinalize.\r\n\r\nFinally, the DST separates queries to HashToGroup() between (Base)Client and VerifiableClient. DST is separated since includes the mode (`I2OSP(mode, 1)`)",
+          "createdAt": "2020-11-10T01:41:40Z",
+          "updatedAt": "2020-11-10T01:41:40Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This should be fixed by #204, so I'm closing this as resolve. @bytemare, please re-open if you think more needs to be done!",
+          "createdAt": "2020-11-10T13:37:53Z",
+          "updatedAt": "2020-11-10T13:37:53Z"
+        },
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Looks good to me!\r\n\r\nAs a note: I'm thinking about the usage in higher-level applications. When h2c says we should specify the app or protocol, does this apply to the one directly using the HashToGroup function?\r\nOver time, default values (e.g. base mode with ristretto255) would tend to make usage of the same DST very common, even if the higher-level application is different. \"PrivacyPass\" or \"OPAQUE\" are different applications and protocols, that would also justify having their names used in the DST. But we'll encounter the chicken and egg problem: even higher-level protocols could claim the same.\r\nOpening the API to use a custom DST could lead to other problems, and make the whole design very weird. Using what @armfazh suggests seems to be the best way to do it properly.",
+          "createdAt": "2020-11-10T14:29:10Z",
+          "updatedAt": "2020-11-10T14:29:10Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yeah, I think in this context, OPRF is the \"application protocol\" using hash-to-curve, so it seems appropriate to bind the DST to OPRF rather than the higher-level protocol using the OPRF.",
+          "createdAt": "2020-11-10T15:23:37Z",
+          "updatedAt": "2020-11-10T15:23:37Z"
         }
       ]
     },
@@ -2766,15 +2815,15 @@
       "id": "MDU6SXNzdWU3Mzk0MzAyMDQ=",
       "title": "Change SHA-256 to SHA-512 for Ristretto255",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/200",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bytemare",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Hello,\r\n\r\nin https://github.com/cfrg/draft-irtf-cfrg-voprf/blob/72ad54bba21da719456d85d3a12304410f83448d/draft-irtf-cfrg-voprf.md#oprfristretto255-sha-256, it is specified to use SHA-256 with Ristretto255. SHA-256 outputs 32 bytes.\r\n\r\nhttps://tools.ietf.org/html/draft-irtf-cfrg-ristretto255-decaf448-00#section-4.3.4 states that the one-way map operates on 64-byte strings.\r\n\r\nThe hash function to be used should be SHA-512, which outputs 64 bytes, as described in https://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-10#appendix-B for the `ristretto255_XMD:SHA-512_R255MAP_RO_` cipher suite.",
       "createdAt": "2020-11-09T22:58:35Z",
-      "updatedAt": "2020-11-10T00:20:34Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-10T01:49:22Z",
+      "closedAt": "2020-11-10T01:49:22Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -2796,6 +2845,41 @@
           "body": "@jedisct1 Are you suggesting we bump to SHA512? If so, why? (I understand that it doesn't match the example in hash-to-curve, so perhaps we should change that example to use SHA256.) ",
           "createdAt": "2020-11-10T00:20:34Z",
           "updatedAt": "2020-11-10T00:20:34Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "NONE",
+          "body": "ristretto255 is a natural extension for libraries implementing edwards25519, initially for the needs of Ed25519.\r\n\r\nUsing SHA512 allows sharing the same hash-to-field code for edwards25519 and ristretto255, and doesn't need to introduce another hash function, as SHA512 is already there, as a requirement for Ed25519.",
+          "createdAt": "2020-11-10T00:46:38Z",
+          "updatedAt": "2020-11-10T00:46:38Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Oh, that's a great point! @alxdavids, what do you think? Hearing no objections, I'll change this tomorrow.",
+          "createdAt": "2020-11-10T00:48:46Z",
+          "updatedAt": "2020-11-10T00:48:46Z"
+        },
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree with what @jedisct1 said. The natural candidate is SHA-512, and using this here would also contribute in greater consistency of general usage of Ristretto255.",
+          "createdAt": "2020-11-10T01:00:14Z",
+          "updatedAt": "2020-11-10T01:00:14Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sold :-) Let's move to SHA-512.",
+          "createdAt": "2020-11-10T01:01:34Z",
+          "updatedAt": "2020-11-10T01:01:34Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The fix is in #203 -- please have a look!",
+          "createdAt": "2020-11-10T01:06:53Z",
+          "updatedAt": "2020-11-10T01:06:53Z"
         }
       ]
     },
@@ -2806,12 +2890,59 @@
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/201",
       "state": "OPEN",
       "author": "bytemare",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Hello,\r\n\r\nreading the latest version of the draft, there are very few explanations about batching inputs/evaluations. For the reader unfamiliar with the subject it is not clear what these are about.\r\n\r\nFrom what I understand from a conversation with @chris-wood:\r\nthe mechanism works in a situation where a client requests multiple evaluations and could do it by sending all blinded inputs at once. The server would then evaluate them all but have a single proof for them all, and send this single proof back with the individual evaluations.\r\nSo, for N blinded inputs from the client, instead of having N requests, N evaluations, N proofs, and N responses, we would bring that down to  1 proof and 1 request-response carrying the N blinded inputs and N evaluations.\r\n\r\nIs this correct?",
       "createdAt": "2020-11-09T23:43:41Z",
-      "updatedAt": "2020-11-09T23:43:41Z",
+      "updatedAt": "2020-11-10T23:38:05Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That's correct! @bytemare, if you have cycles, would you mind creating a PR with this suggested clarification?",
+          "createdAt": "2020-11-10T23:31:11Z",
+          "updatedAt": "2020-11-10T23:31:11Z"
+        },
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks! Yes, I think I can do that in the following days.",
+          "createdAt": "2020-11-10T23:38:05Z",
+          "updatedAt": "2020-11-10T23:38:05Z"
+        }
+      ]
+    },
+    {
+      "number": 208,
+      "id": "MDU6SXNzdWU3NDEwMDQyNDA=",
+      "title": "Ne,Ns,Nh defined per suite.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/208",
+      "state": "OPEN",
+      "author": "armfazh",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "To improve clarity, the Ne,Ns,Nh parameters should be defined per suite.\r\n",
+      "createdAt": "2020-11-11T19:12:25Z",
+      "updatedAt": "2020-11-11T19:12:25Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 209,
+      "id": "MDU6SXNzdWU3NDExNTQxODg=",
+      "title": "Invalid encodings in test vectors",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/209",
+      "state": "OPEN",
+      "author": "bytemare",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Hello,\r\n\r\nI tried testing my implementation in Go with the vectors found here: https://github.com/cfrg/draft-irtf-cfrg-voprf/blob/8ec42c73db97a862827b8eec959a4df3d031adec/poc/vectors/allVectors.json\r\n\r\nI encounter errors decoding private key values for Ristretto255. Stripping the 0x, the value is of length 63, which is odd, and Go's `hex.DecodeString()` returns the error `\"encoding/hex: odd length hex string\"`. I suppose something went wrong with generating these values.\r\n\r\nMaybe testing the values generated by https://github.com/cfrg/draft-irtf-cfrg-voprf/blob/8ec42c73db97a862827b8eec959a4df3d031adec/poc/test_oprf.sage would detect this kind of issues earlier.",
+      "createdAt": "2020-11-11T23:38:00Z",
+      "updatedAt": "2020-11-11T23:49:21Z",
       "closedAt": null,
       "comments": []
     }
@@ -2829,7 +2960,7 @@
       "labels": [],
       "body": "I have made some small changes and also some comments (prefaced with ALEX:). I plan to have a more detailed run-through soon, particularly with the algorithmic stuff to make sure the inputs/outputs are consistent throughout. Maybe the best thing would be to respond to the comments on here and then I can change/not change accordingly?\r\n\r\nI'm not sure of the process for IETF drafts but I guess there will need to be some justification of the security properties that are proposed. I guess proofs might be a stretch but it might be possible to get some intuition down, what do you think?\r\n\r\nAlso, were there any TODOs that you were considering before you went ahead with submission?\r\n\r\n(I tried make-ing the changes but it was complaining about the {{H2c}} reference?)",
       "createdAt": "2018-03-01T09:47:11Z",
-      "updatedAt": "2018-03-05T02:33:25Z",
+      "updatedAt": "2020-11-10T14:40:28Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "40a93ff139333887ec4a57b6cd0af532bd25f0b9",
@@ -3093,7 +3224,7 @@
       "labels": [],
       "body": "add myself to the document and fixed a small error",
       "createdAt": "2018-03-06T05:54:03Z",
-      "updatedAt": "2018-03-18T09:14:37Z",
+      "updatedAt": "2020-11-10T14:40:29Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "f03b12c5898ea69bae5465149cdc367646eeba28",
@@ -3121,7 +3252,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2018-06-16T19:47:38Z",
-      "updatedAt": "2018-06-18T00:55:52Z",
+      "updatedAt": "2020-11-10T14:40:30Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "9ffe7574350d760bf79aec317aa538bbbe6dfadb",
@@ -3277,7 +3408,7 @@
       "labels": [],
       "body": "#3 ",
       "createdAt": "2018-06-17T02:55:06Z",
-      "updatedAt": "2018-06-18T00:43:24Z",
+      "updatedAt": "2020-11-10T14:40:32Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "9ffe7574350d760bf79aec317aa538bbbe6dfadb",
@@ -3319,7 +3450,7 @@
       "labels": [],
       "body": "#10 \r\n(also updated the .txt file)",
       "createdAt": "2018-06-22T07:36:00Z",
-      "updatedAt": "2018-06-23T14:20:15Z",
+      "updatedAt": "2020-11-10T14:40:32Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "776a3da461831bdaf66d2bb5e9cfe7690e29e642",
@@ -3362,7 +3493,7 @@
       "labels": [],
       "body": "Not an expert with hashing to curves but it seems like the SWU encoding seems to work for P-256, so shall we go with that?  We already have noted with privacy pass that we should look to move towards this method of encoding so it seems to fit well.",
       "createdAt": "2018-10-18T15:08:51Z",
-      "updatedAt": "2018-10-20T01:44:05Z",
+      "updatedAt": "2020-11-10T14:40:32Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "247c871fee36f9301b47a797c796721f344c6fdf",
@@ -3419,7 +3550,7 @@
       "labels": [],
       "body": "Related to #13 ",
       "createdAt": "2018-10-21T11:58:41Z",
-      "updatedAt": "2018-10-22T13:03:28Z",
+      "updatedAt": "2020-11-10T14:40:33Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "c3526b7f2216dc32922491c97ecc8a88fd36de7a",
@@ -3516,7 +3647,7 @@
       "labels": [],
       "body": "For #17 ",
       "createdAt": "2019-02-13T13:44:20Z",
-      "updatedAt": "2019-02-13T14:26:19Z",
+      "updatedAt": "2020-11-10T14:40:34Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "007965f2519f76bae53ca65067b1bccc01b20058",
@@ -3558,7 +3689,7 @@
       "labels": [],
       "body": "For #15 and #16, big change so I'm happy to iterate on this.\r\n",
       "createdAt": "2019-02-19T12:40:38Z",
-      "updatedAt": "2019-02-27T11:41:36Z",
+      "updatedAt": "2020-11-10T14:40:34Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "ef72e0a0519a6c25b41a00e3ce7a786cc05fb8a4",
@@ -3769,7 +3900,7 @@
       "labels": [],
       "body": "For #6 \r\n- Provide test vectors for DLEQ proofs and batched DLEQ. \r\n- Also focus on fewer ciphersuites that we support (think this is easier for providing reference implementations). Do you think this is enough? Are there any others you would like to see included?",
       "createdAt": "2019-02-28T11:49:32Z",
-      "updatedAt": "2019-03-01T15:52:33Z",
+      "updatedAt": "2020-11-10T14:40:36Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "389064d2f1a159426b545507becb6e59de3b1697",
@@ -3843,7 +3974,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2019-03-06T14:19:05Z",
-      "updatedAt": "2019-03-08T17:48:27Z",
+      "updatedAt": "2020-11-10T14:40:36Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "343156390d60cac248257c7e25f81d1ad839fc01",
@@ -3954,7 +4085,7 @@
       "labels": [],
       "body": "- Change file name to oprf\r\n- Fix typos in algorithm inputs\r\n- Make the h2c ciphersuites a bit briefer\r\n- Switched the Ristretto ciphersuite to use SHA-512 to be consistent with the Curve25519 h2c ciphersuite.",
       "createdAt": "2019-03-10T20:36:32Z",
-      "updatedAt": "2019-03-11T15:19:36Z",
+      "updatedAt": "2020-11-10T14:40:37Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "9186bd55e639dc38c33e8e9b032f5132807e1cb8",
@@ -4221,7 +4352,7 @@
       "labels": [],
       "body": "Addresses #35 ",
       "createdAt": "2019-07-05T09:52:41Z",
-      "updatedAt": "2019-07-08T13:34:46Z",
+      "updatedAt": "2020-11-10T14:40:42Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "95bd6f07e5c50d4a612f9cf07a8b21fec9d08521",
@@ -4368,7 +4499,7 @@
       "labels": [],
       "body": "Fixes #34:\r\n- Replace signing terminology to avoid confusion with asymmetric primitives\r\n- Replace OPRF_Sign with OPRF_Eval",
       "createdAt": "2019-07-05T09:59:43Z",
-      "updatedAt": "2019-07-05T13:46:59Z",
+      "updatedAt": "2020-11-10T14:40:38Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "036752b6d0aa40c408ee400842dda7aa6d7961b5",
@@ -4410,7 +4541,7 @@
       "labels": [],
       "body": "Fixes #33",
       "createdAt": "2019-07-05T10:05:42Z",
-      "updatedAt": "2019-07-05T13:51:30Z",
+      "updatedAt": "2020-11-10T14:40:40Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "8d4d4d8e6754db177152b842af51ae0e53230eb3",
@@ -4452,7 +4583,7 @@
       "labels": [],
       "body": "Fixes #32",
       "createdAt": "2019-07-05T10:23:06Z",
-      "updatedAt": "2019-07-08T16:51:09Z",
+      "updatedAt": "2020-11-10T14:40:43Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "036752b6d0aa40c408ee400842dda7aa6d7961b5",
@@ -4549,7 +4680,7 @@
       "labels": [],
       "body": "Fixes #28:\r\n- Denote the additive blinding case (from OPAQUE) by fixed-base blinding (FBB)\r\n- Denote multiplicative case (from Privacy Pass) by variable-base blinding (VBB)",
       "createdAt": "2019-07-05T10:50:20Z",
-      "updatedAt": "2019-07-05T13:45:07Z",
+      "updatedAt": "2020-11-10T14:40:39Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "036752b6d0aa40c408ee400842dda7aa6d7961b5",
@@ -4591,7 +4722,7 @@
       "labels": [],
       "body": "Fixes #36\r\n- Usage of PRNG is unnecessary.\r\n- We now instantiate with a generic RO\r\n- Specific ciphersuites are unchanged\r\n- HKDF -> HKDF_Expand",
       "createdAt": "2019-07-05T11:16:11Z",
-      "updatedAt": "2019-07-08T13:18:31Z",
+      "updatedAt": "2020-11-10T14:40:42Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "ecc849706ddac8d054ca9b6fdd0c400b5a02e4e9",
@@ -4776,7 +4907,7 @@
       "labels": [],
       "body": "Fixes #31: the RSA specification is a bit redundant",
       "createdAt": "2019-07-08T10:25:19Z",
-      "updatedAt": "2019-07-08T13:06:08Z",
+      "updatedAt": "2020-11-10T14:40:41Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "cc1eff10d07b8c9f632e81760b8bd07dec071837",
@@ -4831,7 +4962,7 @@
       "labels": [],
       "body": "Fixes #30",
       "createdAt": "2019-07-08T10:28:06Z",
-      "updatedAt": "2019-07-08T13:00:55Z",
+      "updatedAt": "2020-11-10T14:40:41Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "cc1eff10d07b8c9f632e81760b8bd07dec071837",
@@ -4873,7 +5004,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2019-07-24T13:03:30Z",
-      "updatedAt": "2019-07-24T17:55:02Z",
+      "updatedAt": "2020-11-10T14:41:07Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "c2610a6762792f5b675a398b40e3103039f5c812",
@@ -4907,7 +5038,7 @@
             "abbreviatedOid": "411eed8"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2019-07-24T17:54:27Z",
@@ -4927,7 +5058,7 @@
             "abbreviatedOid": "411eed8"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2019-07-24T17:55:02Z",
@@ -4955,7 +5086,7 @@
       "labels": [],
       "body": "(as mentioned in #27)",
       "createdAt": "2019-07-24T13:44:43Z",
-      "updatedAt": "2019-07-24T20:18:26Z",
+      "updatedAt": "2020-11-10T14:41:08Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "2d5eece270e08d0697862676903a53214cb28fa9",
@@ -4976,7 +5107,7 @@
             "abbreviatedOid": "ee3f97e"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "CHANGES_REQUESTED",
           "body": "make sure the modulo operation is applied only to integers. \r\n",
           "createdAt": "2019-07-24T17:58:24Z",
@@ -5020,7 +5151,7 @@
             "abbreviatedOid": "ee3f97e"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2019-07-24T18:04:23Z",
@@ -5073,7 +5204,7 @@
             "abbreviatedOid": "ee6c2c3"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2019-07-24T19:57:27Z",
@@ -5094,7 +5225,7 @@
       "labels": [],
       "body": "Release 01 was done a while ago but I never pushed some of the changes here, so here they are.",
       "createdAt": "2019-09-18T16:28:59Z",
-      "updatedAt": "2019-09-19T23:22:51Z",
+      "updatedAt": "2020-11-10T14:41:08Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "6c2269e2c1a4f3c9f51e8ac2282b96d331c3ac34",
@@ -5370,7 +5501,7 @@
       "labels": [],
       "body": "Branch to be merged into alxdavids/sec-considerations branch as it depends on some changes in that branch.\r\n\r\nChanges:\r\n- Changes to some of the (V)OPRF functions\r\n- Suggestions for implementing OPRF evaluation as part of wider protocol\r\n\r\n@chris-wood are these recommendations for protocol integration helpful?",
       "createdAt": "2019-10-07T14:12:04Z",
-      "updatedAt": "2019-11-04T20:27:00Z",
+      "updatedAt": "2020-11-10T14:41:14Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "alxdavids/sec-considerations",
       "baseRefOid": "93a5742788681488121cbfefa8510be6513183bb",
@@ -5603,7 +5734,7 @@
       "labels": [],
       "body": "For #56:\r\n- More specificity on rejection sampling\r\n- Add batched unblinding algorithm",
       "createdAt": "2019-10-10T14:34:15Z",
-      "updatedAt": "2019-11-03T03:16:55Z",
+      "updatedAt": "2020-11-10T14:41:09Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "a920c2292f56231410576eadf10071a8791a4749",
@@ -5645,7 +5776,7 @@
       "labels": [],
       "body": "It is helpful in some applications to allow finalization over specific data. This change is based on the existing PR for protocol integrations and so needs to be merged into that branch before master.\r\n\r\nChanges:\r\n- Allows finalization over auxiliary data",
       "createdAt": "2019-10-10T14:54:19Z",
-      "updatedAt": "2019-11-04T20:24:05Z",
+      "updatedAt": "2020-11-10T14:41:14Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "alxdavids/protocol-integrations",
       "baseRefOid": "c69e67c6364a0308315763f9c6c5c703519bb16e",
@@ -5673,7 +5804,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2019-11-04T20:28:21Z",
-      "updatedAt": "2019-11-04T20:30:33Z",
+      "updatedAt": "2020-11-10T14:41:15Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "864cc76655ee6fa6ec639140786eade6edad1479",
@@ -5750,7 +5881,7 @@
       "labels": [],
       "body": "- Specify OPRF ciphersuites explicitly\r\n- Use SSWU for P384\r\n- Update DST used for h2c\r\n",
       "createdAt": "2020-02-05T14:19:22Z",
-      "updatedAt": "2020-03-01T19:30:34Z",
+      "updatedAt": "2020-11-10T14:41:16Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "9a20d27d05a23d6d950ff0b4e6d9d20b9130f30f",
@@ -5933,7 +6064,7 @@
       "labels": [],
       "body": "- Uses test vectors generated here: https://github.com/alxdavids/voprf-poc/tree/master/test-vectors\r\n- Still need test vectors for curve448",
       "createdAt": "2020-02-07T17:34:52Z",
-      "updatedAt": "2020-03-03T10:41:42Z",
+      "updatedAt": "2020-11-10T14:41:20Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b9e0a19edea436e815858a357ea7ecc58c704feb",
@@ -6002,7 +6133,7 @@
       "labels": [],
       "body": "- Use HKDF-Expand-SHA512 for sampling scalars in DLEQ\r\n- Fixes #66",
       "createdAt": "2020-02-10T11:33:21Z",
-      "updatedAt": "2020-03-02T15:01:03Z",
+      "updatedAt": "2020-11-10T14:41:17Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "alxdavids/fix-batching-algorithms",
       "baseRefOid": "2915cd17b2cfd9daf713bc37db2a9fe8ae20348c",
@@ -6105,7 +6236,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-03-01T21:33:28Z",
-      "updatedAt": "2020-03-02T10:48:24Z",
+      "updatedAt": "2020-11-10T14:41:19Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "4ca97f73319a737e081b67bb14e1ea5ef624bdfd",
@@ -6147,7 +6278,7 @@
       "labels": [],
       "body": "- Remove test vectors section until we have a more stable version of the draft\r\n- Add section with contributors to draft\r\n- Wrap all lines at 72 characters",
       "createdAt": "2020-03-03T10:51:58Z",
-      "updatedAt": "2020-03-03T13:46:42Z",
+      "updatedAt": "2020-11-10T14:41:22Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b9e0a19edea436e815858a357ea7ecc58c704feb",
@@ -6189,7 +6320,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-03-04T20:49:40Z",
-      "updatedAt": "2020-03-06T11:24:49Z",
+      "updatedAt": "2020-11-10T14:41:04Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "2fc87ef77bf9c5604d8d29b6da7561539d3ff40e",
@@ -6231,7 +6362,7 @@
       "labels": [],
       "body": "Upon re-review, this seems to distract from the core of this document. Maybe we can move this the PrivacyPass document? (I note that neither hash-to-curve nor HPKE have such integration advice. They just provide the core primitives.) \r\n\r\n@grittygrease, what do you think?",
       "createdAt": "2020-03-04T20:52:11Z",
-      "updatedAt": "2020-03-09T09:13:52Z",
+      "updatedAt": "2020-11-10T14:41:03Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "2fc87ef77bf9c5604d8d29b6da7561539d3ff40e",
@@ -6365,7 +6496,7 @@
       "labels": [],
       "body": "Target branch in #73 should have been master.",
       "createdAt": "2020-03-09T14:07:19Z",
-      "updatedAt": "2020-03-09T14:07:53Z",
+      "updatedAt": "2020-11-10T14:41:23Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "66bddb16c38b581898115a3da015df6862f75cef",
@@ -6393,7 +6524,7 @@
       "labels": [],
       "body": "New document version posted, these changes were made before submission:\r\n\r\n- I noticed that the protocol integration section was replicated in Section 4 and so I removed this before posting.\r\n- Also fixed a section reference",
       "createdAt": "2020-03-09T14:28:05Z",
-      "updatedAt": "2020-03-09T14:29:50Z",
+      "updatedAt": "2020-11-10T14:41:23Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "7f5c1eef22bd29539f48ca1127d3dcad354e97d3",
@@ -7384,7 +7515,7 @@
       "labels": [],
       "body": "- Remove mention of security parameter (addresses #84, #87)\r\n- Document setup procedure\r\n- Remove protocol overview (superfluous and notation was inconsistent)\r\n- Shorten ciphersuite spec\r\n\r\ncc @armfazh as initial reporter\r\n\r\n**Should be merged into #91 before that change is merged**",
       "createdAt": "2020-06-03T13:45:37Z",
-      "updatedAt": "2020-06-05T14:33:47Z",
+      "updatedAt": "2020-11-10T14:40:22Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "f132e61d52603b5beb9cab08d5a7bd5493746564",
@@ -7503,7 +7634,7 @@
       "labels": [],
       "body": "- Fixes #80\r\n- Verifier and Prover is specific to verifiability mode\r\n- Replace with Client and Server identifiers\r\n\r\nThis change was already reviewed in #92 but merged into the wrong branch. This PR merges it into master.",
       "createdAt": "2020-06-05T14:13:06Z",
-      "updatedAt": "2020-06-05T14:13:21Z",
+      "updatedAt": "2020-11-10T14:40:23Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "9f736f1b85d8f6d433804a3d300a9981214ebb56",
@@ -7531,7 +7662,7 @@
       "labels": [],
       "body": "As discussed!\r\n\r\ncc @armfazh ",
       "createdAt": "2020-06-15T18:36:02Z",
-      "updatedAt": "2020-06-16T14:50:07Z",
+      "updatedAt": "2020-11-10T14:40:09Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "3d26e11c8d5ede019c717c381f2178116a57f105",
@@ -7705,7 +7836,7 @@
       "labels": [],
       "body": "Static DH oracles are not a concern for OPAQUE, so, let's add back these curves!\r\n\r\ncc @armfazh ",
       "createdAt": "2020-06-15T21:35:31Z",
-      "updatedAt": "2020-06-16T14:19:35Z",
+      "updatedAt": "2020-11-10T14:40:10Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "2afa9f9f38b1c0d08bf613e6be50229fbcf2b4f2",
@@ -7762,7 +7893,7 @@
       "labels": [],
       "body": "cc @armfazh ",
       "createdAt": "2020-06-16T13:42:29Z",
-      "updatedAt": "2020-06-16T13:57:00Z",
+      "updatedAt": "2020-11-10T14:40:09Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "2afa9f9f38b1c0d08bf613e6be50229fbcf2b4f2",
@@ -7812,7 +7943,7 @@
       "labels": [],
       "body": "See https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hash-to-curve-08#section-10.3.",
       "createdAt": "2020-06-17T13:27:06Z",
-      "updatedAt": "2020-06-18T08:13:12Z",
+      "updatedAt": "2020-11-10T14:40:08Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "e3ac1ba8c964d487f223a6c0cd1e62103ece13e2",
@@ -7828,7 +7959,7 @@
       "comments": [
         {
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "Does the purpose of the `info` variable must be user-specific, rather than use it as domain separation tag? \r\nOne can define a separation tag without requiring the user to care about it. do you think this could work?",
           "createdAt": "2020-06-17T16:27:48Z",
           "updatedAt": "2020-06-17T16:27:48Z"
@@ -7956,7 +8087,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-06-19T11:34:38Z",
-      "updatedAt": "2020-06-19T16:14:01Z",
+      "updatedAt": "2020-11-10T14:40:52Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "75838bcc41235313f4ee3291bf070283255686c7",
@@ -8046,7 +8177,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-06-19T11:40:50Z",
-      "updatedAt": "2020-06-19T15:37:28Z",
+      "updatedAt": "2020-11-10T14:40:53Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "456e2a6b48a5952b27d5ce0e1399078aea224a93",
@@ -8088,7 +8219,7 @@
       "labels": [],
       "body": "This can be used for OPAQUE to generate the Server's key pair",
       "createdAt": "2020-06-19T13:01:49Z",
-      "updatedAt": "2020-06-22T08:25:14Z",
+      "updatedAt": "2020-11-10T14:40:52Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "49c463c9be2da940284eda01d297597e52384bc5",
@@ -8163,7 +8294,7 @@
             "abbreviatedOid": "e42cd5d"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2020-06-19T22:56:09Z",
@@ -8184,7 +8315,7 @@
       "labels": [],
       "body": "- Removes H3 as it is the same as H1\r\n- Add prefix-free domain separation for hash function calls\r\n\r\ncc @armfazh ",
       "createdAt": "2020-06-19T13:31:12Z",
-      "updatedAt": "2020-06-22T14:54:08Z",
+      "updatedAt": "2020-11-10T14:40:51Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b2f7bcb5a3681cf5219a4c5f87a70119d0267cad",
@@ -8355,7 +8486,7 @@
             "abbreviatedOid": "00e2fd2"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "this looks good",
           "createdAt": "2020-06-19T23:31:27Z",
@@ -8464,7 +8595,7 @@
       "labels": [],
       "body": "cc @armfazh ",
       "createdAt": "2020-06-22T08:42:00Z",
-      "updatedAt": "2020-06-22T16:28:51Z",
+      "updatedAt": "2020-11-10T14:40:07Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "378b4f88d01c6d4f9f9e4e244bc2d74c2cac5f57",
@@ -8506,7 +8637,7 @@
       "labels": [],
       "body": "cc @armfazh ",
       "createdAt": "2020-06-22T08:50:18Z",
-      "updatedAt": "2020-06-22T15:42:44Z",
+      "updatedAt": "2020-11-10T14:40:50Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b2f7bcb5a3681cf5219a4c5f87a70119d0267cad",
@@ -8548,7 +8679,7 @@
       "labels": [],
       "body": "cc @armfazh ",
       "createdAt": "2020-06-22T08:52:59Z",
-      "updatedAt": "2020-06-22T15:40:59Z",
+      "updatedAt": "2020-11-10T14:40:53Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b2f7bcb5a3681cf5219a4c5f87a70119d0267cad",
@@ -8590,7 +8721,7 @@
       "labels": [],
       "body": "cc @armfazh ",
       "createdAt": "2020-06-22T08:58:14Z",
-      "updatedAt": "2020-06-22T16:29:59Z",
+      "updatedAt": "2020-11-10T14:40:06Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b2f7bcb5a3681cf5219a4c5f87a70119d0267cad",
@@ -8639,7 +8770,7 @@
       "labels": [],
       "body": "cc @armfazh ",
       "createdAt": "2020-06-22T09:24:16Z",
-      "updatedAt": "2020-06-24T08:41:36Z",
+      "updatedAt": "2020-11-10T14:40:49Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "d118c741e60320de2cd9df98beb58d46cf07f547",
@@ -8725,7 +8856,7 @@
             "abbreviatedOid": "f31e7bb"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-06-22T18:19:44Z",
@@ -8745,7 +8876,7 @@
             "abbreviatedOid": "f31e7bb"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-06-22T18:23:34Z",
@@ -8785,7 +8916,7 @@
             "abbreviatedOid": "f31e7bb"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-06-22T19:28:42Z",
@@ -8838,7 +8969,7 @@
             "abbreviatedOid": "cf89b13"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "A couple of nits only.",
           "createdAt": "2020-06-23T17:09:47Z",
@@ -8878,7 +9009,7 @@
       "labels": [],
       "body": "This change decouples the notion of verifiability from the ciphersuite definition, since the algorithms in use do not affect how verifiability works. There are now two \"modes\" for the OPRF protocol: base mode and verifiability mode. Clients and servers run a \"setup\" step that produces a client or server context (respectively), which has the relevant APIs on them (blind, unblind, and finalize for clients, and evaluate for servers). The verifiable mode augments (extends) these contexts to provide the additional proof generation and verification logic. \r\n\r\nI also updated the ciphersuite definitions to move H2, which was previously \"hash to scalar element,\" to the GG API. This lets us use hash-to-field from draft-irtf-cfrg-hash-to-curve, which is nice. It will also let us easily adopt ristretto255 (and Decaf), since those have a similar API shape.\r\n\r\ncc @armfazh @grittygrease ",
       "createdAt": "2020-06-22T21:14:19Z",
-      "updatedAt": "2020-06-25T18:42:27Z",
+      "updatedAt": "2020-11-10T14:40:05Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "89b8e8414f1d78d3c50b3dacda075f5a1bb1519a",
@@ -9550,7 +9681,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-06-25T12:53:00Z",
-      "updatedAt": "2020-06-25T12:59:17Z",
+      "updatedAt": "2020-11-10T14:40:02Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "3a62ce0d394d59785a9c3fb348c365f25a7ce9d1",
@@ -9694,7 +9825,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2020-06-26T16:20:05Z",
-      "updatedAt": "2020-06-26T16:43:15Z",
+      "updatedAt": "2020-11-10T14:40:04Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "627c224a9f024edcae01e80c6ed03cbfca6834f3",
@@ -9736,7 +9867,7 @@
       "labels": [],
       "body": "PrivacyPass can use this without having to use any group operations from VOPRF.",
       "createdAt": "2020-06-26T16:29:03Z",
-      "updatedAt": "2020-06-29T13:11:38Z",
+      "updatedAt": "2020-11-10T14:40:04Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "5c28ca526c03329940406554c659e40ee51694de",
@@ -9778,7 +9909,7 @@
       "labels": [],
       "body": "Batch notation is only useful in ComputeComposites. This change optimizes all other functions for the common, non-batched case. Hopefully this makes use of these APIs easier in other protocols such as OPAQUE.",
       "createdAt": "2020-06-29T14:07:47Z",
-      "updatedAt": "2020-06-30T07:42:28Z",
+      "updatedAt": "2020-11-10T14:40:01Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b307fa0b428aeeb3b8c754550dcf93ce97d5bf2e",
@@ -9820,7 +9951,7 @@
       "labels": [],
       "body": "- Rewording\r\n- Removed privacy considerations as they're app-specific\r\n- Remove application section as it was just reiterating stuff in the intro\r\n\r\n(It's a big diff, but most of it is just re-wrapping lines etc)",
       "createdAt": "2020-07-09T14:19:29Z",
-      "updatedAt": "2020-07-13T08:41:37Z",
+      "updatedAt": "2020-11-10T14:40:48Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "a729c70f9761825c912e32721bb80e70862ea431",
@@ -9841,7 +9972,7 @@
             "abbreviatedOid": "6dbc03e"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "I suggest moving the suite IDs to the beginning of the parameter list. ",
           "createdAt": "2020-07-10T21:34:45Z",
@@ -9943,7 +10074,7 @@
       "labels": [],
       "body": "Made before uploading",
       "createdAt": "2020-07-13T09:39:36Z",
-      "updatedAt": "2020-08-07T17:00:50Z",
+      "updatedAt": "2020-11-10T14:40:47Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "bd81b95dee48de6f6cf06e393a8628ff45afb4ce",
@@ -10161,7 +10292,7 @@
       "labels": [],
       "body": "Hey @armfazh, thanks for all the work that you have done on this document so far. It's about time you were added as a full author! Feel free to suggest changes to any of the details if I have got anything incorrect.\r\n\r\ncc @chris-wood ",
       "createdAt": "2020-09-09T10:46:45Z",
-      "updatedAt": "2020-09-10T15:56:03Z",
+      "updatedAt": "2020-11-10T14:41:05Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "751c0307f9e3585cb0b14884b23517eecca9f7b8",
@@ -10243,7 +10374,7 @@
       "labels": [],
       "body": "Closes #145.",
       "createdAt": "2020-09-26T13:13:44Z",
-      "updatedAt": "2020-09-28T17:46:18Z",
+      "updatedAt": "2020-11-10T14:40:00Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "cd85b5938e1e3ee17e325fa1c598565f400f1473",
@@ -10264,7 +10395,7 @@
             "abbreviatedOid": "6a0baff"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2020-09-28T17:43:30Z",
@@ -10863,7 +10994,7 @@
       "labels": [],
       "body": "Closes #148.",
       "createdAt": "2020-10-16T13:41:05Z",
-      "updatedAt": "2020-10-17T16:05:56Z",
+      "updatedAt": "2020-11-10T14:40:00Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "be81e97a16dac7fa0a6b93bda85e8c5d4a934740",
@@ -10905,7 +11036,7 @@
       "labels": [],
       "body": "Closes #143.\r\n\r\ncc @davidben",
       "createdAt": "2020-10-16T13:51:42Z",
-      "updatedAt": "2020-10-17T16:09:51Z",
+      "updatedAt": "2020-11-10T14:39:58Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "4cb07ebc3c98bf1324a7dda0e2ec224a4327ee13",
@@ -10955,7 +11086,7 @@
       "labels": [],
       "body": "The suite ID covers this value, so it's not necessary to include in the hash input.\r\n\r\nCloses #147.\r\n\r\nThanks, @davidben!",
       "createdAt": "2020-10-16T13:57:12Z",
-      "updatedAt": "2020-10-17T16:06:52Z",
+      "updatedAt": "2020-11-10T14:39:59Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "6557b831a3f9f6fd745daea7bc31cd9551c3def3",
@@ -10997,7 +11128,7 @@
       "labels": [],
       "body": "cc @claucece ",
       "createdAt": "2020-10-19T14:41:42Z",
-      "updatedAt": "2020-10-19T16:22:51Z",
+      "updatedAt": "2020-11-10T14:39:58Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "f4d1a6586609184e930ba35d698698c72a8062c4",
@@ -12134,7 +12265,7 @@
       "labels": [],
       "body": "This does a couple things:\r\n\r\n- Removes `Order()` -- it was never used.\r\n- Unifies Serialization content. \r\n- Removes scalar multiplication instructions, as I think these are unnecessary.\r\n\r\nIt also fixes some references (uses updated versions and removes unused references).\r\n\r\ncc @claucece ",
       "createdAt": "2020-10-28T12:49:32Z",
-      "updatedAt": "2020-10-28T16:27:46Z",
+      "updatedAt": "2020-11-10T14:39:57Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "b983cd46b09812e15a591a3ca67670fa561391c7",
@@ -12296,7 +12427,7 @@
       "labels": [],
       "body": "cc @claucece, @armfazh ",
       "createdAt": "2020-10-30T18:57:09Z",
-      "updatedAt": "2020-10-30T23:20:17Z",
+      "updatedAt": "2020-11-10T14:39:56Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "ef887bf21534054a16230309d01d94a0bd6403cd",
@@ -12317,7 +12448,7 @@
             "abbreviatedOid": "629d78a"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2020-10-30T19:21:32Z",
@@ -12568,7 +12699,7 @@
       "labels": [],
       "body": "cc @claucece, @armfazh ",
       "createdAt": "2020-11-02T17:43:30Z",
-      "updatedAt": "2020-11-02T17:46:49Z",
+      "updatedAt": "2020-11-10T14:39:56Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "3148ab6419838f838ea02246a6c8f1269beaab7c",
@@ -12589,7 +12720,7 @@
             "abbreviatedOid": "36a7f5f"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2020-11-02T17:46:39Z",
@@ -12660,7 +12791,7 @@
       "labels": [],
       "body": "This clarifies the change in #180.\r\n\r\ncc @armfazh, @claucece ",
       "createdAt": "2020-11-02T18:30:01Z",
-      "updatedAt": "2020-11-02T22:10:44Z",
+      "updatedAt": "2020-11-10T14:39:55Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "e09a990450eae5dd28c04e5ddb8ee7fecfad2c61",
@@ -12689,7 +12820,7 @@
             "abbreviatedOid": "1c87be5"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-11-02T20:20:53Z",
@@ -12729,7 +12860,7 @@
             "abbreviatedOid": "1c87be5"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-11-02T20:22:53Z",
@@ -12749,7 +12880,7 @@
             "abbreviatedOid": "1c87be5"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-11-02T20:24:21Z",
@@ -12807,7 +12938,7 @@
             "abbreviatedOid": "344bb8f"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2020-11-02T20:57:39Z",
@@ -12828,7 +12959,7 @@
       "labels": [],
       "body": "Addresses #182.\r\n\r\ncc @armfazh ",
       "createdAt": "2020-11-02T22:15:23Z",
-      "updatedAt": "2020-11-02T22:22:40Z",
+      "updatedAt": "2020-11-10T14:39:48Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "ba8f046f0030700ceca00defffdaabaee2a959e2",
@@ -12849,7 +12980,7 @@
             "abbreviatedOid": "9a0c369"
           },
           "author": "armfazh",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-11-02T22:19:24Z",
@@ -13541,7 +13672,7 @@
       "labels": [],
       "body": "I think this makes the description more clear, and also makes the use for each function apparent. ",
       "createdAt": "2020-11-06T00:41:57Z",
-      "updatedAt": "2020-11-06T00:49:33Z",
+      "updatedAt": "2020-11-10T14:39:47Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "f71b2b7883fc19050f45b80fae295eb53b5fac5c",
@@ -13583,7 +13714,7 @@
       "labels": [],
       "body": "And write them to in text format (for the spec). Sample output is below. In making this change, I also renamed parameters used throughout the document. Specifically, I started moving away from \"token\" (which is a relic of Privacy Pass) towards \"element.\" \r\n\r\nI also fixed a bug in the type of the Finalize \"output\" parameter, where previously it was a vector (with length prefix) but was actually just a fixed-length hash function output.\r\n\r\n```\r\n## OPRF(ristretto255, SHA-256)\r\n\r\n### Base Mode\r\n\r\nskS = 0x38ecf12e5465e4f1362d237521104338cde6717e26a25a5770da7ad85c70\r\n4c6 \r\n\r\n#### Test Vector 1\r\n\r\nInput = 0x00 \r\nBlind = 0xbe537e02b0116a48941a76d08b3af2366cc6ee4237b306d3153fc6b209\r\n5d85e \r\nBlindedElement = 0xdcdfdc7560b0fb00809bbddc395eb740ec198e3a3d098c074\r\n1a077fa20fc8126 \r\nEvaluatedElement = 0x9e066b349ff1f2e1eb82264f9777ce63fe3aea2e429e944\r\n9b89116fb1b85871d \r\nUnblindedElement = 0xe81179b0fa0b03ab4f1d4e557233f17bd05d23f158d3255\r\n2def49a0d38ea5249 \r\nInfo = 0x736f6d655f696e666f00 \r\nOutput = 0xeae38ae2f64e3747e185c7fa058141352da46f94f231c7db6b7b4c943\r\n5033545 \r\n\r\n...\r\n```\r\n\r\n@dvorak42 would this format work for you?",
       "createdAt": "2020-11-08T18:35:51Z",
-      "updatedAt": "2020-11-10T00:22:01Z",
+      "updatedAt": "2020-11-10T14:39:46Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "72ad54bba21da719456d85d3a12304410f83448d",
@@ -13790,32 +13921,12 @@
           ]
         },
         {
-          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzU4MDk3",
-          "commit": {
-            "abbreviatedOid": "0d6b0d8"
-          },
-          "author": "bytemare",
-          "authorAssociation": "NONE",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2020-11-10T00:20:10Z",
-          "updatedAt": "2020-11-10T00:20:11Z",
-          "comments": [
-            {
-              "originalPosition": 613,
-              "body": "Why use `blindedPublicKey` as input and output of this function, since it is not used?",
-              "createdAt": "2020-11-10T00:20:10Z",
-              "updatedAt": "2020-11-10T00:20:11Z"
-            }
-          ]
-        },
-        {
           "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzU4Njky",
           "commit": {
             "abbreviatedOid": "0d6b0d8"
           },
           "author": "bytemare",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2020-11-10T00:21:47Z",
@@ -13848,6 +13959,46 @@
               "updatedAt": "2020-11-10T00:22:01Z"
             }
           ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzU5MjM0",
+          "commit": {
+            "abbreviatedOid": "0d6b0d8"
+          },
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T00:23:04Z",
+          "updatedAt": "2020-11-10T00:23:05Z",
+          "comments": [
+            {
+              "originalPosition": 643,
+              "body": "Why use `blindedPublicKey` as input and output of this function, since it is not used?",
+              "createdAt": "2020-11-10T00:23:04Z",
+              "updatedAt": "2020-11-10T00:23:05Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzYwNjU3",
+          "commit": {
+            "abbreviatedOid": "0d6b0d8"
+          },
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T00:26:51Z",
+          "updatedAt": "2020-11-10T00:26:52Z",
+          "comments": [
+            {
+              "originalPosition": 631,
+              "body": "Oh, I'm sorry about that! Missed it!",
+              "createdAt": "2020-11-10T00:26:52Z",
+              "updatedAt": "2020-11-10T00:26:52Z"
+            }
+          ]
         }
       ]
     },
@@ -13856,24 +14007,347 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTE4MTE2MzEy",
       "title": "Fix ComputeComposite encoding.",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/202",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "chris-wood",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This closes #192, and also fixes a bug in the PoC implementation.\r\n\r\ncc @claucece (for when we add verifiable mode to CIRCL)",
       "createdAt": "2020-11-09T23:56:39Z",
-      "updatedAt": "2020-11-09T23:56:56Z",
+      "updatedAt": "2020-11-10T14:39:39Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "87d42c249e83cce10a741e4a7bc96486e8b6cdf1",
       "headRepository": "cfrg/draft-irtf-cfrg-voprf",
       "headRefName": "caw/fix-composites",
-      "headRefOid": "4a75777d8d60b0de74767f6b92310e8895121240",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e0b87288db276ab1667f403c7c85f564a6e277a4",
+      "closedAt": "2020-11-10T00:35:29Z",
+      "mergedAt": "2020-11-10T00:35:29Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "ebeed72a2081dfe824fd494dacd08717b684ae53"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzYyMTQ5",
+          "commit": {
+            "abbreviatedOid": "854ea43"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Regenerate test vectors.",
+          "createdAt": "2020-11-10T00:30:51Z",
+          "updatedAt": "2020-11-10T00:31:49Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\n        i = 0\r\n        h2_input = I2OSP(len(seed), 2) + seed \\\r\n            + I2OSP(i, 2) \\\r\n```",
+              "createdAt": "2020-11-10T00:30:51Z",
+              "updatedAt": "2020-11-10T00:34:34Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 203,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE4MTM4NTc3",
+      "title": "Move ristretto255 suite to SHA-512 for better alignment with Ed25519.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/203",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #200.\r\n\r\ncc @bytemare, @jedisct1",
+      "createdAt": "2020-11-10T01:06:01Z",
+      "updatedAt": "2020-11-10T14:39:36Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "ebeed72a2081dfe824fd494dacd08717b684ae53",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/fix-ristretto255",
+      "headRefOid": "a69357ab2a698235c079207d4b7b1de5c35dce3a",
+      "closedAt": "2020-11-10T01:49:22Z",
+      "mergedAt": "2020-11-10T01:49:22Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "6573453447b918798e17270f2ad97637b7d7a667"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "NONE",
+          "body": "Looks good!",
+          "createdAt": "2020-11-10T01:12:16Z",
+          "updatedAt": "2020-11-10T01:12:16Z"
+        },
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Looks good to me :)",
+          "createdAt": "2020-11-10T14:03:26Z",
+          "updatedAt": "2020-11-10T14:03:26Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2NzkxNTIw",
+          "commit": {
+            "abbreviatedOid": "a69357a"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-10T01:46:28Z",
+          "updatedAt": "2020-11-10T01:46:28Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 204,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE4MTQ5NDE0",
+      "title": "Make DST longer and upper-case prefixes.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/204",
+      "state": "MERGED",
+      "author": "armfazh",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "armfazh"
+      ],
+      "labels": [],
+      "body": "To remedy #198, I propose to extend DST as follows:\r\n```\r\nDST = \"RFCXXXX-HashToGroup-\" + I2OSP(mode, 1)  + I2OSP(suite.ID, 2)\r\nlen(DST) = 22\r\n```",
+      "createdAt": "2020-11-10T01:40:57Z",
+      "updatedAt": "2020-11-10T13:37:19Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "6573453447b918798e17270f2ad97637b7d7a667",
+      "headRepository": "armfazh/draft-irtf-cfrg-voprf",
+      "headRefName": "fixDST",
+      "headRefOid": "4804f9c95d57f56a914c43ede76b3e486bc5080d",
+      "closedAt": "2020-11-10T13:37:19Z",
+      "mergedAt": "2020-11-10T13:37:19Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "d7f05561b695b13fa7073a98eea7391ec84e98aa"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI2ODAxNzcx",
+          "commit": {
+            "abbreviatedOid": "a6651fc"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM with one suggestion!",
+          "createdAt": "2020-11-10T02:16:39Z",
+          "updatedAt": "2020-11-10T02:16:48Z",
+          "comments": [
+            {
+              "originalPosition": 45,
+              "body": "Can we add text (to the parent section) describing the rationale for this choice? For example:\r\n\r\n~~~\r\nEach ciphersuite specifies the HashToGroup operation for the corresponding group.\r\nThe domain separation tag (DST) for this operation is constructed to satisfy the \r\nrecommendations in {{!I-D.irtf-cfrg-hash-to-curve}}, Section 3.1.\r\n~~~",
+              "createdAt": "2020-11-10T02:16:39Z",
+              "updatedAt": "2020-11-10T13:37:02Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI3MjA2MjQ1",
+          "commit": {
+            "abbreviatedOid": "c35c746"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T13:36:34Z",
+          "updatedAt": "2020-11-10T13:36:35Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "```suggestion\r\n  point defined in the corresponding reference for each group. Each group also\r\n  specifies HashToGroup, HashToScalar, and serialization functionalities. For \r\n  HashToGroup, the domain separation tag (DST) is constructed in accordance\r\n  with the recommendations in {{!I-D.irtf-cfrg-hash-to-curve}}, Section 3.1.\r\n```",
+              "createdAt": "2020-11-10T13:36:35Z",
+              "updatedAt": "2020-11-10T13:37:02Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI3MjA2NzA3",
+          "commit": {
+            "abbreviatedOid": "4804f9c"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-10T13:37:07Z",
+          "updatedAt": "2020-11-10T13:37:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 205,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE4NTY1OTUy",
+      "title": "Add batched test vector support for verifiable mode.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/205",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Sample test vector output is below. Notice that the OPRF outputs are the same in the batched case (as expected), but the proof is different. \r\n\r\n~~~\r\n### Verifiable Mode\r\n\r\nskS = 0x91a688c1b83ecbc9dac5da9042f60bbda9f332fd6cdf828252920741dbd9\r\nc01 \r\npkS = 0xeee7a9c7fec3460c27c160c683d46a4fd18f537c055c3998748b8e4cd8f2\r\n9b3e \r\n\r\n#### Test Vector 1, Batch Size 1\r\n\r\nInput = 0x00 \r\nBlind = 0x7e7b0d8e0e019c1c5e47d3b1743cf3b333d8459e92f1fa45c1a19c8421\r\nac689 \r\nBlindedElement = 0x5c32e60d33bf1926fb6220a0ba83884be61c909683a91a647\r\nba5e161397c9420 \r\nEvaluationElement = 0x90ffd831afd69d69a08683e94a33c6e4bf46c24390591a\r\n725046faf6e104b03a \r\nUnblindedElement = 0x343b7e213ad40ab18b2095a3add95af7161704f40c270ec\r\n457c73969048ab704 \r\nEvaluationProofC = 0x6b748a78be51b6a8aaf457277f17004e43f5ccd3f96a7d0\r\n63d9f1491ede53df \r\nEvaluationProofS = 0x2b0852b04a5302eac7cfec5c3e0d41f610944defa4ac0ac\r\n6b891ffdac208319 \r\nInfo = 0x736f6d655f696e666f \r\nOutput = 0x1b5cbcddfc80e381b89fe480744b102902c94b5717d41a279b7d17d36\r\na84a940a1a5bd5efd096e042fe4b50257707cc970577d7341b19b393cc01178e0775\r\n066 \r\n\r\n#### Test Vector 2, Batch Size 1\r\n\r\nInput = 0x5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a \r\nBlind = 0x9c97062a1b0a0229b0775217c99815e2036aff826a4044cb752ade9225\r\n0668d \r\nBlindedElement = 0xf2318dd1be4c80946970fe8a2fdd457b0fb5fe9475539d0d7\r\nfeceda14e41de5f \r\nEvaluationElement = 0x02539bb26498540190ecf5a0f58994fc21a707cb0d9417\r\n9ff9799ee5b2ee9822 \r\nUnblindedElement = 0x7282c36c2cb0179ef876c8541fa8d14c532cc6f66af905b\r\n159c653c25081161f \r\nEvaluationProofC = 0x23eba0d5688610ba98e6f1a044d82bc02ca9a58ed4f537b\r\nef85e0604a3f1224 \r\nEvaluationProofS = 0xedb8dac7ff0d01b1f38ed9b07322081fd5310f907604b6d\r\nba63c505b135cd09 \r\nInfo = 0x736f6d655f696e666f \r\nOutput = 0x9b8850a28154b3fba7a00b7e74541871f85f7d17ca5300f442e9daeb7\r\ndce2b21d3b4ff67b8e84e0dfa5195e262a54fb1ab45f0851a4feadcf3a8d8a808b93\r\ncc4 \r\n\r\n#### Test Vector 3, Batch Size 2\r\n\r\nInput = 0x00,0x5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a \r\nBlind = 0x8ce6d88376170a98651af33ac718e4c44f8220586a8e4ee92157925c3a\r\nef53a,0x4afef5d250bf7f992b0e07477e3d32487b2d637e712ef4ee28dc1da700bc\r\nb8b \r\nBlindedElement = 0x5cdaff2d4304bd940b018f2e06c633d5633e5c16403f9c766\r\nbc1f418e442f174,0x6a09bfb3cbf0450cbae2e77a1159079a261d1fc8963b197dec\r\nf3b64287ab4b0a \r\nEvaluationElement = 0xda5ae0e6a48211ea990d46f22785ab5b8aebfb30a899ce\r\na4ef3e06dd7a108804,0xec518d0e6ec97c168e2f83d04f26de952658adadc3fd0cb\r\n1840c373f1842362b \r\nUnblindedElement = 0x343b7e213ad40ab18b2095a3add95af7161704f40c270ec\r\n457c73969048ab704,0x7282c36c2cb0179ef876c8541fa8d14c532cc6f66af905b1\r\n59c653c25081161f \r\nEvaluationProofC = 0xc4cfdd765340c4ab4c2fba79cd708a5e3857f7aafaab997\r\n483fa071631d7a5a \r\nEvaluationProofS = 0x8cbaf2e5349d0c992d86529e9c0628f3b26a8ba1a98ed1a\r\n99c05fd4ccd24a60 \r\nInfo = 0x736f6d655f696e666f \r\nOutput = 0x1b5cbcddfc80e381b89fe480744b102902c94b5717d41a279b7d17d36\r\na84a940a1a5bd5efd096e042fe4b50257707cc970577d7341b19b393cc01178e0775\r\n066,0x9b8850a28154b3fba7a00b7e74541871f85f7d17ca5300f442e9daeb7dce2b\r\n21d3b4ff67b8e84e0dfa5195e262a54fb1ab45f0851a4feadcf3a8d8a808b93cc4 \r\n~~~",
+      "createdAt": "2020-11-10T15:21:55Z",
+      "updatedAt": "2020-11-10T21:56:42Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "b2a88f0c163f86b52f549006900df01df632f460",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/add-batch-vectors",
+      "headRefOid": "5ae332b1dc87f648ba2b21c60ddc2b688803d822",
+      "closedAt": "2020-11-10T21:56:42Z",
+      "mergedAt": "2020-11-10T21:56:42Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "b7d000d09c279b091b512331d3384ab7058b551d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI3NjMxMzU4",
+          "commit": {
+            "abbreviatedOid": "36fe1c6"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "It looks good.\r\n\r\n* I will update the json vectors tags at suite/mode level. Because currently the name and mode are used as tags, meanwhile they are already present in fields. Thus, other implementations can iterate over vectors.\r\n",
+          "createdAt": "2020-11-10T21:43:27Z",
+          "updatedAt": "2020-11-10T21:49:35Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "```suggestion\r\n            if skS == None:\r\n                Zi = self.suite.group.deserialize(evaluated_element)\r\n                Z = (di * Zi) + Z\r\n\r\n    if skS != None:\r\n        Z = self.skS * M\r\n```",
+              "createdAt": "2020-11-10T21:43:28Z",
+              "updatedAt": "2020-11-10T21:56:27Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 206,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE4ODAwNzE4",
+      "title": "Add test vectors.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/206",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #51.",
+      "createdAt": "2020-11-10T22:25:01Z",
+      "updatedAt": "2020-11-10T23:08:38Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "b7daba2082e8c74355c8c1f7e46911fd53186f61",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/test-vectors",
+      "headRefOid": "65033b0cf66245bb439ed104aaf8f0bb3c27deb2",
+      "closedAt": "2020-11-10T23:08:38Z",
+      "mergedAt": "2020-11-10T23:08:38Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "2589e0bc0e294fb7ccd785506024826d9cce5026"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI3NjcwMTUz",
+          "commit": {
+            "abbreviatedOid": "3b78c8d"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T22:47:54Z",
+          "updatedAt": "2020-11-10T22:47:54Z",
+          "comments": [
+            {
+              "originalPosition": 169,
+              "body": "```suggestion\r\nThe server key material, pkS and skS, are listed as serialized values\r\nunder the mode for each ciphersuite.\r\n```",
+              "createdAt": "2020-11-10T22:47:54Z",
+              "updatedAt": "2020-11-10T23:06:39Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI3Njc4MTYw",
+          "commit": {
+            "abbreviatedOid": "3b78c8d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-10T23:03:20Z",
+          "updatedAt": "2020-11-10T23:03:20Z",
+          "comments": [
+            {
+              "originalPosition": 169,
+              "body": "Ah I wrote this and then forgot to change it. One sec, and I'll fix it. ",
+              "createdAt": "2020-11-10T23:03:20Z",
+              "updatedAt": "2020-11-10T23:06:39Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTI3NjgwNTA1",
+          "commit": {
+            "abbreviatedOid": "65033b0"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-10T23:08:09Z",
+          "updatedAt": "2020-11-10T23:08:09Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 207,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE4ODIwMTg3",
+      "title": "Add github.com/bytemare/voprf implementation",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/207",
+      "state": "MERGED",
+      "author": "bytemare",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As suggested by @chris-wood, added a voprf implemention.",
+      "createdAt": "2020-11-10T23:14:38Z",
+      "updatedAt": "2020-11-10T23:36:49Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "2589e0bc0e294fb7ccd785506024826d9cce5026",
+      "headRepository": "bytemare/draft-irtf-cfrg-voprf",
+      "headRefName": "patch-1",
+      "headRefOid": "40b9444facb6ba7e68dea0aaf1eafde6b171a3a9",
+      "closedAt": "2020-11-10T23:15:46Z",
+      "mergedAt": "2020-11-10T23:15:46Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "a68bd7fc0063eb2070e713a547cae5d8f6088e62"
+      },
       "comments": [],
       "reviews": []
     }
