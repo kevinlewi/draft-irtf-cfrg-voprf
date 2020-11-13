@@ -5,9 +5,9 @@
 Network Working Group                                        A. Davidson
 Internet-Draft                                          A. Faz-Hernandez
 Intended status: Informational                               N. Sullivan
-Expires: 16 May 2021                                           C.A. Wood
+Expires: 17 May 2021                                           C.A. Wood
                                                               Cloudflare
-                                                        12 November 2020
+                                                        13 November 2020
 
 
    Oblivious Pseudorandom Functions (OPRFs) using Prime-Order Groups
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 May 2021.
+   This Internet-Draft will expire on 17 May 2021.
 
 Copyright Notice
 
@@ -262,8 +262,7 @@ Table of Contents
 
    *  "GG": A prime-order group implementing the API described below in
       Section 2.1, with base point defined in the corresponding
-      reference for each group.  (See Section 4 for these base base
-      points.)
+      reference for each group.  (See Section 4 for these base points.)
 
    *  "Hash": A cryptographic hash function that is indifferentiable
       from a Random Oracle, whose output length is Nh bytes long.
@@ -340,7 +339,7 @@ Table of Contents
    a prime-order group, and this MUST be upheld by any implementer.
    That is, any curve instantiation should be written such that any
    discrepancies with a prime-order group instantiation are removed.
-   See Section 4 for advice corresponding to implementation of this
+   See Section 4 for advice corresponding to the implementation of this
    interface for specific definitions of elliptic curves.
 
 2.2.  Other conventions
@@ -1123,7 +1122,7 @@ def Unblind(blind, evaluatedElement, blindedElement, pkS, proof):
    only constructing one NIZK proof object.  This is enabled using an
    established batching technique.
 
-   Consequently the cryptographic security of our construction is based
+   Consequently, the cryptographic security of our construction is based
    on the assumption that the One-More Gap DH is computationally
    difficult to solve.
 
@@ -1176,8 +1175,8 @@ def Unblind(blind, evaluatedElement, blindedElement, pkS, proof):
    functionality that we provide.  A client can just submit sequential
    queries of the form (G, k * G, (k^2)G, ..., (k^(Q-1))G), where each
    query is the output of the previous interaction.  This means that any
-   client that submit Q queries to the OPRF can use the aforementioned
-   attacks to reduce security of the group instantiation by log_2(Q)
+   client that submits Q queries to the OPRF can use the aforementioned
+   attacks to reduce the security of the group instantiation by log_2(Q)
    bits.
 
    Recall that from a malicious client's perspective, the adversary wins
@@ -1341,12 +1340,12 @@ def AdditiveBlind(input, blindedGenerator):
 
 6.3.1.  Parameter Commitments
 
-   For some applications, it may be desirable for server to bind tokens
-   to certain parameters, e.g., protocol versions, ciphersuites, etc.
-   To accomplish this, server should use a distinct scalar for each
-   parameter combination.  Upon redemption of a token T from the client,
-   server can later verify that T was generated using the scalar
-   associated with the corresponding parameters.
+   For some applications, it may be desirable for the server to bind
+   tokens to certain parameters, e.g., protocol versions, ciphersuites,
+   etc.  To accomplish this, the server should use a distinct scalar for
+   each parameter combination.  Upon redemption of a token T from the
+   client, the server can later verify that T was generated using the
+   scalar associated with the corresponding parameters.
 
 7.  Acknowledgements
 
@@ -1355,7 +1354,7 @@ def AdditiveBlind(input, blindedGenerator):
    conversations with Hugo Krawczyk.  Eli-Shaoul Khedouri provided
    additional review and comments on key consistency.  Daniel Bourdrez,
    Tatiana Bradley, Sofia Celi, Frank Denis, and Bas Westerbaan also
-   provided helpful input and contributions on the document.
+   provided helpful input and contributions to the document.
 
 8.  References
 
@@ -1491,8 +1490,8 @@ Appendix A.  Test Vectors
 
    Test vectors with batch size B > 1 have inputs separated by a comma
    ",".  Applicable test vectors will have B different values for the
-   "Blind", "BlindedElement", "EvaluationElement", "UnblindedElement",
-   and "Output" fields.
+   "Input", "Blind", "BlindedElement", "EvaluationElement",
+   "UnblindedElement", and "Output" fields.
 
    The server key material, pkSm and skSm, are listed under the mode for
    each ciphersuite.  Both pkSm and skSm are the serialized values of
