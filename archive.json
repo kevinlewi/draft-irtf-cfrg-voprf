@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-15T00:21:50.496462+00:00",
+  "timestamp": "2020-11-17T00:21:07.811624+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -2895,7 +2895,7 @@
       "labels": [],
       "body": "Hello,\r\n\r\nreading the latest version of the draft, there are very few explanations about batching inputs/evaluations. For the reader unfamiliar with the subject it is not clear what these are about.\r\n\r\nFrom what I understand from a conversation with @chris-wood:\r\nthe mechanism works in a situation where a client requests multiple evaluations and could do it by sending all blinded inputs at once. The server would then evaluate them all but have a single proof for them all, and send this single proof back with the individual evaluations.\r\nSo, for N blinded inputs from the client, instead of having N requests, N evaluations, N proofs, and N responses, we would bring that down to  1 proof and 1 request-response carrying the N blinded inputs and N evaluations.\r\n\r\nIs this correct?",
       "createdAt": "2020-11-09T23:43:41Z",
-      "updatedAt": "2020-11-14T22:00:46Z",
+      "updatedAt": "2020-11-15T15:38:22Z",
       "closedAt": null,
       "comments": [
         {
@@ -2918,6 +2918,13 @@
           "body": "I tried to interpret it given the new test vectors.\r\n\r\nI think the draft could need a dedicated section about Batching to address the following points:\r\n\r\n1. Blinding method\r\nState that batching is only available with multiplicative binding for the client since we're using multiple blinds, a dedicated one for each input. Except if the logic changes and enables blinding using the preprocessed values with additive blinding. (I don't see an immediate reason why this won't be possible)\r\n2. Mode\r\nWhy is batching only used in verifiable mode? A client could rightfully ask for a batch of evaluations in base mode.\r\n3. Client and Server API\r\nThe client and server behaviors are impacted and the function specs would need to be added. This is in already in part addressed for the server.\r\nThere could be different functions or the same but all accept an array of arguments and the 'simple' blinding would only use the first element.\r\n\r\nNotes:\r\n- orders must be preserved, or unblinding will not have the desired result.\r\n- rate-limiting / anti-dos must be implemented by higher-level applications.",
           "createdAt": "2020-11-14T20:38:11Z",
           "updatedAt": "2020-11-14T22:00:46Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Blinding method. State that batching is only available with multiplicative binding for the client since we're using multiple blinds, a dedicated one for each input. Except if the logic changes and enables blinding using the preprocessed values with additive blinding.\r\n\r\nHmm, I'm not sure I follow this. What \"logic changes\" are required to allow additive blinding for batches? \r\n\r\n> Mode. Why is batching only used in verifiable mode? A client could rightfully ask for a batch of evaluations in base mode.\r\n\r\nIn base mode, each blinded element sent to the server yields one evaluated element in response. Unless I'm missing something, there's no efficiency to be gained by batching in this case. But maybe you have something particular in mind?\r\n\r\n> Client and Server API. The client and server behaviors are impacted and the function specs would need to be added. This is in already in part addressed for the server. There could be different functions or the same but all accept an array of arguments and the 'simple' blinding would only use the first element.\r\n\r\nTo be clear, are you suggesting that the client API be augmented to use batching by default, or something else? (I don't disagree that some clarifications or changes are needed, but what's less clear to me is what should be the default.)\r\n\r\n> orders must be preserved, or unblinding will not have the desired result.\r\n\r\nThis is definitely something that's important to note, yeah.",
+          "createdAt": "2020-11-15T15:38:22Z",
+          "updatedAt": "2020-11-15T15:38:22Z"
         }
       ]
     },
