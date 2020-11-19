@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-17T00:21:07.811624+00:00",
+  "timestamp": "2020-11-19T00:21:33.904047+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -2895,7 +2895,7 @@
       "labels": [],
       "body": "Hello,\r\n\r\nreading the latest version of the draft, there are very few explanations about batching inputs/evaluations. For the reader unfamiliar with the subject it is not clear what these are about.\r\n\r\nFrom what I understand from a conversation with @chris-wood:\r\nthe mechanism works in a situation where a client requests multiple evaluations and could do it by sending all blinded inputs at once. The server would then evaluate them all but have a single proof for them all, and send this single proof back with the individual evaluations.\r\nSo, for N blinded inputs from the client, instead of having N requests, N evaluations, N proofs, and N responses, we would bring that down to  1 proof and 1 request-response carrying the N blinded inputs and N evaluations.\r\n\r\nIs this correct?",
       "createdAt": "2020-11-09T23:43:41Z",
-      "updatedAt": "2020-11-15T15:38:22Z",
+      "updatedAt": "2020-11-18T22:11:33Z",
       "closedAt": null,
       "comments": [
         {
@@ -2925,6 +2925,13 @@
           "body": "> Blinding method. State that batching is only available with multiplicative binding for the client since we're using multiple blinds, a dedicated one for each input. Except if the logic changes and enables blinding using the preprocessed values with additive blinding.\r\n\r\nHmm, I'm not sure I follow this. What \"logic changes\" are required to allow additive blinding for batches? \r\n\r\n> Mode. Why is batching only used in verifiable mode? A client could rightfully ask for a batch of evaluations in base mode.\r\n\r\nIn base mode, each blinded element sent to the server yields one evaluated element in response. Unless I'm missing something, there's no efficiency to be gained by batching in this case. But maybe you have something particular in mind?\r\n\r\n> Client and Server API. The client and server behaviors are impacted and the function specs would need to be added. This is in already in part addressed for the server. There could be different functions or the same but all accept an array of arguments and the 'simple' blinding would only use the first element.\r\n\r\nTo be clear, are you suggesting that the client API be augmented to use batching by default, or something else? (I don't disagree that some clarifications or changes are needed, but what's less clear to me is what should be the default.)\r\n\r\n> orders must be preserved, or unblinding will not have the desired result.\r\n\r\nThis is definitely something that's important to note, yeah.",
           "createdAt": "2020-11-15T15:38:22Z",
           "updatedAt": "2020-11-15T15:38:22Z"
+        },
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Hmm, I'm not sure I follow this. What \"logic changes\" are required to allow additive blinding for batches?\r\n\r\nNot much actually, just that all inputs will be blinded with the same pre-computed element. I think I got confused since the test vectors imply using the multiplicative blinding. \r\n\r\n> In base mode, each blinded element sent to the server yields one evaluated element in response. Unless I'm missing something, there's no efficiency to be gained by batching in this case. But maybe you have something particular in mind?\r\n\r\nYes, benefits would be on the network level and avoiding to have N round trips if one has N inputs to evaluate. What do you think?\r\n\r\n> To be clear, are you suggesting that the client API be augmented to use batching by default, or something else? (I don't disagree that some clarifications or changes are needed, but what's less clear to me is what should be the default.)\r\n\r\nI don't know. It could indeed be easier to have one function/method for single blinding, and another one for batched blinding, that simply wraps the other (and would also support a batch with only a single input). This way, higher-level protocols would need to figure out which one to use depending on their needs. Having one entry point may lead to unnecessary complexity internally and for users. I'm just spitballing here. What do you think?",
+          "createdAt": "2020-11-18T22:11:33Z",
+          "updatedAt": "2020-11-18T22:11:33Z"
         }
       ]
     },
@@ -3072,6 +3079,22 @@
           "updatedAt": "2020-11-12T23:55:47Z"
         }
       ]
+    },
+    {
+      "number": 215,
+      "id": "MDU6SXNzdWU3NDU5NDg3ODk=",
+      "title": "Add h2c DST in test vectors",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/215",
+      "state": "OPEN",
+      "author": "bytemare",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I suggest adding the DST used for hash-to-group and hash-to-scalar in the test vectors, just like info. This would allow identifying the correct assembly of that DST before trying to hash anything and fail early.\r\n\r\nSince I can't install Sage on my working machine right now, here is the suggested line I think would allow this to be added.\r\n\r\ntest_oprf.sage, line 121\r\n``` \r\nvecSuite[\"skSm\"] = to_hex(group.serialize_scalar(server.skS))\r\nvecSuite[\"dst\"] = to_hex(_as_bytes(\"VOPRF06-HashToGroup-\") + I2OSP(self.mode, 1) + I2OSP(self.suite.identifier, 2) )\r\nif self.mode == mode_verifiable:\r\n```\r\n",
+      "createdAt": "2020-11-18T19:38:02Z",
+      "updatedAt": "2020-11-18T19:38:02Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -14796,6 +14819,48 @@
           "body": "Thanks! I made one nit, otherwise it looks good.",
           "createdAt": "2020-11-13T01:42:35Z",
           "updatedAt": "2020-11-13T01:42:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 214,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTIyODQ1MjY1",
+      "title": "Use SHA-512 for ristretto255's hash-to-group implementation.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/214",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "cc @bytemare ",
+      "createdAt": "2020-11-18T02:07:39Z",
+      "updatedAt": "2020-11-18T02:13:21Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "67c65e9b4919f56f8a25982a46c82434d45bfe46",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/ristretto255",
+      "headRefOid": "c8ae091165a1c12b525cdd77d1e2778fcfd59e40",
+      "closedAt": "2020-11-18T02:13:21Z",
+      "mergedAt": "2020-11-18T02:13:21Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "fb3964f4dec4e2a5c59a1885f71b0e54ca343303"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTMyOTkxMzQ4",
+          "commit": {
+            "abbreviatedOid": "c8ae091"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-18T02:08:56Z",
+          "updatedAt": "2020-11-18T02:08:56Z",
           "comments": []
         }
       ]
