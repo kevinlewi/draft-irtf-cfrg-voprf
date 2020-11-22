@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-19T00:21:33.904047+00:00",
+  "timestamp": "2020-11-22T00:23:26.362873+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -3047,7 +3047,7 @@
       "labels": [],
       "body": "The \"info\" in test vectors is set to the value \"some_info\", therefore breaking testing for implementations/poc building the info after the draft's instructions.",
       "createdAt": "2020-11-12T02:49:39Z",
-      "updatedAt": "2020-11-12T23:55:47Z",
+      "updatedAt": "2020-11-21T18:13:42Z",
       "closedAt": null,
       "comments": [
         {
@@ -3077,6 +3077,13 @@
           "body": "This DST is not h2c related, so it might not have to be h2c compliant, and could indeed be some arbitrary value.\r\nIn that case, what would be the guidance on choosing/setting this opaque byte string?",
           "createdAt": "2020-11-12T23:55:47Z",
           "updatedAt": "2020-11-12T23:55:47Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> In that case, what would be the guidance on choosing/setting this opaque byte string?\r\n\r\nGood question. I think the guidance in draft-irtf-cfrg-hash-to-curve is probably the best we have at the moment. \r\n\r\nIn that case, would you be okay with updating the \"info\" string with something, uh, better than \"some_info\", and then closing this issue?",
+          "createdAt": "2020-11-21T18:13:42Z",
+          "updatedAt": "2020-11-21T18:13:42Z"
         }
       ]
     },
@@ -3092,9 +3099,17 @@
       "labels": [],
       "body": "I suggest adding the DST used for hash-to-group and hash-to-scalar in the test vectors, just like info. This would allow identifying the correct assembly of that DST before trying to hash anything and fail early.\r\n\r\nSince I can't install Sage on my working machine right now, here is the suggested line I think would allow this to be added.\r\n\r\ntest_oprf.sage, line 121\r\n``` \r\nvecSuite[\"skSm\"] = to_hex(group.serialize_scalar(server.skS))\r\nvecSuite[\"dst\"] = to_hex(_as_bytes(\"VOPRF06-HashToGroup-\") + I2OSP(self.mode, 1) + I2OSP(self.suite.identifier, 2) )\r\nif self.mode == mode_verifiable:\r\n```\r\n",
       "createdAt": "2020-11-18T19:38:02Z",
-      "updatedAt": "2020-11-18T19:38:02Z",
+      "updatedAt": "2020-11-19T01:16:45Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, @bytemare! We'll see if we can work this in.",
+          "createdAt": "2020-11-19T01:16:45Z",
+          "updatedAt": "2020-11-19T01:16:45Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -14864,6 +14879,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 216,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTI1MTY2NTM3",
+      "title": "Fix Finalize info value in test vectors. Remove unnecessary notation.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/216",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #211.",
+      "createdAt": "2020-11-21T18:15:31Z",
+      "updatedAt": "2020-11-21T18:15:36Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "fd17c63dd3fc3ec91d320b89f781f583d9be09eb",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/fix-info-string",
+      "headRefOid": "812065797212d994b10a10dd4d6435d13bc880e1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
