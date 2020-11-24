@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-22T00:23:26.362873+00:00",
+  "timestamp": "2020-11-24T00:23:48.265056+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -3040,15 +3040,15 @@
       "id": "MDU6SXNzdWU3NDEyMjYzMjc=",
       "title": "Invalid `info` field encoding in test vectors",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/211",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bytemare",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The \"info\" in test vectors is set to the value \"some_info\", therefore breaking testing for implementations/poc building the info after the draft's instructions.",
       "createdAt": "2020-11-12T02:49:39Z",
-      "updatedAt": "2020-11-21T18:13:42Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-23T22:14:23Z",
+      "closedAt": "2020-11-23T22:14:23Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -3084,6 +3084,20 @@
           "body": "> In that case, what would be the guidance on choosing/setting this opaque byte string?\r\n\r\nGood question. I think the guidance in draft-irtf-cfrg-hash-to-curve is probably the best we have at the moment. \r\n\r\nIn that case, would you be okay with updating the \"info\" string with something, uh, better than \"some_info\", and then closing this issue?",
           "createdAt": "2020-11-21T18:13:42Z",
           "updatedAt": "2020-11-21T18:13:42Z"
+        },
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I understand the need for the info field in Finalize and have the impression that h2c compliance adds complexity. I am wondering how this impacts the usage over time. But I have nothing better.\r\n***\r\n>  Specifically, any system which has multiple (V)OPRF applications should use separate auxiliary values to ensure finalized outputs are separate.\r\n\r\nSo this is app-specific. Therefore, it should not be specified by the implementation since the system can use the same lib/implementation multiple times. If I understand correctly how this unfolds, that means that it should be entered as a parameter when creating the client, and it's up to the user to use it wisely or not.\r\n\r\n> Guidance for constructing info can be found in {{!I-D.irtf-cfrg-hash-to-curve}};\r\n\r\nFollowing h2c that would also need a version.\r\n\r\nThese `app name` and `version` arguments would then be wrapped to conform to h2c (\"appname-version-mode-ciphersuite\"). If the app uses the finalize output to build-up a long-term secret, this might get inconvenient really quick since the app would need to use the same `app name` and `version` as used the first time the long-term secret was generated (e.g. augmented PAKEs). For these applications, the info filed really MUST be static: so no version, i.e. no h2c compliance, and maybe even the app name can change.",
+          "createdAt": "2020-11-23T19:20:27Z",
+          "updatedAt": "2020-11-23T19:20:49Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Hmm, I'm not really sure what more to do for this issue. Can you suggest a change on #216 if you think more should be done?",
+          "createdAt": "2020-11-23T22:09:11Z",
+          "updatedAt": "2020-11-23T22:09:11Z"
         }
       ]
     },
@@ -3097,9 +3111,9 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "I suggest adding the DST used for hash-to-group and hash-to-scalar in the test vectors, just like info. This would allow identifying the correct assembly of that DST before trying to hash anything and fail early.\r\n\r\nSince I can't install Sage on my working machine right now, here is the suggested line I think would allow this to be added.\r\n\r\ntest_oprf.sage, line 121\r\n``` \r\nvecSuite[\"skSm\"] = to_hex(group.serialize_scalar(server.skS))\r\nvecSuite[\"dst\"] = to_hex(_as_bytes(\"VOPRF06-HashToGroup-\") + I2OSP(self.mode, 1) + I2OSP(self.suite.identifier, 2) )\r\nif self.mode == mode_verifiable:\r\n```\r\n",
+      "body": "I suggest adding the DST used for hash-to-group and hash-to-scalar in the test vectors, just like info. This would allow identifying the correct assembly of that DST before trying to hash anything and fail early.\r\n\r\nSince I can't install Sage on my working machine right now, here is the suggested line I think would allow this to be added.\r\n\r\ntest_oprf.sage, line 121\r\n``` \r\nvecSuite[\"skSm\"] = to_hex(group.serialize_scalar(server.skS))\r\n+ vecSuite[\"dst\"] = to_hex(_as_bytes(\"VOPRF06-HashToGroup-\") + I2OSP(self.mode, 1) + I2OSP(self.suite.identifier, 2) )\r\nif self.mode == mode_verifiable:\r\n```\r\n",
       "createdAt": "2020-11-18T19:38:02Z",
-      "updatedAt": "2020-11-19T01:16:45Z",
+      "updatedAt": "2020-11-23T18:19:11Z",
       "closedAt": null,
       "comments": [
         {
@@ -14899,6 +14913,32 @@
       "headRepository": "cfrg/draft-irtf-cfrg-voprf",
       "headRefName": "caw/fix-info-string",
       "headRefOid": "812065797212d994b10a10dd4d6435d13bc880e1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 217,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTI2MDQ3MzU4",
+      "title": "Add clarifications about batching.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/217",
+      "state": "OPEN",
+      "author": "bytemare",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #201.",
+      "createdAt": "2020-11-23T22:59:39Z",
+      "updatedAt": "2020-11-23T22:59:39Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "fd17c63dd3fc3ec91d320b89f781f583d9be09eb",
+      "headRepository": "bytemare/draft-irtf-cfrg-voprf",
+      "headRefName": "add-batching-draft",
+      "headRefOid": "e4a98bdce7fb342cdff3c0e0e118a464a9685a17",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
