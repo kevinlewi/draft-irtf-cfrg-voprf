@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2020-11-24T00:23:48.265056+00:00",
+  "timestamp": "2020-11-26T00:22:55.423232+00:00",
   "repo": "cfrg/draft-irtf-cfrg-voprf",
   "labels": [
     {
@@ -2888,15 +2888,15 @@
       "id": "MDU6SXNzdWU3Mzk0NTA1NTk=",
       "title": "Clarifications on BatchedEvaluation",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/201",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bytemare",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Hello,\r\n\r\nreading the latest version of the draft, there are very few explanations about batching inputs/evaluations. For the reader unfamiliar with the subject it is not clear what these are about.\r\n\r\nFrom what I understand from a conversation with @chris-wood:\r\nthe mechanism works in a situation where a client requests multiple evaluations and could do it by sending all blinded inputs at once. The server would then evaluate them all but have a single proof for them all, and send this single proof back with the individual evaluations.\r\nSo, for N blinded inputs from the client, instead of having N requests, N evaluations, N proofs, and N responses, we would bring that down to  1 proof and 1 request-response carrying the N blinded inputs and N evaluations.\r\n\r\nIs this correct?",
       "createdAt": "2020-11-09T23:43:41Z",
-      "updatedAt": "2020-11-18T22:11:33Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-25T14:55:02Z",
+      "closedAt": "2020-11-25T14:55:02Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -3106,15 +3106,15 @@
       "id": "MDU6SXNzdWU3NDU5NDg3ODk=",
       "title": "Add h2c DST in test vectors",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/215",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bytemare",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I suggest adding the DST used for hash-to-group and hash-to-scalar in the test vectors, just like info. This would allow identifying the correct assembly of that DST before trying to hash anything and fail early.\r\n\r\nSince I can't install Sage on my working machine right now, here is the suggested line I think would allow this to be added.\r\n\r\ntest_oprf.sage, line 121\r\n``` \r\nvecSuite[\"skSm\"] = to_hex(group.serialize_scalar(server.skS))\r\n+ vecSuite[\"dst\"] = to_hex(_as_bytes(\"VOPRF06-HashToGroup-\") + I2OSP(self.mode, 1) + I2OSP(self.suite.identifier, 2) )\r\nif self.mode == mode_verifiable:\r\n```\r\n",
       "createdAt": "2020-11-18T19:38:02Z",
-      "updatedAt": "2020-11-23T18:19:11Z",
-      "closedAt": null,
+      "updatedAt": "2020-11-24T14:43:56Z",
+      "closedAt": "2020-11-24T14:43:56Z",
       "comments": [
         {
           "author": "chris-wood",
@@ -3122,6 +3122,51 @@
           "body": "Thanks, @bytemare! We'll see if we can work this in.",
           "createdAt": "2020-11-19T01:16:45Z",
           "updatedAt": "2020-11-19T01:16:45Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@armfazh, what do you think about this?",
+          "createdAt": "2020-11-24T01:50:39Z",
+          "updatedAt": "2020-11-24T01:50:39Z"
+        },
+        {
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't think is needed at all (there is nothing special with it),\r\nhowever, if that helps to programmers to test code, then it may be worth add it in json files only.\r\n",
+          "createdAt": "2020-11-24T02:11:53Z",
+          "updatedAt": "2020-11-24T02:12:04Z"
+        }
+      ]
+    },
+    {
+      "number": 219,
+      "id": "MDU6SXNzdWU3NTA4ODk3MzQ=",
+      "title": "Consider folding Unblind and Finalize together",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/219",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently, clients implement `Unblind` and `Finalize` together to complete the OPRF evaluation. I don't see a compelling reason to keep these separate, and expose an `Unblind` API, since it's not useful to OPRF clients. (They should not ever need the \"intermediate\" OPRF value -- the unblinded, evaluated elements.) I suggest we fold `Unblind` into `Finalize`. \r\n\r\n@armfazh, @alxdavids, @claucece: what do you think?",
+      "createdAt": "2020-11-25T14:58:05Z",
+      "updatedAt": "2020-11-25T16:59:07Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "claucece",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Agreed.",
+          "createdAt": "2020-11-25T16:41:43Z",
+          "updatedAt": "2020-11-25T16:41:43Z"
+        },
+        {
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "body": "iirc, privacy pass stores those intermediate tokens before redeemption. \r\nI don't know if that was done as an storage optimization. Alex knows better.",
+          "createdAt": "2020-11-25T16:59:07Z",
+          "updatedAt": "2020-11-25T16:59:07Z"
         }
       ]
     }
@@ -14899,52 +14944,306 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTI1MTY2NTM3",
       "title": "Fix Finalize info value in test vectors. Remove unnecessary notation.",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/216",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "chris-wood",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #211.",
       "createdAt": "2020-11-21T18:15:31Z",
-      "updatedAt": "2020-11-21T18:15:36Z",
+      "updatedAt": "2020-11-24T01:50:18Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "fd17c63dd3fc3ec91d320b89f781f583d9be09eb",
       "headRepository": "cfrg/draft-irtf-cfrg-voprf",
       "headRefName": "caw/fix-info-string",
       "headRefOid": "812065797212d994b10a10dd4d6435d13bc880e1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2020-11-24T01:50:18Z",
+      "mergedAt": "2020-11-24T01:50:18Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "415a43ed345b451b9060062aae162eaa1bbbaa1f"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3MDE1NTU3",
+          "commit": {
+            "abbreviatedOid": "8120657"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-24T01:49:40Z",
+          "updatedAt": "2020-11-24T01:49:40Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 217,
       "id": "MDExOlB1bGxSZXF1ZXN0NTI2MDQ3MzU4",
       "title": "Add clarifications about batching.",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/217",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bytemare",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #201.",
       "createdAt": "2020-11-23T22:59:39Z",
-      "updatedAt": "2020-11-23T22:59:39Z",
+      "updatedAt": "2020-11-25T17:01:03Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
       "baseRefName": "master",
       "baseRefOid": "fd17c63dd3fc3ec91d320b89f781f583d9be09eb",
       "headRepository": "bytemare/draft-irtf-cfrg-voprf",
       "headRefName": "add-batching-draft",
-      "headRefOid": "e4a98bdce7fb342cdff3c0e0e118a464a9685a17",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0908b5d63b128a92e32ac73416b2866d26793f16",
+      "closedAt": "2020-11-25T14:55:03Z",
+      "mergedAt": "2020-11-25T14:55:02Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "64abec107ea45697950144c940c1355d946cc224"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3MDAwMDQx",
+          "commit": {
+            "abbreviatedOid": "e4a98bd"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks for the text! I think this can be simplified somewhat and merged with already existing text. Please let me know what you think of the suggestion.",
+          "createdAt": "2020-11-24T01:38:29Z",
+          "updatedAt": "2020-11-24T01:38:56Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "This text is somewhat redundant with what's in the \"Batching inputs\" section. Would it be possible to add this paragraph to the end of that section? \r\n\r\n```\r\nIn particular, servers can produce a single, constant-sized proof for N \r\nclient inputs, rather than one proof per client input. This optimization \r\nbenefits clients and servers since it amortizes the cost of proof generation \r\nand bandwidth across multiple requests.\r\n```",
+              "createdAt": "2020-11-24T01:38:29Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3MDE4NjIz",
+          "commit": {
+            "abbreviatedOid": "e4a98bd"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Some comments",
+          "createdAt": "2020-11-24T01:58:00Z",
+          "updatedAt": "2020-11-24T02:06:03Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nand the server responds with the set of evaluatedElements and a single proof object\r\n```",
+              "createdAt": "2020-11-24T01:58:00Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "Feel free to edit as needed.\r\n\r\n```suggestion\r\nbenefits both the server and the client. Hence, for N blinded inputs from the\r\nclient, instead of having N roundtrips for fetching N evaluations and N proofs,\r\nwe would bring that down to a single roudtrip carrying N evaluations and \r\none proof.\r\n```",
+              "createdAt": "2020-11-24T02:02:39Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            },
+            {
+              "originalPosition": 4,
+              "body": "Does batching deserves its own section to highlight its relevance?\r\n\r\n```suggestion\r\n## Batching\r\n```",
+              "createdAt": "2020-11-24T02:05:51Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3NDI3MzUz",
+          "commit": {
+            "abbreviatedOid": "826192d"
+          },
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-24T12:07:45Z",
+          "updatedAt": "2020-11-24T12:07:45Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Do you mean dropping this (@armfazh suggestions have been included)\r\n\r\n> ## Batching\r\n> \r\n> Clients that need multiple verifiable evaluations would make as many requests\r\n> to the server. Batching the inputs enables the server to evaluate them all\r\n> individually and to compute a single NIZK proof for the whole set at once.\r\n> \r\n> With this technique, the client sends a set of blindedElements to the server,\r\n> and the server responds with the set of evaluatedElements and a single proof object\r\n> (proofC and proofS).\r\n> \r\n> The optimization takes place in the ComputeComposites function, and therefore\r\n> benefits both the server and the client. Hence, for N blinded inputs from the\r\n> client, instead of having N roundtrips for fetching N evaluations and N proofs,\r\n> we would bring that down to a single roundtrip carrying N evaluations and \r\n> one proof.\r\n\r\nand adding your paragraph to `##### Batching inputs` instead? Or merging the suggestions and adding them to `##### Batching inputs`?",
+              "createdAt": "2020-11-24T12:07:45Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3NTIxMTEw",
+          "commit": {
+            "abbreviatedOid": "826192d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-24T14:03:33Z",
+          "updatedAt": "2020-11-24T14:03:33Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "I suggest the former! I think the proposed text (with @armfazh's suggestions) have more words than are needed.",
+              "createdAt": "2020-11-24T14:03:33Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3NTg1ODI0",
+          "commit": {
+            "abbreviatedOid": "826192d"
+          },
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-24T15:07:14Z",
+          "updatedAt": "2020-11-24T15:07:14Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Indeed, it's much more concise. May I suggest adding the notion of the client sending the batch in a single request, though? So it's undoubtedly clear to the reader it's not about sparse elements the client sends over time.\r\n\r\nHow about this:\r\n> In particular, servers can produce a single, constant-sized proof for N \r\n> client inputs sent in a single request, rather than one proof per client\r\n> input. This optimization benefits clients and servers since it amortizes\r\n> the cost of proof generation and bandwidth across multiple requests.",
+              "createdAt": "2020-11-24T15:07:14Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3NjMwNTYy",
+          "commit": {
+            "abbreviatedOid": "826192d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-24T15:30:01Z",
+          "updatedAt": "2020-11-24T15:30:01Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Looks good!",
+              "createdAt": "2020-11-24T15:30:01Z",
+              "updatedAt": "2020-11-24T16:03:06Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3ODExOTQ4",
+          "commit": {
+            "abbreviatedOid": "0908b5d"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-24T18:52:15Z",
+          "updatedAt": "2020-11-24T18:52:15Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM4NTgwNDM3",
+          "commit": {
+            "abbreviatedOid": "0908b5d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-25T14:54:55Z",
+          "updatedAt": "2020-11-25T14:54:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 218,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTI2NTE0MzEy",
+      "title": "Add DST to JSON test vectors.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-voprf/pull/218",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #215.\r\n\r\ncc @bytemare ",
+      "createdAt": "2020-11-24T14:23:15Z",
+      "updatedAt": "2020-11-25T14:54:15Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "baseRefName": "master",
+      "baseRefOid": "415a43ed345b451b9060062aae162eaa1bbbaa1f",
+      "headRepository": "cfrg/draft-irtf-cfrg-voprf",
+      "headRefName": "caw/add-dst-to-vectors",
+      "headRefOid": "c859f354eaf0403060b89b603d62be4df5fdb71e",
+      "closedAt": "2020-11-25T14:53:10Z",
+      "mergedAt": "2020-11-25T14:53:10Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "c01bdaa8a35bd384b7aab7dfed7042a73b204758"
+      },
+      "comments": [
+        {
+          "author": "bytemare",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Oh my, I was just doing it this very moment! Thanks :) ",
+          "createdAt": "2020-11-24T14:41:39Z",
+          "updatedAt": "2020-11-24T14:41:39Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM3Nzc4NjQz",
+          "commit": {
+            "abbreviatedOid": "c859f35"
+          },
+          "author": "armfazh",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2020-11-24T18:07:32Z",
+          "updatedAt": "2020-11-24T18:08:10Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "test is not called",
+              "createdAt": "2020-11-24T18:07:33Z",
+              "updatedAt": "2020-11-24T18:08:10Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTM4NTc5NzY3",
+          "commit": {
+            "abbreviatedOid": "c859f35"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-11-25T14:54:14Z",
+          "updatedAt": "2020-11-25T14:54:15Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "Yeah, it was noisy output. We should fix how we run all the tests here, include those for dependencies (like h2c).",
+              "createdAt": "2020-11-25T14:54:14Z",
+              "updatedAt": "2020-11-25T14:54:15Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
